@@ -26,6 +26,8 @@ export interface SelectCommonProps
   hintText?: ReactText;
   asTags?: boolean;
   allowSearch?: boolean;
+  textSelected?: string;
+  textSelectAll?: string;
   "data-testid"?: string;
   "data-cy"?: string;
 }

@@ -47,7 +47,7 @@ describe("Button", () => {
         </div>
       );
 
-      fireEvent.click(getByTestId("select--overlay"));
+      fireEvent.click(getByTestId("select--value"));
       expect(getByTestId("select--wrapper")).toHaveClass(
         "artof_select--opened"
       );

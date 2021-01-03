@@ -117,116 +117,212 @@ const industryOptions: SelectOption[] = [
     label: 'Trades & Services',
     value: 'trades'
   },
-]
+];
 
-storiesOf("Select", module).add("Single [default]", () => {
-  const [selected, setSelected] = useState<string>('');
-  const [selected2, setSelected2] = useState<string>('');
-  const [selected3, setSelected3] = useState<string>("banking");
+storiesOf("Select", module)
+  .add("Single [default]", () => {
+    const [selected, setSelected] = useState<string>('');
+    const [selected2, setSelected2] = useState<string>('');
+    const [selected3, setSelected3] = useState<string>("banking");
 
-  const onChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
-    setSelected(event.currentTarget.value);
-  };
+    const onChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+      setSelected(event.currentTarget.value);
+    };
 
-  const onChange2 = (event: React.ChangeEvent<HTMLSelectElement>): void => {
-    setSelected2(event.currentTarget.value);
-  };
+    const onChange2 = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+      setSelected2(event.currentTarget.value);
+    };
 
-  const onChange3 = (event: React.ChangeEvent<HTMLSelectElement>): void => {
-    setSelected3(event.currentTarget.value);
-  };
+    const onChange3 = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+      setSelected3(event.currentTarget.value);
+    };
 
-  return (
-    <div style={{
-      display: 'grid',
-      columnGap: 30,
-      gridTemplateColumns: 'repeat(2, 1fr)'
-    }}>
-      <div>
-        <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '0 0 20px' }}>Basic example</h3>
+    return (
+      <div style={{
+        display: 'grid',
+        columnGap: 30,
+        gridTemplateColumns: 'repeat(2, 1fr)'
+      }}>
+        <div>
+          <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '0 0 20px' }}>Single Select</h3>
 
-        <Select
-          label="Industry"
-          value={selected}
-          placeholder="Select your option"
-          options={industryOptions}
-          onChange={onChange}
-        />
+          <Select
+            label="Industry"
+            value={selected}
+            placeholder="Select your option"
+            options={industryOptions}
+            onChange={onChange}
+          />
 
-        <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '40px 0 20px' }}>Different states</h3>
+          <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '40px 0 20px' }}>Different states</h3>
 
-        <Select
-          placeholder="Without label"
-          options={industryOptions}
-        />
+          <Select
+            placeholder="Without label"
+            options={industryOptions}
+          />
 
-        <br />
-        <br />
+          <br />
+          <br />
 
-        <Select
-          label="Disabled"
-          disabled={true}
-          placeholder="Select your option"
-          options={industryOptions}
-        />
+          <Select
+            label="Disabled"
+            disabled={true}
+            placeholder="Select your option"
+            options={industryOptions}
+          />
 
-        <br />
-        <br />
+          <br />
+          <br />
 
-        <Select
-          label="Disabled with value"
-          disabled={true}
-          value="banking"
-          placeholder="Select your option"
-          options={industryOptions}
-        />
+          <Select
+            label="Disabled with value"
+            disabled={true}
+            value="banking"
+            placeholder="Select your option"
+            options={industryOptions}
+          />
 
-        <br />
-        <br />
+          <br />
+          <br />
 
-        <Select
-          label="Error message"
-          placeholder="Select your option"
-          options={industryOptions}
-          errorText="You need to specify your profile"
-        />
+          <Select
+            label="Error message"
+            placeholder="Select your option"
+            options={industryOptions}
+            errorText="You need to specify your profile"
+          />
 
-        <br />
-        <br />
+          <br />
+          <br />
 
-        <Select
-          label="Helper message"
-          placeholder="Select your option"
-          options={industryOptions}
-          hintText="You can choose only one specification"
-        />
+          <Select
+            label="Helper message"
+            placeholder="Select your option"
+            options={industryOptions}
+            hintText="You can choose only one specification"
+          />
+        </div>
+
+        <div>
+          <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '0 0 20px' }}>Searchable</h3>
+
+          <Select
+            label="Industry"
+            value={selected2}
+            placeholder="Search"
+            options={industryOptions}
+            onChange={onChange2}
+            allowSearch={true}
+          />
+
+          <br />
+          <br />
+
+          <Select
+            label="Search with value"
+            value={selected3}
+            options={industryOptions}
+            onChange={onChange3}
+            allowSearch={true}
+          />
+        </div>
       </div>
+    );
+  })
+  .add("Multiple", () => {
+    const [selected, setSelected] = useState<string[]>([]);
+    const [selected2, setSelected2] = useState<string[]>(['banking', 'government']);
 
-      <div>
-        <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '0 0 20px' }}>Searchable</h3>
+    const onChange = (values: string[]): void => {
+      setSelected(values);
+    };
 
-        <Select
-          label="Industry"
-          value={selected2}
-          placeholder="Search"
-          options={industryOptions}
-          onChange={onChange2}
-          allowSearch={true}
-        />
+    const onChange2 = (values: string[]): void => {
+      setSelected2(values);
+    };
 
-        <br />
-        <br />
+    return (
+      <div style={{
+        display: 'grid',
+        columnGap: 30,
+        gridTemplateColumns: 'repeat(2, 1fr)'
+      }}>
+        <div>
+          <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '0 0 20px' }}>Multiple Select</h3>
 
-        <Select
-          label="Search with value"
-          value={selected3}
-          options={industryOptions}
-          onChange={onChange3}
-          allowSearch={true}
-        />
+          <Select
+            label="Industry"
+            value={selected}
+            multiple={true}
+            placeholder="Select some options"
+            options={industryOptions}
+            onChange={onChange}
+          />
 
-        <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '40px 0 20px' }}>...</h3>
+          <br />
+          <br />
+
+          <Select
+            label="With pre-checked options"
+            value={selected2}
+            multiple={true}
+            placeholder="Add some options"
+            options={industryOptions}
+            onChange={onChange2}
+          />
+
+          <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '40px 0 20px' }}>As Tags</h3>
+
+          <Select
+            value={selected2}
+            multiple={true}
+            asTags={true}
+            placeholder="Add some options"
+            options={industryOptions}
+            onChange={onChange2}
+          />
+
+          <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '40px 0 20px' }}>Select All</h3>
+
+          <Select
+            value={selected}
+            multiple={true}
+            asTags={true}
+            placeholder="Add some options"
+            options={industryOptions}
+            onChange={onChange}
+            allowSelectAll={true}
+          />
+        </div>
+
+        <div>
+          <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '0 0 20px' }}>Searchable</h3>
+
+          <Select
+            label="Industry"
+            value={selected}
+            multiple={true}
+            placeholder="Search"
+            options={industryOptions}
+            onChange={onChange}
+            allowSearch={true}
+          />
+
+          <br />
+          <br />
+
+          <Select
+            label="Search with value"
+            value={selected2}
+            multiple={true}
+            placeholder="Add some options"
+            options={industryOptions}
+            onChange={onChange2}
+            allowSearch={true}
+          />
+
+          <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '40px 0 20px' }}>...</h3>
+        </div>
       </div>
-    </div>
-  );
-});
+    );
+  });

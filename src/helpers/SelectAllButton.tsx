@@ -12,12 +12,14 @@ interface Props {
   visibleOptions: SelectOption[];
   value: SelectMultiple["value"];
   onChange: SelectMultiple["onChange"];
+  textSelectAll: SelectCommonProps["textSelectAll"];
 }
 
 const SelectAllButton: React.FC<Props> = ({
   options,
   visibleOptions,
   value,
+  textSelectAll,
   onChange,
 }): JSX.Element => {
   const onClickAll = (): void => {
@@ -41,14 +43,15 @@ const SelectAllButton: React.FC<Props> = ({
     <>
       <div
         className={classNames([
-          "option",
-          options.length === value?.length && "selected",
+          "artof_select-option",
+          "artof_select-select_all",
+          options.length === value?.length && "artof_select-option--selected",
         ])}
         onClick={onClickAll}
         onKeyUp={onKeyupAll}
         tabIndex={0}
       >
-        Выбрать всё
+        {textSelectAll}
       </div>
 
       <div className="splitter" />

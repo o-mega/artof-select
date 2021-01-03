@@ -7,7 +7,7 @@ import { scrollIntoView } from "./helpers/scrollIntoView";
 import { focusNext, focusPrev } from "./events";
 import { fireEvent } from "./fireEvent";
 import { SelectSingle, SelectMultiple } from "./Select.types";
-import { Selected } from "./helpers/displayValue";
+import { SelectedValues } from "./helpers/SelectedValues";
 import { classNames } from "./helpers/classNames";
 import { SelectAllButton } from "./helpers/SelectAllButton";
 
@@ -26,6 +26,8 @@ const SelectComponent: React.ForwardRefRenderFunction<
     asTags = false,
     allowSearch = false,
     allowSelectAll = false,
+    textSelected = "Selected",
+    textSelectAll = "Select all",
     // we cannot render children prop anyway
     children, // eslint-disable-line
     ...restProps
@@ -102,8 +104,10 @@ const SelectComponent: React.ForwardRefRenderFunction<
   };
 
   const onFocusValue = (): void => {
-    setIsOpen(true);
-    setTimeout(focusNext, 200);
+    if (!restProps.disabled) {
+      setIsOpen(true);
+      setTimeout(focusNext, 200);
+    }
   };
 
   const onClickOption = (value: ReactText): void => {
@@ -227,16 +231,6 @@ const SelectComponent: React.ForwardRefRenderFunction<
       {label && <label className="artof_select-label">{label}</label>}
 
       <div className="artof_select-field" ref={visibleField}>
-        <div
-          className="artof_select-overlay"
-          onClick={onClickValue}
-          data-testid={
-            restProps["data-testid"]
-              ? `${restProps["data-testid"]}--overlay`
-              : undefined
-          }
-        />
-
         {allowSearch && (
           <input
             type="text"
@@ -256,15 +250,22 @@ const SelectComponent: React.ForwardRefRenderFunction<
             !restProps.value?.length && "artof_select-value--placeholder",
             asTags && "artof_select-value--tags",
           ])}
-          onFocus={onFocusValue}
           tabIndex={0}
+          onFocus={onFocusValue}
+          onClick={onClickValue}
+          data-testid={
+            restProps["data-testid"]
+              ? `${restProps["data-testid"]}--value`
+              : undefined
+          }
         >
-          <Selected
+          <SelectedValues
             multiple={multiple}
             options={options}
             asTags={asTags}
             value={restProps.value}
             placeholder={placeholder}
+            textSelected={textSelected}
           />
         </div>
 
@@ -276,6 +277,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
                 visibleOptions={visibleOptions}
                 value={(restProps as SelectMultiple).value}
                 onChange={(restProps as SelectMultiple).onChange}
+                textSelectAll={textSelectAll}
               />
             )}
 
