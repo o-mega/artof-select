@@ -1,54 +1,51 @@
-import path from "path";
 import { terser } from "rollup-plugin-terser";
 import babel from "@rollup/plugin-babel";
 import clear from "rollup-plugin-clear";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@wessberg/rollup-plugin-ts";
-import multiInput from "rollup-plugin-multi-input";
-import url from "@rollup/plugin-url";
-import babelConfig from "./babel.config";
 import bundleScss from "rollup-plugin-bundle-scss";
-
-const PACKAGE_ROOT_PATH = process.cwd();
-const OUTPUT_DIR = path.join(PACKAGE_ROOT_PATH, "dist");
 
 export default [
   {
     input: "src/index.tsx",
     output: [
       {
-        file: "index.js",
+        file: "dist/index.js",
         format: "cjs",
         exports: "auto",
-        plugins: [terser()],
-        assetFileNames: "[name][extname]",
+        plugins: [
+          terser(),
+        ],
+        assetFileNames: "dist/[name][extname]"
       },
       {
-        file: "index.esm.js",
+        file: "dist/index.esm.js",
         format: "esm",
-        exports: "auto",
-        assetFileNames: "[name][extname]",
-      },
+        exports: "auto"
+      }
     ],
-    external: ["react", "react-dom"],
+    external: [
+      "react",
+      "react-dom",
+      "react-merge-refs",
+      "react-popper"
+    ],
     plugins: [
       clear({
-        targets: [OUTPUT_DIR],
+        targets: ["./dist"]
       }),
-      multiInput(),
-      url(),
       bundleScss(),
       typescript({
         tsconfig: "./tsconfig.json",
       }),
       babel({
-        ...babelConfig,
+        ...require("./babel.config"),
         extensions: [".ts", ".tsx"],
         babelHelpers: "bundled",
       }),
       nodeResolve(),
       commonjs(),
-    ],
-  },
+    ]
+  }
 ];

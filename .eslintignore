@@ -1,2 +1,3 @@
 dist
 test-coverage
+rollup.config.js

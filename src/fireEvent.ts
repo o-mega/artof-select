@@ -1,7 +1,11 @@
 export const fireEvent = (element: HTMLSelectElement, event: string): void => {
   // dispatch for IE
-  if (document.createEventObject) {
-    const evt = document.createEventObject();
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const ieDispatch = (document as any).createEventObject;
+
+  if (ieDispatch) {
+    const evt = ieDispatch();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (element as any).fireEvent("on" + event, evt);
   }

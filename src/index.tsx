@@ -2,6 +2,7 @@ import "./select.scss";
 
 import React, { useState, useRef, useEffect, ReactText } from "react";
 import mergeRefs from "react-merge-refs";
+import { usePopper } from "react-popper";
 
 import { scrollIntoView } from "./helpers/scrollIntoView";
 import { focusNext, focusPrev } from "./events";
@@ -34,12 +35,16 @@ const SelectComponent: React.ForwardRefRenderFunction<
   },
   ref
 ): JSX.Element => {
-  const select = useRef<HTMLSelectElement>(null);
-  const visibleField = useRef<HTMLDivElement>(null);
-  const dropdown = useRef<HTMLDivElement>(null);
-
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");
+
+  const select = useRef<HTMLSelectElement>(null);
+  const visibleField = useRef<HTMLDivElement>(null);
+  const [dropdown, setDropdown] = useState<HTMLDivElement | null>(null);
+
+  const { styles, attributes } = usePopper(visibleField.current, dropdown, {
+    placement: "bottom",
+  });
 
   useEffect(() => {
     document.addEventListener("click", onClickOutside, false);
@@ -53,8 +58,8 @@ const SelectComponent: React.ForwardRefRenderFunction<
     document.addEventListener("keyup", handleKeyup, true);
 
     // scroll to the first selected item if exist
-    if (isOpen && dropdown.current) {
-      scrollIntoView(dropdown.current);
+    if (isOpen && dropdown) {
+      scrollIntoView(dropdown);
     }
 
     return () => {
@@ -158,7 +163,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
       }
 
       // if tab from search field focus
-      const selected = dropdown.current?.querySelectorAll<HTMLElement>(
+      const selected = dropdown?.querySelectorAll<HTMLElement>(
         ".artof_select-option--selected"
       );
 
@@ -270,7 +275,12 @@ const SelectComponent: React.ForwardRefRenderFunction<
         </div>
 
         {isOpen && (
-          <div className="artof_select-dropdown" ref={dropdown}>
+          <div
+            className="artof_select-dropdown"
+            ref={setDropdown}
+            style={styles.popper}
+            {...attributes.popper}
+          >
             {multiple && allowSelectAll && (
               <SelectAllButton
                 options={options}

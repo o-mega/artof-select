@@ -175,7 +175,7 @@ $select-icon-size: ($select-padding-x / 1.75);
   z-index: 2;
   position: absolute;
   top: 100%;
-  margin-top: $font-size-base / 4;
+  margin: ($font-size-base / 4) 0;
   left: 0;
   width: 100%;
   background-color: $color-white;
@@ -185,6 +185,10 @@ $select-icon-size: ($select-padding-x / 1.75);
   max-height: $select-height * 5.5;
   overflow: auto;
   overflow-x: hidden;
+
+  &[data-popper-placement="top"] {
+    box-shadow: 0 -2px 8px 0 rgba($color-text, .08);
+  }
 
   &:empty {
     display: none;

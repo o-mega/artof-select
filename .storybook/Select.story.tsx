@@ -1,8 +1,11 @@
+import './static/select.story.css';
+
 import React, { useState } from "react";
 import { storiesOf } from "@storybook/react";
 
 import { Select } from "../src";
 import { SelectOption } from "../src/Select.types";
+import * as flags from './static';
 
 const industryOptions: SelectOption[] = [
   {
@@ -119,7 +122,90 @@ const industryOptions: SelectOption[] = [
   },
 ];
 
-storiesOf("Select", module)
+const countryOptions: SelectOption[] = [
+  {
+    label: 'Switzerland',
+    value: 'ch',
+    component: (
+      <div className="flag_option">
+        <img src={flags.switzerland} width={16} />
+        <span>Switzerland</span>
+      </div>
+    )
+  },
+  {
+    label: 'Canada',
+    value: 'ca',
+    component: (
+      <div className="flag_option">
+        <img src={flags.canada} width={16} />
+        <span>Canada</span>
+      </div>
+    )
+  },
+  {
+    label: 'Japan',
+    value: 'jp',
+    component: (
+      <div className="flag_option">
+        <img src={flags.japan} width={16} />
+        <span>Japan</span>
+      </div>
+    )
+  },
+  {
+    label: 'Germany',
+    value: 'de',
+    component: (
+      <div className="flag_option">
+        <img src={flags.germany} width={16} />
+        <span>Germany</span>
+      </div>
+    )
+  },
+  {
+    label: 'Australia',
+    value: 'au',
+    component: (
+      <div className="flag_option">
+        <img src={flags.australia} width={16} />
+        <span>Australia</span>
+      </div>
+    )
+  },
+  {
+    label: 'United Kingdom',
+    value: 'uk',
+    component: (
+      <div className="flag_option">
+        <img src={flags.united_kingdom} width={16} />
+        <span>United Kingdom</span>
+      </div>
+    )
+  },
+  {
+    label: 'United States',
+    value: 'us',
+    component: (
+      <div className="flag_option">
+        <img src={flags.united_states} width={16} />
+        <span>United States</span>
+      </div>
+    )
+  },
+  {
+    label: 'Sweden',
+    value: 'sw',
+    component: (
+      <div className="flag_option">
+        <img src={flags.sweden} width={16} />
+        <span>Sweden</span>
+      </div>
+    )
+  },
+];
+
+storiesOf("artof-select", module)
   .add("Single [default]", () => {
     const [selected, setSelected] = useState<string>('');
     const [selected2, setSelected2] = useState<string>('');
@@ -320,8 +406,55 @@ storiesOf("Select", module)
             onChange={onChange2}
             allowSearch={true}
           />
+        </div>
+      </div>
+    );
+  })
+  .add("Custom options", () => {
+    const [selected, setSelected] = useState<string>('ch');
+    const [selected2, setSelected2] = useState<string[]>(['ca', 'us']);
 
-          <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '40px 0 20px' }}>...</h3>
+    const onChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+      setSelected(event.currentTarget.value);
+    };
+
+    const onChange2 = (values: string[]): void => {
+      setSelected2(values);
+    };
+
+    return (
+      <div style={{
+        display: 'grid',
+        columnGap: 30,
+        gridTemplateColumns: 'repeat(2, 1fr)'
+      }}>
+        <div>
+          <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '0 0 20px' }}>Single Select</h3>
+
+          <Select
+            label="Choose your country"
+            value={selected}
+            asTags={true}
+            placeholder="Search"
+            options={countryOptions}
+            onChange={onChange}
+            allowSearch={true}
+          />
+        </div>
+
+        <div>
+          <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '0 0 20px' }}>Multiple Select</h3>
+
+          <Select
+            label="Top countries rank"
+            value={selected2}
+            multiple={true}
+            asTags={true}
+            placeholder="Select some options"
+            options={countryOptions}
+            onChange={onChange2}
+            allowSelectAll={true}
+          />
         </div>
       </div>
     );

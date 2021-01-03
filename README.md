@@ -1,6 +1,6 @@
 # artof-select
 
-A simple `<Select />`, but powerful component for [React](https://reactjs.com).
+A simple, but powerful `<Select />` component for [React](https://reactjs.com).
 
 Key features:
 - Based native `HTMLSelectElement` props and methods
@@ -9,7 +9,12 @@ Key features:
 - Fully customisable design
 - Extendable with error and hint messages
 - Multiple selected options can be displayed as `[tag] [tag] [tag]`
-- Supports native keyboard events, as `Tab`, `Arrow Up|Down` to navigate over the dropdown options and `Enter` to apply selected option(s).
+- Supports native keyboard events, like `Tab`, `Arrow Up | Down` to navigate over the dropdown options and `Enter` (or even `Spacebar`) to apply selected option(s).
+- Supports custom `React.ReactNode` component as option element
+
+In addition, this component works with `react-popper` to make better dropdown positioning.
+
+[Demo Storybook here](https://o-mega.github.io/artof-select)
 
 ## Installation and usage
 
@@ -24,6 +29,9 @@ As soon as it installed, you can easily use `Select` in your app:
 ```js
 import React from 'react';
 import { Select } from 'artof-select';
+
+// custom
+import 'artof-select/dist/index.scss';
 
 const App = () => {
   const [value, setValue] = useState();
@@ -78,7 +86,7 @@ yarn
 yarn dev
 ```
 
-This should run the Storybook with designed examples at `http://localhost:6006`
+This commands should run the Storybook with designed examples at `http://localhost:6006`
 
 ## License
 
