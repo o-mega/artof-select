@@ -1,0 +1,39 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "declaration": true,
+    "downlevelIteration": true,
+    "esModuleInterop": true,
+    "jsx": "react",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "target": "es6",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "isolatedModules": true,
+    "typeRoots": [
+      "./@types",
+      "./node_modules/@types"
+    ],
+
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "sourceMap": true,
+    "removeComments": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": false,
+    "noEmit": false,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "baseUrl": "./packages",
+  },
+  "exclude": [
+    "./node_modules",
+    "dist",
+    ".storybook"
+  ]
+}

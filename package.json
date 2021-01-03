@@ -1,0 +1,136 @@
+{
+  "name": "artof-select",
+  "description": "The <Select /> component for React",
+  "keywords": [
+    "select",
+    "multiselect",
+    "form",
+    "react",
+    "react-component",
+    "ui"
+  ],
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "repository": {
+    "url": "https://github.com/o-mega/artof-select.git"
+  },
+  "scripts": {
+    "build": "rollup -c --silent",
+    "lint": "eslint --ext **/*.{ts,tsx} --ignore-pattern dist --ignore-pattern node_modules",
+    "test": "jest",
+    "dev": "start-storybook -p 6006",
+    "build:storybook": "build-storybook"
+  },
+  "dependencies": {
+    "react-merge-refs": "^1.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "7.12.11",
+    "@babel/preset-react": "7.12.10",
+    "@babel/preset-typescript": "^7.12.7",
+    "@rollup/plugin-babel": "^5.2.2",
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-node-resolve": "^11.0.1",
+    "@storybook/react": "^6.1.11",
+    "@testing-library/jest-dom": "^5.11.8",
+    "@testing-library/react": "^11.2.2",
+    "@testing-library/user-event": "^12.6.0",
+    "@types/node": "^14.14.19",
+    "@types/react": "17.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.11.1",
+    "@typescript-eslint/parser": "^4.11.1",
+    "@wessberg/rollup-plugin-ts": "^1.3.8",
+    "babel-loader": "^8.2.2",
+    "eslint": "^7.17.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-jest": "^24.1.3",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.3.0",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "4.3.6",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "26.6.3",
+    "lint-staged": "10.5.3",
+    "prettier": "2.2.1",
+    "react": "17.0.1",
+    "react-dom": "^17.0.1",
+    "react-test-renderer": "17.0.1",
+    "rollup": "^2.35.1",
+    "rollup-plugin-bundle-scss": "^0.1.2",
+    "rollup-plugin-clear": "^2.0.7",
+    "rollup-plugin-terser": "^7.0.2",
+    "sass-loader": "^10.1.0",
+    "typescript": "^4.1.3"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  },
+  "engines": {
+    "node": ">=14.15.0",
+    "yarn": ">=1.22.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not ie < 11",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "jsx-a11y",
+      "prettier",
+      "react",
+      "react-hooks",
+      "jest"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:prettier/recommended",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "settings": {
+      "react": {
+        "version": "latest"
+      }
+    },
+    "globals": {
+      "module": true,
+      "process": true
+    },
+    "env": {
+      "jest/globals": true,
+      "browser": true
+    },
+    "rules": {
+      "react/prop-types": "off",
+      "@typescript-eslint/ban-ts-comment": "off",
+      "no-empty-function": "off",
+      "@typescript-eslint/no-empty-function": "off"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "/bin/sh pre-commit.sh"
+    }
+  },
+  "lint-staged": {
+    "**/src/**/*.{ts,tsx}": [
+      "eslint --max-warnings=0",
+      "eslint --fix"
+    ]
+  }
+}

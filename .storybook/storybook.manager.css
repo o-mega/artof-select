@@ -1,0 +1,58 @@
+body,
+#storybook-preview-wrapper {
+  background-color: #f3f3f3 !important;
+}
+
+.sidebar-container {
+  background-color: #212121;
+}
+
+.sidebar-header,
+.search-field {
+  display: none !important;
+}
+
+#storybook-explorer-menu {
+  margin: 0 !important;
+}
+
+#storybook-explorer-tree > div > div {
+  margin: 0;
+}
+
+#storybook-explorer-tree .sidebar-item {
+  color: #aaa;
+  font-size: 14px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+#storybook-explorer-tree .sidebar-item span {
+  border-top-width: 4px;
+  border-bottom-width: 4px;
+  border-left-width: 4px;
+  margin-right: 10px;
+}
+
+#storybook-explorer-tree .sidebar-item svg {
+  width: 14px;
+  height: 14px;
+}
+
+#storybook-explorer-tree .sidebar-item[data-selected="true"] {
+  color: #fff;
+  font-weight: 400;
+}
+
+.os-host + div {
+  top: 0 !important;
+  height: 100% !important;
+}
+
+#root > div > div > div {
+  box-shadow: none !important;
+}
+
+#root > div > div:last-child {
+  top: 0 !important;
+}
