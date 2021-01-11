@@ -8,10 +8,7 @@ export type SelectOption = {
 
 export interface SelectCommonProps
   extends Omit<
-    React.DetailedHTMLProps<
-      React.SelectHTMLAttributes<HTMLSelectElement>,
-      HTMLSelectElement
-    >,
+    React.SelectHTMLAttributes<HTMLSelectElement>,
     | "multiple"
     | "value"
     | "defaultValue"

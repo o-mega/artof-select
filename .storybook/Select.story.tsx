@@ -1,11 +1,17 @@
 import './static/select.story.css';
 
 import React, { useState } from "react";
-import { storiesOf } from "@storybook/react";
+import { storiesOf, addParameters } from "@storybook/react";
 
 import { Select } from "../src";
-import { SelectOption } from "../src/Select.types";
+import { SelectMultiple, SelectOption, SelectSingle } from "../src/Select.types";
 import * as flags from './static';
+
+addParameters({
+  options: {
+    enableShortcuts: false
+  }
+});
 
 const industryOptions: SelectOption[] = [
   {
@@ -205,24 +211,40 @@ const countryOptions: SelectOption[] = [
   },
 ];
 
+const SelectSingleExample: React.FC<SelectSingle> = (props) => {
+  const [selected, setSelected] = useState<string | undefined>(props.value);
+
+  const onChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+    setSelected(event.currentTarget.value);
+  };
+
+  return (
+    <Select
+      {...props}
+      value={selected}
+      onChange={onChange}
+    />
+  );
+}
+
+const SelectMiltipleExample: React.FC<SelectMultiple> = (props) => {
+  const [selected, setSelected] = useState<string[] | undefined>(props.value);
+
+  const onChange = (values: string[]): void => {
+    setSelected(values);
+  };
+
+  return (
+    <Select
+      {...props}
+      value={selected}
+      onChange={onChange}
+    />
+  );
+}
+
 storiesOf("artof-select", module)
   .add("Single [default]", () => {
-    const [selected, setSelected] = useState<string>('');
-    const [selected2, setSelected2] = useState<string>('');
-    const [selected3, setSelected3] = useState<string>("banking");
-
-    const onChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
-      setSelected(event.currentTarget.value);
-    };
-
-    const onChange2 = (event: React.ChangeEvent<HTMLSelectElement>): void => {
-      setSelected2(event.currentTarget.value);
-    };
-
-    const onChange3 = (event: React.ChangeEvent<HTMLSelectElement>): void => {
-      setSelected3(event.currentTarget.value);
-    };
-
     return (
       <div style={{
         display: 'grid',
@@ -232,17 +254,15 @@ storiesOf("artof-select", module)
         <div>
           <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '0 0 20px' }}>Single Select</h3>
 
-          <Select
+          <SelectSingleExample
             label="Industry"
-            value={selected}
             placeholder="Select your option"
             options={industryOptions}
-            onChange={onChange}
           />
 
           <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '40px 0 20px' }}>Different states</h3>
 
-          <Select
+          <SelectSingleExample
             placeholder="Without label"
             options={industryOptions}
           />
@@ -250,7 +270,7 @@ storiesOf("artof-select", module)
           <br />
           <br />
 
-          <Select
+          <SelectSingleExample
             label="Disabled"
             disabled={true}
             placeholder="Select your option"
@@ -260,7 +280,7 @@ storiesOf("artof-select", module)
           <br />
           <br />
 
-          <Select
+          <SelectSingleExample
             label="Disabled with value"
             disabled={true}
             value="banking"
@@ -271,7 +291,7 @@ storiesOf("artof-select", module)
           <br />
           <br />
 
-          <Select
+          <SelectSingleExample
             label="Error message"
             placeholder="Select your option"
             options={industryOptions}
@@ -281,7 +301,7 @@ storiesOf("artof-select", module)
           <br />
           <br />
 
-          <Select
+          <SelectSingleExample
             label="Helper message"
             placeholder="Select your option"
             options={industryOptions}
@@ -292,41 +312,28 @@ storiesOf("artof-select", module)
         <div>
           <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '0 0 20px' }}>Searchable</h3>
 
-          <Select
+          <SelectSingleExample
             label="Industry"
-            value={selected2}
             placeholder="Search"
             options={industryOptions}
-            onChange={onChange2}
             allowSearch={true}
           />
 
           <br />
           <br />
 
-          <Select
+          <SelectSingleExample
             label="Search with value"
-            value={selected3}
+            value="banking"
             options={industryOptions}
-            onChange={onChange3}
             allowSearch={true}
           />
         </div>
       </div>
     );
   })
+
   .add("Multiple", () => {
-    const [selected, setSelected] = useState<string[]>([]);
-    const [selected2, setSelected2] = useState<string[]>(['banking', 'government']);
-
-    const onChange = (values: string[]): void => {
-      setSelected(values);
-    };
-
-    const onChange2 = (values: string[]): void => {
-      setSelected2(values);
-    };
-
     return (
       <div style={{
         display: 'grid',
@@ -336,47 +343,41 @@ storiesOf("artof-select", module)
         <div>
           <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '0 0 20px' }}>Multiple Select</h3>
 
-          <Select
+          <SelectMiltipleExample
             label="Industry"
-            value={selected}
             multiple={true}
             placeholder="Select some options"
             options={industryOptions}
-            onChange={onChange}
           />
 
           <br />
           <br />
 
-          <Select
+          <SelectMiltipleExample
             label="With pre-checked options"
-            value={selected2}
+            value={['banking', 'government']}
             multiple={true}
             placeholder="Add some options"
             options={industryOptions}
-            onChange={onChange2}
           />
 
           <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '40px 0 20px' }}>As Tags</h3>
 
-          <Select
-            value={selected2}
+          <SelectMiltipleExample
+            value={['banking', 'government']}
             multiple={true}
             asTags={true}
             placeholder="Add some options"
             options={industryOptions}
-            onChange={onChange2}
           />
 
           <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '40px 0 20px' }}>Select All</h3>
 
-          <Select
-            value={selected}
+          <SelectMiltipleExample
             multiple={true}
             asTags={true}
             placeholder="Add some options"
             options={industryOptions}
-            onChange={onChange}
             allowSelectAll={true}
           />
         </div>
@@ -384,44 +385,44 @@ storiesOf("artof-select", module)
         <div>
           <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '0 0 20px' }}>Searchable</h3>
 
-          <Select
+          <SelectMiltipleExample
             label="Industry"
-            value={selected}
             multiple={true}
             placeholder="Search"
             options={industryOptions}
-            onChange={onChange}
             allowSearch={true}
           />
 
           <br />
           <br />
 
-          <Select
+          <SelectMiltipleExample
             label="Search with value"
-            value={selected2}
+            value={['banking', 'government']}
             multiple={true}
             placeholder="Add some options"
             options={industryOptions}
-            onChange={onChange2}
             allowSearch={true}
+          />
+
+          <br />
+          <br />
+
+          <SelectMiltipleExample
+            label="Search with value as tags"
+            value={['government']}
+            multiple={true}
+            placeholder="Add some options"
+            options={industryOptions}
+            allowSearch={true}
+            asTags={true}
           />
         </div>
       </div>
     );
   })
+
   .add("Custom options", () => {
-    const [selected, setSelected] = useState<string>('ch');
-    const [selected2, setSelected2] = useState<string[]>(['ca', 'us']);
-
-    const onChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
-      setSelected(event.currentTarget.value);
-    };
-
-    const onChange2 = (values: string[]): void => {
-      setSelected2(values);
-    };
-
     return (
       <div style={{
         display: 'grid',
@@ -431,13 +432,12 @@ storiesOf("artof-select", module)
         <div>
           <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '0 0 20px' }}>Single Select</h3>
 
-          <Select
+          <SelectSingleExample
             label="Choose your country"
-            value={selected}
+            value="ch"
             asTags={true}
             placeholder="Search"
             options={countryOptions}
-            onChange={onChange}
             allowSearch={true}
           />
         </div>
@@ -445,14 +445,13 @@ storiesOf("artof-select", module)
         <div>
           <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '0 0 20px' }}>Multiple Select</h3>
 
-          <Select
+          <SelectMiltipleExample
             label="Top countries rank"
-            value={selected2}
+            value={['ca', 'us']}
             multiple={true}
             asTags={true}
             placeholder="Select some options"
             options={countryOptions}
-            onChange={onChange2}
             allowSelectAll={true}
           />
         </div>

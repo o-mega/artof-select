@@ -4,13 +4,15 @@ import React, { useState, useRef, useEffect, ReactText } from "react";
 import mergeRefs from "react-merge-refs";
 import { usePopper } from "react-popper";
 
-import { scrollIntoView } from "./helpers/scrollIntoView";
+import { scrollIntoView, scrollToChild } from "./helpers/scrollIntoView";
 import { focusNext, focusPrev } from "./events";
 import { fireEvent } from "./fireEvent";
 import { SelectSingle, SelectMultiple } from "./Select.types";
 import { SelectedValues } from "./helpers/SelectedValues";
 import { classNames } from "./helpers/classNames";
 import { SelectAllButton } from "./helpers/SelectAllButton";
+
+let typingTimeOut: ReturnType<typeof setTimeout>;
 
 const SelectComponent: React.ForwardRefRenderFunction<
   HTMLSelectElement,
@@ -37,6 +39,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
 ): JSX.Element => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");
+  const [typing, setTyping] = useState<string>("");
 
   const select = useRef<HTMLSelectElement>(null);
   const visibleField = useRef<HTMLDivElement>(null);
@@ -51,21 +54,24 @@ const SelectComponent: React.ForwardRefRenderFunction<
 
     return () => {
       document.removeEventListener("click", onClickOutside, false);
+      clearTimeout(typingTimeOut);
     };
   }, []);
 
   useEffect(() => {
     document.addEventListener("keyup", handleKeyup, true);
 
-    // scroll to the first selected item if exist
-    if (isOpen && dropdown) {
-      scrollIntoView(dropdown);
-    }
-
     return () => {
       document.removeEventListener("keyup", handleKeyup, true);
     };
-  }, [isOpen]);
+  }, [isOpen, dropdown, typing]);
+
+  // scroll to the first selected item if exist
+  useEffect(() => {
+    if (dropdown) {
+      scrollIntoView(dropdown);
+    }
+  }, [dropdown]);
 
   const visibleOptions = options.filter((opt) =>
     `${opt.label} ${opt.value}`.toLowerCase().includes(search.toLowerCase())
@@ -111,7 +117,6 @@ const SelectComponent: React.ForwardRefRenderFunction<
   const onFocusValue = (): void => {
     if (!restProps.disabled) {
       setIsOpen(true);
-      setTimeout(focusNext, 200);
     }
   };
 
@@ -152,31 +157,54 @@ const SelectComponent: React.ForwardRefRenderFunction<
 
   const handleKeyup = (e: KeyboardEvent): void => {
     if (isOpen) {
+      const key = e.key?.toLowerCase();
+
       // navigate down
-      if (e.key?.toLowerCase() === "arrowdown") {
+      if (key === "arrowdown") {
         focusNext();
       }
 
       // navigate up
-      if (e.key?.toLowerCase() === "arrowup") {
+      else if (key === "arrowup") {
         focusPrev();
       }
 
-      // if tab from search field focus
-      const selected = dropdown?.querySelectorAll<HTMLElement>(
-        ".artof_select-option--selected"
-      );
-
-      if (e.key?.toLowerCase() === "tab" && selected?.length) {
-        selected[0].focus();
-      }
-
       // if tab outside of current options
-      if (
-        e.key?.toLowerCase() === "tab" &&
+      else if (
+        key === "tab" &&
         !visibleField.current?.contains(e.target as Node)
       ) {
         setIsOpen(false);
+      }
+
+      // close dropdown on escape
+      else if (key === "escape") {
+        setIsOpen(false);
+      }
+
+      // to navigate through the options
+      else if (e.key.length === 1) {
+        setTyping(`${typing}${key}`);
+
+        const matched = visibleOptions.filter((opt) => {
+          return `${opt.label}`.toLocaleLowerCase().startsWith(`${typing}`);
+        });
+
+        if (matched.length && dropdown) {
+          const index = visibleOptions.indexOf(matched[0]);
+          const target = document.querySelectorAll<HTMLDivElement>(
+            `.artof_select-option`
+          )?.[index];
+
+          if (target) {
+            scrollToChild(dropdown, target);
+            target.focus();
+          }
+        }
+
+        typingTimeOut = setTimeout(() => {
+          setTyping("");
+        }, 3000);
       }
     }
   };
@@ -194,6 +222,21 @@ const SelectComponent: React.ForwardRefRenderFunction<
 
   const onSearchFocus = (): void => {
     setIsOpen(true);
+  };
+
+  const onSearchKeyUp = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (isOpen) {
+      const key = e.key?.toLowerCase();
+
+      // if tab from search field focus
+      const selected = dropdown?.querySelectorAll<HTMLDivElement>(
+        ".artof_select-option--selected"
+      );
+
+      if (key === "tab" && selected?.length) {
+        selected[0].focus();
+      }
+    }
   };
 
   return (
@@ -233,7 +276,11 @@ const SelectComponent: React.ForwardRefRenderFunction<
         ))}
       </select>
 
-      {label && <label className="artof_select-label">{label}</label>}
+      {label && (
+        <label htmlFor={restProps.id} className="artof_select-label">
+          {label}
+        </label>
+      )}
 
       <div className="artof_select-field" ref={visibleField}>
         {allowSearch && (
@@ -242,6 +289,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
             value={search}
             onChange={onSearch}
             onFocus={onSearchFocus}
+            onKeyUp={onSearchKeyUp}
             className={classNames([
               "artof_select-search",
               !!search && "artof_select-search--filled",
@@ -278,6 +326,11 @@ const SelectComponent: React.ForwardRefRenderFunction<
           <div
             className="artof_select-dropdown"
             ref={setDropdown}
+            data-testid={
+              restProps["data-testid"]
+                ? `${restProps["data-testid"]}--dropdown`
+                : undefined
+            }
             style={styles.popper}
             {...attributes.popper}
           >

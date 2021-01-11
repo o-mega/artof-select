@@ -1,11 +1,39 @@
 export const scrollIntoView = (dropdown: HTMLDivElement): void => {
-  const selected = dropdown.querySelectorAll(".artof_select-option--selected");
+  const selected = dropdown.querySelectorAll<HTMLDivElement>(
+    ".artof_select-option--selected"
+  );
 
   if (selected.length) {
-    selected[0].scrollIntoView({
-      block: "center",
-      behavior: "auto",
-      inline: "start",
-    });
+    scrollToChild(dropdown, selected[0]);
   }
 };
+
+export function scrollToChild(
+  parent: HTMLDivElement,
+  child: HTMLDivElement
+): void {
+  // Where is the parent on page
+  const parentRect = parent.getBoundingClientRect();
+
+  // What can you see?
+  const parentViewableArea = {
+    height: parent.clientHeight,
+    width: parent.clientWidth,
+  };
+
+  // Where is the child
+  const childRect =
+    child.previousElementSibling?.getBoundingClientRect() ||
+    child.getBoundingClientRect();
+
+  // Is the child viewable?
+  const isViewable =
+    childRect.top >= parentRect.top &&
+    childRect.top <= parentRect.top + parentViewableArea.height;
+
+  // if you can't see the child try to scroll parent
+  if (!isViewable) {
+    // scroll by offset relative to parent
+    parent.scrollTop = childRect.top + parent.scrollTop - parentRect.top;
+  }
+}

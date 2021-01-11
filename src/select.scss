@@ -213,7 +213,7 @@ $select-icon-size: ($select-padding-x / 1.75);
   }
 
   &:hover, &:focus {
-    background-color: $color-bg-hover;
+    background-color: darken($color-bg-hover, 5%);
   }
 
   ~ .artof_select-option {
