@@ -24,7 +24,8 @@
     "test": "jest",
     "dev": "start-storybook -p 6006",
     "build:storybook": "build-storybook -o ./docs --quiet",
-    "build:clean": "rm ./dist/index.esm.scss && rm ./dist/index.esm.d.ts"
+    "build:clean": "rm ./dist/index.esm.scss && rm ./dist/index.esm.d.ts",
+    "release": "standard-version"
   },
   "dependencies": {
     "react-merge-refs": "^1.1.0",
@@ -69,6 +70,7 @@
     "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-terser": "^7.0.2",
     "sass-loader": "^10.1.0",
+    "standard-version": "^9.1.0",
     "typescript": "^4.1.3"
   },
   "peerDependencies": {
