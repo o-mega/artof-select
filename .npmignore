@@ -1,9 +1,14 @@
+.github
+.jest-cache
 .storybook
 .vscode
 docs
+node_modules
 src
+test-coverage
 .eslintignore
 .gitignore
+.npmignore
 babel.config.js
 jest.config.js
 pre-commit.sh
