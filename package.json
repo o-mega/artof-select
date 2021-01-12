@@ -9,7 +9,7 @@
     "react-component",
     "ui"
   ],
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -25,7 +25,7 @@
     "dev": "start-storybook -p 6006",
     "build:storybook": "build-storybook -o ./docs --quiet",
     "build:clean": "rm ./dist/index.esm.scss && rm ./dist/index.esm.d.ts",
-    "release": "yarn build && standard-version"
+    "release": "yarn build && yarn build:storybook && standard-version"
   },
   "dependencies": {
     "react-merge-refs": "^1.1.0",
