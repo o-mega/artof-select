@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.3](https://github.com/o-mega/artof-select/compare/v1.0.2...v1.0.3) (2021-01-12)
+
+
+### Bug Fixes
+
+* Add more types to export ([78e95a0](https://github.com/o-mega/artof-select/commit/78e95a0c40aabed83f2ec58cf9c6799eeb680516))
+* Update types export ([e977946](https://github.com/o-mega/artof-select/commit/e977946276ef9e880cbda8d3bd9fa9d6a792c2d3))
+
 ### [1.0.2](https://github.com/o-mega/artof-select/compare/v1.0.1...v1.0.2) (2021-01-12)
 
 ### [1.0.1](https://github.com/o-mega/artof-select/compare/v1.0.0...v1.0.1) (2021-01-12)
