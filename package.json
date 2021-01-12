@@ -25,7 +25,7 @@
     "dev": "start-storybook -p 6006",
     "build:storybook": "build-storybook -o ./docs --quiet",
     "build:clean": "rm ./dist/index.esm.scss && rm ./dist/index.esm.d.ts",
-    "release": "standard-version"
+    "release": "yarn build && standard-version"
   },
   "dependencies": {
     "react-merge-refs": "^1.1.0",
