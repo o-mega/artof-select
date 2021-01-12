@@ -1,15 +1,17 @@
 # artof-select
 [![NPM](https://img.shields.io/npm/v/artof-select.svg)](https://www.npmjs.com/package/artof-select)
+![DEPENCENCIES](https://img.shields.io/librariesio/github/o-mega/artof-select.svg)
+[![BUNDLEPHOBIA](https://img.shields.io/bundlephobia/minzip/artof-select)](https://bundlephobia.com/result?p=artof-select)
 
 A simple, but powerful `<Select />` component for [React](https://reactjs.com).
 
 Key features:
-- Based native `HTMLSelectElement` props and methods
+- Based on native `HTMLSelectElement` props and methods
 - Supports multiple selection
-- Has option to search inside values out of the box
+- Supports searching through options list
 - Fully customisable design
-- Extendable with error and hint messages
-- Multiple selected options can be displayed as `[tag] [tag] [tag]`
+- Select provides display of hints and error notifications
+- Multiple selected options can be shown as `[tag] [tag] [tag]`
 - Supports native keyboard events, like `Tab`, `Arrow Up | Down` to navigate over the dropdown options and `Enter` (or even `Spacebar`) to apply selected option(s).
 - Supports custom `React.ReactNode` component as option element
 
@@ -59,6 +61,7 @@ Common props you may want to specify include:
 
 | Props                | Default value | Description                                                 |
 | -------------------- | ------------- | ----------------------------------------------------------- |
+| `allowMarkWords`     | `true`        | Wrap keywords with `<mark />` for `allowSearch={true}`      |
 | `allowSearch`        | `false`       | Allow the user to search for inside options                 |
 | `allowSelectAll`     | `false`       | Include _Select All_ button with `multiple` options         |
 | `asTags`             | `false`       | Use with `multiple={true}` to display selections as tags    |
@@ -77,7 +80,7 @@ Also, the `onChange` prop can return `event: React.ChangeEvent<HTMLSelectElement
 
 In addition to above props, you can flavour `Select` component with all possible `HTMLSelectElement` props.
 
-## Demo
+## Run the Demo from local
 
 You can check out the demo:
 ```sh

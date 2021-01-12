@@ -23,6 +23,7 @@ declare interface SelectCommonProps
   hintText?: ReactText;
   asTags?: boolean;
   allowSearch?: boolean;
+  allowMarkWords?: boolean;
   textSelected?: string;
   textSelectAll?: string;
   "data-testid"?: string;

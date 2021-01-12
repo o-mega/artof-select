@@ -16,6 +16,7 @@ import {
   SelectSingle,
   SelectMultiple,
 } from "./Select.types";
+import { DropdownItem } from "./helpers/DropdownItem";
 
 let typingTimeOut: ReturnType<typeof setTimeout>;
 
@@ -33,11 +34,13 @@ const SelectComponent: React.ForwardRefRenderFunction<
     className,
     asTags = false,
     allowSearch = false,
+    allowMarkWords = true,
     allowSelectAll = false,
     textSelected = "Selected",
     textSelectAll = "Select all",
     // we cannot render children prop anyway
     children, // eslint-disable-line
+    autoComplete = "off",
     ...restProps
   },
   ref
@@ -151,15 +154,6 @@ const SelectComponent: React.ForwardRefRenderFunction<
     }
   };
 
-  const onKeyupOption = (
-    e: React.KeyboardEvent<HTMLDivElement>,
-    val: ReactText
-  ): void => {
-    if (e.key?.toLowerCase() === "enter" || e.key?.toLowerCase() === " ") {
-      onClickOption(val);
-    }
-  };
-
   const handleKeyup = (e: KeyboardEvent): void => {
     if (isOpen) {
       const key = e.key?.toLowerCase();
@@ -188,7 +182,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
       }
 
       // to navigate through the options
-      else if (e.key.length === 1) {
+      else if (e.key.length === 1 && !allowSearch) {
         setTyping(`${typing}${key}`);
 
         const matched = visibleOptions.filter((opt) => {
@@ -295,6 +289,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
             onChange={onSearch}
             onFocus={onSearchFocus}
             onKeyUp={onSearchKeyUp}
+            autoComplete={autoComplete}
             className={classNames([
               "artof_select-search",
               !!search && "artof_select-search--filled",
@@ -308,7 +303,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
             !restProps.value?.length && "artof_select-value--placeholder",
             asTags && "artof_select-value--tags",
           ])}
-          tabIndex={0}
+          tabIndex={allowSearch ? -1 : 0}
           onFocus={onFocusValue}
           onClick={onClickValue}
           data-testid={
@@ -349,29 +344,22 @@ const SelectComponent: React.ForwardRefRenderFunction<
               />
             )}
 
-            {visibleOptions.map((option) => {
-              const isSelected = multiple
-                ? (restProps as SelectMultiple).value?.includes(
-                    `${option.value}`
-                  )
-                : option.value === (restProps as SelectSingle).value;
-
-              return (
-                <div
-                  className={classNames([
-                    "artof_select-option",
-                    isSelected && "artof_select-option--selected",
-                  ])}
-                  key={`dropdown_item__${option.value}`}
-                  onClick={() => onClickOption(option.value)}
-                  onKeyUp={(e) => onKeyupOption(e, option.value)}
-                  tabIndex={0}
-                  data-value={option.value}
-                >
-                  {option.component || option.label}
-                </div>
-              );
-            })}
+            {visibleOptions.map((option) => (
+              <DropdownItem
+                key={`dropdown_item__${option.value}`}
+                {...option}
+                search={search}
+                onClickOption={onClickOption}
+                isSelected={
+                  multiple
+                    ? !!(restProps as SelectMultiple).value?.includes(
+                        `${option.value}`
+                      )
+                    : option.value === (restProps as SelectSingle).value
+                }
+                allowMarkWords={allowMarkWords}
+              />
+            ))}
           </div>
         )}
       </div>
@@ -393,3 +381,5 @@ export {
   SelectMultiple,
   Select,
 };
+
+export default Select;
