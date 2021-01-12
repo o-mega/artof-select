@@ -13,7 +13,7 @@
     "target": "es6",
     "module": "esnext",
     "moduleResolution": "node",
-    "isolatedModules": true,
+    "isolatedModules": false,
     "typeRoots": [
       "./@types",
       "./node_modules/@types"

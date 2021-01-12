@@ -386,6 +386,10 @@ const SelectComponent: React.ForwardRefRenderFunction<
 const Select = React.memo(React.forwardRef(SelectComponent));
 Select.displayName = "Select";
 
-export type { SelectOption, SelectCommonProps, SelectSingle, SelectMultiple };
-
-export { Select };
+export {
+  SelectOption,
+  SelectCommonProps,
+  SelectSingle,
+  SelectMultiple,
+  Select,
+};

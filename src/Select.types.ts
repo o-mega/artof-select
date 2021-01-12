@@ -1,12 +1,12 @@
 import { ReactNode, ReactText } from "react";
 
-export type SelectOption = {
+declare type SelectOption = {
   label: ReactText;
   value: ReactText;
   component?: ReactNode;
 };
 
-export interface SelectCommonProps
+declare interface SelectCommonProps
   extends Omit<
     React.SelectHTMLAttributes<HTMLSelectElement>,
     | "multiple"
@@ -41,10 +41,12 @@ interface SelectMultipleProps extends SelectCommonProps {
   allowSelectAll?: boolean;
 }
 
-export interface SelectSingle extends SelectSingleProps {
+declare interface SelectSingle extends SelectSingleProps {
   multiple?: false;
 }
 
-export interface SelectMultiple extends SelectMultipleProps {
+declare interface SelectMultiple extends SelectMultipleProps {
   multiple?: true;
 }
+
+export type { SelectOption, SelectCommonProps, SelectSingle, SelectMultiple };
