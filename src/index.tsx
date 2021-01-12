@@ -7,10 +7,15 @@ import { usePopper } from "react-popper";
 import { scrollIntoView, scrollToChild } from "./helpers/scrollIntoView";
 import { focusNext, focusPrev } from "./events";
 import { fireEvent } from "./fireEvent";
-import { SelectSingle, SelectMultiple } from "./Select.types";
 import { SelectedValues } from "./helpers/SelectedValues";
 import { classNames } from "./helpers/classNames";
 import { SelectAllButton } from "./helpers/SelectAllButton";
+import {
+  SelectOption,
+  SelectCommonProps,
+  SelectSingle,
+  SelectMultiple,
+} from "./Select.types";
 
 let typingTimeOut: ReturnType<typeof setTimeout>;
 
@@ -380,5 +385,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
 
 const Select = React.memo(React.forwardRef(SelectComponent));
 Select.displayName = "Select";
+
+export type { SelectOption, SelectCommonProps, SelectSingle, SelectMultiple };
 
 export { Select };
