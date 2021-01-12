@@ -1,4 +1,5 @@
 # artof-select
+[![NPM](https://img.shields.io/npm/v/artof-select.svg)](https://www.npmjs.com/package/artof-select)
 
 A simple, but powerful `<Select />` component for [React](https://reactjs.com).
 
