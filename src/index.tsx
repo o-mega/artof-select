@@ -33,13 +33,13 @@ const SelectComponent: React.ForwardRefRenderFunction<
     placeholder,
     className,
     asTags = false,
+    allowClear = false,
     allowSearch = false,
     allowMarkWords = true,
     allowSelectAll = false,
+    allowTagsCount = false,
     textSelected = "Selected",
     textSelectAll = "Select all",
-    // we cannot render children prop anyway
-    children, // eslint-disable-line
     autoComplete = "off",
     ...restProps
   },
@@ -112,18 +112,28 @@ const SelectComponent: React.ForwardRefRenderFunction<
       // forward original select event
       onChange && onChange(event);
     }
+
+    setTyping("");
+    clearTimeout(typingTimeOut);
   };
 
   const onClickValue = (event: React.MouseEvent<HTMLDivElement>): void => {
     const isFocused = event.currentTarget === document.activeElement;
 
-    if (!restProps.disabled && !isFocused) {
+    if (
+      !restProps.disabled &&
+      !isFocused &&
+      (event.target as HTMLElement).className !== "artof_select-clear"
+    ) {
       setIsOpen(!isOpen);
     }
   };
 
-  const onFocusValue = (): void => {
-    if (!restProps.disabled) {
+  const onFocusValue = (event: React.FocusEvent<HTMLDivElement>): void => {
+    if (
+      !restProps.disabled &&
+      (event.target as HTMLElement).className !== "artof_select-clear"
+    ) {
       setIsOpen(true);
     }
   };
@@ -319,6 +329,9 @@ const SelectComponent: React.ForwardRefRenderFunction<
             value={restProps.value}
             placeholder={placeholder}
             textSelected={textSelected}
+            allowTagsCount={allowTagsCount}
+            allowClear={allowClear}
+            select={select}
           />
         </div>
 

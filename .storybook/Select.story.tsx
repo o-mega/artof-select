@@ -260,6 +260,17 @@ storiesOf("artof-select", module)
             options={industryOptions}
           />
 
+          <br />
+          <br />
+
+          <SelectSingleExample
+            label="With Clear button on hover"
+            value="construction"
+            placeholder="Select your option"
+            allowClear={true}
+            options={industryOptions}
+          />
+
           <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '40px 0 20px' }}>Different states</h3>
 
           <SelectSingleExample
@@ -361,12 +372,37 @@ storiesOf("artof-select", module)
             options={industryOptions}
           />
 
+          <br />
+          <br />
+
+          <SelectMiltipleExample
+            label="With Clear button on hover"
+            value={['banking', 'government']}
+            multiple={true}
+            allowClear={true}
+            placeholder="Add some options"
+            options={industryOptions}
+          />
+
           <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '40px 0 20px' }}>As Tags</h3>
 
           <SelectMiltipleExample
             value={['banking', 'government']}
             multiple={true}
             asTags={true}
+            placeholder="Add some options"
+            options={industryOptions}
+          />
+
+          <br />
+          <br />
+
+          <SelectMiltipleExample
+            label="With allowTagsCount"
+            value={['banking', 'government']}
+            multiple={true}
+            asTags={true}
+            allowTagsCount={true}
             placeholder="Add some options"
             options={industryOptions}
           />

@@ -76,6 +76,8 @@ $select-icon-size: ($select-padding-x / 1.75);
 }
 
 .artof_select-value {
+  display: flex;
+  align-items: center;
   box-sizing: border-box;
   overflow: hidden;
   height: $select-height;
@@ -270,5 +272,24 @@ $select-icon-size: ($select-padding-x / 1.75);
 
   &:before {
     display: none;
+  }
+}
+
+.artof_select-clear {
+  display: block;
+  width: $font-size-base * $select-line-height;
+  height: $font-size-base * $select-line-height;
+  padding: 0;
+  margin: 0 0 0 auto;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3e%3cpath fill='%23505050' d='M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z'/%3e%3c/svg%3e") no-repeat center center / $select-font-size $select-font-size;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 300ms;
+
+  .artof_select-value:hover & {
+    opacity: 1;
   }
 }

@@ -9,6 +9,7 @@ declare type SelectOption = {
 declare interface SelectCommonProps
   extends Omit<
     React.SelectHTMLAttributes<HTMLSelectElement>,
+    | "children"
     | "multiple"
     | "value"
     | "defaultValue"
@@ -22,6 +23,8 @@ declare interface SelectCommonProps
   errorText?: ReactText;
   hintText?: ReactText;
   asTags?: boolean;
+  allowClear?: boolean;
+  allowTagsCount?: boolean;
   allowSearch?: boolean;
   allowMarkWords?: boolean;
   textSelected?: string;

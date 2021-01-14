@@ -61,9 +61,11 @@ Common props you may want to specify include:
 
 | Props                | Default value | Description                                                 |
 | -------------------- | ------------- | ----------------------------------------------------------- |
+| `allowClear`         | `false`       | Add button to clear the selection                           |
 | `allowMarkWords`     | `true`        | Wrap keywords with `<mark />` for `allowSearch={true}`      |
 | `allowSearch`        | `false`       | Allow the user to search for inside options                 |
 | `allowSelectAll`     | `false`       | Include _Select All_ button with `multiple` options         |
+| `allowTagsCount`     | `false`       | Add counter before selected tags, when `asTags={true}`      |
 | `asTags`             | `false`       | Use with `multiple={true}` to display selections as tags    |
 | `className`          | `undefined`   | Additional className can be attached to the wrapper         |
 | `errorText`          | `undefined`   | A text below the Select connected with classNames           |
