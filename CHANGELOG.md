@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/o-mega/artof-select/compare/v1.0.4...v1.1.0) (2021-01-14)
+
+
+### Features
+
+* Added control for tags counter; Added control for Clear button ([2c4721a](https://github.com/o-mega/artof-select/commit/2c4721a162481f39eb42e5aaf7fd58997f756207))
+
 ### [1.0.4](https://github.com/o-mega/artof-select/compare/v1.0.3...v1.0.4) (2021-01-12)
 
 
