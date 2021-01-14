@@ -403,6 +403,7 @@ storiesOf("artof-select", module)
             multiple={true}
             asTags={true}
             allowTagsCount={true}
+            allowClear={true}
             placeholder="Add some options"
             options={industryOptions}
           />

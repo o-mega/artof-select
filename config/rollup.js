@@ -15,37 +15,47 @@ export default [
         format: "cjs",
         exports: "auto",
         plugins: [
-          terser(),
+          terser({
+            format: {
+              comments: false,
+            },
+          }),
         ],
-        assetFileNames: "dist/[name][extname]"
+        assetFileNames: "dist/[name][extname]",
       },
       {
         file: "dist/index.esm.js",
         format: "esm",
-        exports: "auto"
-      }
+        exports: "auto",
+        plugins: [
+          terser({
+            compress: false,
+            mangle: false,
+            format: {
+              comments: false,
+              beautify: true,
+              indent_level: 2,
+            },
+          }),
+        ],
+      },
     ],
-    external: [
-      "react",
-      "react-dom",
-      "react-merge-refs",
-      "react-popper"
-    ],
+    external: ["react", "react-dom", "react-merge-refs", "react-popper"],
     plugins: [
       clear({
-        targets: ["./dist"]
+        targets: ["./dist"],
       }),
       bundleScss(),
       typescript({
         tsconfig: "./tsconfig.json",
       }),
       babel({
-        ...require("./babel.config"),
+        ...require("../babel.config"),
         extensions: [".ts", ".tsx"],
         babelHelpers: "bundled",
       }),
       nodeResolve(),
       commonjs(),
-    ]
-  }
+    ],
+  },
 ];

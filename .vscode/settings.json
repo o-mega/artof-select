@@ -5,7 +5,8 @@
   },
   "search.exclude": {
     "**/node_modules": true,
-    "dist": true
+    "dist": true,
+    "docs": true
   },
   "eslint.validate": [
     "javascript",
@@ -19,6 +20,5 @@
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
     "source.fixAll.eslint": true
-  },
-  "git.ignoreLimitWarning": true
+  }
 }

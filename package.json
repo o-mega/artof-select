@@ -19,7 +19,7 @@
     "url": "https://github.com/o-mega/artof-select.git"
   },
   "scripts": {
-    "build": "rollup -c --silent && yarn build:clean",
+    "build": "rollup -c ./config/rollup.js --silent && yarn build:clean",
     "lint": "eslint --ext **/*.{ts,tsx} --ignore-pattern dist --ignore-pattern node_modules",
     "test": "jest",
     "dev": "start-storybook -p 6006",
@@ -74,7 +74,9 @@
     "typescript": "^4.1.3"
   },
   "peerDependencies": {
-    "react": ">=16.8.0"
+    "react": ">=16.8.0",
+    "react-merge-refs": "^1.1.0",
+    "react-popper": "^2.2.4"
   },
   "engines": {
     "node": ">=14.15.0",
@@ -130,7 +132,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "/bin/sh pre-commit.sh"
+      "pre-commit": "/bin/sh ./config/pre-commit.sh"
     }
   },
   "lint-staged": {
@@ -138,5 +140,27 @@
       "eslint --max-warnings=0",
       "eslint --fix"
     ]
+  },
+  "jest": {
+    "cacheDirectory": ".jest-cache",
+    "collectCoverage": true,
+    "coverageReporters": [
+      "lcov"
+    ],
+    "coverageDirectory": "test-coverage",
+    "coverageThreshold": {
+      "global": {
+        "branches": 0,
+        "functions": 0,
+        "lines": 0,
+        "statements": 0
+      }
+    },
+    "testPathIgnorePatterns": [
+      "<rootDir>/packages/(?:.+?)/lib/"
+    ],
+    "moduleNameMapper": {
+      "^.+\\.(scss)$": "identity-obj-proxy"
+    }
   }
 }

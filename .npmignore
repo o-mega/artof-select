@@ -2,6 +2,7 @@
 .jest-cache
 .storybook
 .vscode
+config
 docs
 node_modules
 src
@@ -9,9 +10,7 @@ test-coverage
 .eslintignore
 .gitignore
 .npmignore
-babel.config.js
-jest.config.js
-pre-commit.sh
-rollup.config.js
+CHANGELOG.md
+LICENSE
 tsconfig.json
 yarn.lock
