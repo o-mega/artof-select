@@ -1,4 +1,5 @@
 import React from "react";
+import { SelectOption } from "..";
 
 import { fireEvent } from "../fireEvent";
 import {
@@ -9,7 +10,7 @@ import {
 
 interface Props {
   multiple: boolean;
-  options: SelectCommonProps["options"];
+  options: SelectOption[];
   asTags: SelectCommonProps["asTags"];
   value: SelectMultiple["value"] | SelectSingle["value"];
   placeholder: SelectCommonProps["placeholder"];

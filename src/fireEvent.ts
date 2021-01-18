@@ -1,4 +1,4 @@
-export const fireEvent = (element: HTMLSelectElement, event: string): void => {
+export const fireEvent = (element: HTMLElement, event: string): void => {
   // dispatch for IE
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -258,6 +258,7 @@ storiesOf("artof-select", module)
             label="Industry"
             placeholder="Select your option"
             options={industryOptions}
+            id="select_example"
           />
 
           <br />
@@ -328,6 +329,7 @@ storiesOf("artof-select", module)
             placeholder="Search"
             options={industryOptions}
             allowSearch={true}
+            id="select_example2"
           />
 
           <br />

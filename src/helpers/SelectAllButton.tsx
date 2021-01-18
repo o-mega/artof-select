@@ -8,7 +8,7 @@ import {
 import { classNames } from "./classNames";
 
 interface Props {
-  options: SelectCommonProps["options"];
+  options: SelectOption[];
   visibleOptions: SelectOption[];
   value: SelectMultiple["value"];
   onChange: SelectMultiple["onChange"];

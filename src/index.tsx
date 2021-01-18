@@ -57,6 +57,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
     placement: "bottom",
   });
 
+  // bind click outside
   useEffect(() => {
     document.addEventListener("click", onClickOutside, false);
 
@@ -66,6 +67,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
     };
   }, []);
 
+  // bind keyup
   useEffect(() => {
     document.addEventListener("keyup", handleKeyup, true);
 
@@ -81,8 +83,37 @@ const SelectComponent: React.ForwardRefRenderFunction<
     }
   }, [dropdown]);
 
-  const visibleOptions = options.filter((opt) =>
-    `${opt.label} ${opt.value}`.toLowerCase().includes(search.toLowerCase())
+  if (process.env.NODE_ENV !== "production") {
+    React.useEffect(() => {
+      const visibleOptions = options.filter(({ label, value }) =>
+        `${label} ${value}`.toLowerCase().includes(search.toLowerCase())
+      );
+
+      const matchedOptions = visibleOptions.filter(
+        ({ value }) => value === restProps.value
+      );
+
+      if (restProps.value && !multiple && matchedOptions.length < 1) {
+        console.warn(
+          [
+            `artof-select: You have provided a non-exist value \`${
+              restProps.value
+            }\` for the select ${
+              restProps.name ? `(name="${restProps.name}") ` : ""
+            }component.`,
+            "Consider providing a value that matches one of the available options or ''.",
+            `The available values are ${
+              visibleOptions.map(({ value }) => `\`${value}\``).join(", ") ||
+              '""'
+            }.`,
+          ].join("\n")
+        );
+      }
+    }, [multiple, JSON.stringify(restProps.value), JSON.stringify(options)]);
+  }
+
+  const visibleOptions = options.filter(({ label, value }) =>
+    `${label} ${value}`.toLowerCase().includes(search.toLowerCase())
   );
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
@@ -219,7 +250,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
   };
 
   const onClickOutside = (event: MouseEvent): void => {
-    if (!visibleField.current?.contains(event.target as Node)) {
+    if (!visibleField.current?.parentNode?.contains(event.target as Node)) {
       setIsOpen(false);
       setSearch("");
     }
@@ -246,6 +277,10 @@ const SelectComponent: React.ForwardRefRenderFunction<
         selected[0].focus();
       }
     }
+  };
+
+  const onClickLabel = (): void => {
+    setIsOpen(true);
   };
 
   return (
@@ -286,7 +321,12 @@ const SelectComponent: React.ForwardRefRenderFunction<
       </select>
 
       {label && (
-        <label htmlFor={restProps.id} className="artof_select-label">
+        <label
+          htmlFor={restProps.id}
+          className="artof_select-label"
+          onClick={onClickLabel}
+          role="label"
+        >
           {label}
         </label>
       )}
@@ -313,7 +353,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
             !restProps.value?.length && "artof_select-value--placeholder",
             asTags && "artof_select-value--tags",
           ])}
-          tabIndex={allowSearch ? -1 : 0}
+          tabIndex={allowSearch ? undefined : 0}
           onFocus={onFocusValue}
           onClick={onClickValue}
           data-testid={
@@ -347,7 +387,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
             style={styles.popper}
             {...attributes.popper}
           >
-            {multiple && allowSelectAll && (
+            {multiple && allowSelectAll && visibleOptions.length > 1 && (
               <SelectAllButton
                 options={options}
                 visibleOptions={visibleOptions}

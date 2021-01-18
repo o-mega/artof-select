@@ -48,7 +48,7 @@ const Component: React.FC<Props> = ({
 
   const onKeyupOption = (e: KeyboardEvent<HTMLDivElement>): void => {
     if (e.key?.toLowerCase() === "enter" || e.key?.toLowerCase() === " ") {
-      onClickOption(value);
+      onClickOption(value || "");
     }
   };
 
@@ -58,10 +58,12 @@ const Component: React.FC<Props> = ({
         "artof_select-option",
         isSelected && "artof_select-option--selected",
       ])}
-      onClick={() => onClickOption(value)}
+      onClick={() => onClickOption(value || "")}
       onKeyUp={onKeyupOption}
       tabIndex={0}
       data-value={value}
+      aria-selected={isSelected ? "true" : undefined}
+      role="option"
     >
       {text}
     </div>

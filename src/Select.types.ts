@@ -1,12 +1,12 @@
 import { ReactNode, ReactText } from "react";
 
-declare type SelectOption = {
-  label: ReactText;
-  value: ReactText;
+export type SelectOption = {
+  label?: ReactText;
+  value?: ReactText;
   component?: ReactNode;
 };
 
-declare interface SelectCommonProps
+export interface SelectCommonProps
   extends Omit<
     React.SelectHTMLAttributes<HTMLSelectElement>,
     | "children"
@@ -16,8 +16,11 @@ declare interface SelectCommonProps
     | "options"
     | "placeholder"
     | "onChange"
+    | "onFocus"
+    | "onBlur"
+    | "autoFocus"
   > {
-  options: SelectOption[];
+  options?: SelectOption[];
   label?: ReactText;
   placeholder?: ReactText;
   errorText?: ReactText;
@@ -33,24 +36,16 @@ declare interface SelectCommonProps
   "data-cy"?: string;
 }
 
-interface SelectSingleProps extends SelectCommonProps {
+export interface SelectSingle extends SelectCommonProps {
+  multiple?: false;
   value?: string;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   allowSelectAll?: undefined;
 }
 
-interface SelectMultipleProps extends SelectCommonProps {
+export interface SelectMultiple extends SelectCommonProps {
+  multiple?: true;
   value?: string[];
   onChange?: (values: string[]) => void;
   allowSelectAll?: boolean;
 }
-
-declare interface SelectSingle extends SelectSingleProps {
-  multiple?: false;
-}
-
-declare interface SelectMultiple extends SelectMultipleProps {
-  multiple?: true;
-}
-
-export type { SelectOption, SelectCommonProps, SelectSingle, SelectMultiple };
