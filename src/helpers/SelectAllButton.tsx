@@ -43,9 +43,9 @@ const SelectAllButton: React.FC<Props> = ({
     <>
       <div
         className={classNames([
-          "artof_select-option",
-          "artof_select-select_all",
-          options.length === value?.length && "artof_select-option--selected",
+          "select__option",
+          "select__option--select_all",
+          options.length === value?.length && "select__option--selected",
         ])}
         onClick={onClickAll}
         onKeyUp={onKeyupAll}

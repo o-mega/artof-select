@@ -55,8 +55,8 @@ const Component: React.FC<Props> = ({
   return (
     <div
       className={classNames([
-        "artof_select-option",
-        isSelected && "artof_select-option--selected",
+        "select__option",
+        isSelected && "select__option--selected",
       ])}
       onClick={() => onClickOption(value || "")}
       onKeyUp={onKeyupOption}

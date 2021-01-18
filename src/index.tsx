@@ -154,7 +154,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
     if (
       !restProps.disabled &&
       !isFocused &&
-      (event.target as HTMLElement).className !== "artof_select-clear"
+      (event.target as HTMLElement).className !== "select__clear"
     ) {
       setIsOpen(!isOpen);
     }
@@ -163,7 +163,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
   const onFocusValue = (event: React.FocusEvent<HTMLDivElement>): void => {
     if (
       !restProps.disabled &&
-      (event.target as HTMLElement).className !== "artof_select-clear"
+      (event.target as HTMLElement).className !== "select__clear"
     ) {
       setIsOpen(true);
     }
@@ -233,7 +233,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
         if (matched.length && dropdown) {
           const index = visibleOptions.indexOf(matched[0]);
           const target = document.querySelectorAll<HTMLDivElement>(
-            `.artof_select-option`
+            `.select__option`
           )?.[index];
 
           if (target) {
@@ -270,7 +270,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
 
       // if tab from search field focus
       const selected = dropdown?.querySelectorAll<HTMLDivElement>(
-        ".artof_select-option--selected"
+        ".select__option--selected"
       );
 
       if (key === "tab" && selected?.length) {
@@ -286,11 +286,11 @@ const SelectComponent: React.ForwardRefRenderFunction<
   return (
     <div
       className={classNames([
-        "artof_select",
-        isOpen && "artof_select--opened",
-        restProps.disabled && "artof_select--disabled",
-        !!errorText && "artof_select--error",
-        multiple && "artof_select--multiple",
+        "select",
+        isOpen && "select--opened",
+        restProps.disabled && "select--disabled",
+        !!errorText && "select--error",
+        multiple && "select--multiple",
         className,
       ])}
       data-testid={
@@ -309,7 +309,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
         onChange={handleChange}
         value={restProps.value}
         tabIndex={-1}
-        className="artof_select-select"
+        className="select__select"
       >
         {!multiple && <option value="" />}
 
@@ -323,7 +323,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
       {label && (
         <label
           htmlFor={restProps.id}
-          className="artof_select-label"
+          className="select__label"
           onClick={onClickLabel}
           role="label"
         >
@@ -331,7 +331,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
         </label>
       )}
 
-      <div className="artof_select-field" ref={visibleField}>
+      <div className="select__field" ref={visibleField}>
         {allowSearch && (
           <input
             type="text"
@@ -341,17 +341,17 @@ const SelectComponent: React.ForwardRefRenderFunction<
             onKeyUp={onSearchKeyUp}
             autoComplete={autoComplete}
             className={classNames([
-              "artof_select-search",
-              !!search && "artof_select-search--filled",
+              "select__search",
+              !!search && "select__search--filled",
             ])}
           />
         )}
 
         <div
           className={classNames([
-            "artof_select-value",
-            !restProps.value?.length && "artof_select-value--placeholder",
-            asTags && "artof_select-value--tags",
+            "select__value",
+            !restProps.value?.length && "select__value--placeholder",
+            asTags && "select__value--tags",
           ])}
           tabIndex={allowSearch ? undefined : 0}
           onFocus={onFocusValue}
@@ -377,7 +377,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
 
         {isOpen && (
           <div
-            className="artof_select-dropdown"
+            className="select__dropdown"
             ref={setDropdown}
             data-testid={
               restProps["data-testid"]
@@ -417,9 +417,9 @@ const SelectComponent: React.ForwardRefRenderFunction<
         )}
       </div>
 
-      {errorText && <div className="artof_select-error">{errorText}</div>}
+      {errorText && <div className="select__error">{errorText}</div>}
 
-      {hintText && <div className="artof_select-hint">{hintText}</div>}
+      {hintText && <div className="select__hint">{hintText}</div>}
     </div>
   );
 };

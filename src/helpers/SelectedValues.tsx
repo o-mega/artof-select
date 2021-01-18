@@ -52,42 +52,31 @@ const SelectedValues: React.FC<Props> = ({
       return (
         <>
           {allowTagsCount && tags.length && (
-            <div className="artof_select-tags_count">{tags.length}</div>
+            <div className="select__tags_count">{tags.length}</div>
           )}
 
           {tags.map(
             (option): JSX.Element => (
-              <div
-                className="artof_select-tag"
-                key={`artof_select-tag__${option.value}`}
-              >
+              <div className="select__tag" key={`select__tag__${option.value}`}>
                 {option.component || option.label}
               </div>
             )
           )}
 
           {allowClear && (
-            <button
-              type="button"
-              onClick={onClear}
-              className="artof_select-clear"
-            />
+            <button type="button" onClick={onClear} className="select__clear" />
           )}
         </>
       );
     } else if (value?.length) {
       return (
         <>
-          <div className="artof_select-value-text">
+          <div className="select-value-text">
             {textSelected} {value.length}
           </div>
 
           {allowClear && (
-            <button
-              type="button"
-              onClick={onClear}
-              className="artof_select-clear"
-            />
+            <button type="button" onClick={onClear} className="select__clear" />
           )}
         </>
       );
@@ -102,14 +91,10 @@ const SelectedValues: React.FC<Props> = ({
   if (label || value) {
     return (
       <>
-        <div className="artof_select-value-text">{label || value}</div>
+        <div className="select-value-text">{label || value}</div>
 
         {allowClear && (
-          <button
-            type="button"
-            onClick={onClear}
-            className="artof_select-clear"
-          />
+          <button type="button" onClick={onClear} className="select__clear" />
         )}
       </>
     );

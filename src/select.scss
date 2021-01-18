@@ -17,11 +17,11 @@ $select-padding-y: $font-size-base * .75;
 $select-height: ($select-font-size * $select-line-height) + ($select-padding-y * 2);
 $select-icon-size: ($select-padding-x / 1.75);
 
-.artof_select-select {
+.select__select {
   display: none;
 }
 
-.artof_select-label {
+.select__label {
   display: block;
   margin: 0 0 ($font-size-base / 2);
   color: $color-muted;
@@ -33,11 +33,11 @@ $select-icon-size: ($select-padding-x / 1.75);
   line-height: 1;
 }
 
-.artof_select-field {
+.select__field {
   position: relative;
 }
 
-.artof_select-search {
+.select__search {
   box-sizing: border-box;
   position: absolute;
   top: 0;
@@ -55,27 +55,27 @@ $select-icon-size: ($select-padding-x / 1.75);
   outline: none;
 
   &:focus {
-    ~ .artof_select-value {
+    ~ .select__value {
       color: $color-placeholder;
 
-      .artof_select-tag {
+      .select__tag {
         opacity: .3;
       }
     }
   }
 
-  &.artof_select-search--filled {
-    ~ .artof_select-value {
+  &.select__search--filled {
+    ~ .select__value {
       color: transparent;
 
-      .artof_select-tag {
+      .select__tag {
         opacity: 0;
       }
     }
   }
 }
 
-.artof_select-value {
+.select__value {
   display: flex;
   align-items: center;
   box-sizing: border-box;
@@ -95,40 +95,40 @@ $select-icon-size: ($select-padding-x / 1.75);
   transition: border 300ms, background-color 300ms, box-shadow 300ms;
   cursor: pointer;
 
-  .artof_select--disabled & {
+  .select--disabled & {
     cursor: not-allowed;
   }
 
-  &.artof_select-value--placeholder {
+  &.select__value--placeholder {
     align-items: center;
     color: $color-placeholder;
   }
 
-  .artof_select:not(.artof_select--disabled):not(.artof_select--error):hover & {
+  .select:not(.select--disabled):not(.select--error):hover & {
     border-color: rgba($color-primary, .8);
   }
 
-  .artof_select--error & {
+  .select--error & {
     border-color: rgba($color-danger, .5);
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23e94c88' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e");
   }
 
-  .artof_select--opened & {
+  .select--opened & {
     border-color: rgba($color-primary, .8);
     box-shadow: 0 0 0 2px rgba($color-primary, .2);
   }
 
-  .artof_select--disabled & {
+  .select--disabled & {
     background-color: lighten($color-border, 14%);
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23d4d4d4' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e");
     color: $color-muted;
 
-    &.artof_select-value--placeholder {
+    &.select__value--placeholder {
       color: $color-placeholder;
     }
   }
 
-  &.artof_select-value--tags {
+  &.select__value--tags {
     display: grid;
     align-items: center;
     justify-content: flex-start;
@@ -140,7 +140,7 @@ $select-icon-size: ($select-padding-x / 1.75);
   }
 }
 
-.artof_select-tag {
+.select__tag {
   box-sizing: border-box;
   flex: 0 0 auto;
   height: $select-height - ($select-padding-y / 1.15 * 2);
@@ -159,7 +159,7 @@ $select-icon-size: ($select-padding-x / 1.75);
   text-overflow: ellipsis;
 }
 
-.artof_select-tags_count {
+.select__tags_count {
   border-radius: 100%;
   font-size: $font-size-base * .75;
   height: $select-height - ($select-padding-y * 2);
@@ -172,7 +172,7 @@ $select-icon-size: ($select-padding-x / 1.75);
   color: $color-white;
 }
 
-.artof_select-dropdown {
+.select__dropdown {
   box-sizing: border-box;
   z-index: 2;
   position: absolute;
@@ -197,7 +197,7 @@ $select-icon-size: ($select-padding-x / 1.75);
   }
 }
 
-.artof_select-option {
+.select__option {
   box-sizing: border-box;
   padding: $select-padding-y $select-padding-x;
   font-family: $font-family;
@@ -209,7 +209,7 @@ $select-icon-size: ($select-padding-x / 1.75);
   box-shadow: none;
   cursor: pointer;
 
-  &.artof_select-option--selected {
+  &.select__option--selected {
     background-color: rgba($color-primary, .08);
     color: darken($color-primary, 10%);
   }
@@ -218,11 +218,11 @@ $select-icon-size: ($select-padding-x / 1.75);
     background-color: darken($color-bg-hover, 5%);
   }
 
-  ~ .artof_select-option {
+  ~ .select__option {
     border-top: rgba($color-border, .5) 1px solid;
   }
 
-  .artof_select--multiple & {
+  .select--multiple & {
     display: flex;
     align-items: center;
 
@@ -238,7 +238,7 @@ $select-icon-size: ($select-padding-x / 1.75);
       transition: border-color 300ms;
     }
 
-    &.artof_select-option--selected {
+    &.select__option--selected {
       &:before {
         background: $color-primary url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3e%3cpath fill='%23fff' d='M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z'/%3e%3c/svg%3e") no-repeat 50% 50% / 8px 8px;
         border-color: $color-primary;
@@ -247,7 +247,7 @@ $select-icon-size: ($select-padding-x / 1.75);
   }
 }
 
-.artof_select-error {
+.select__error {
   box-sizing: border-box;
   margin-top: $font-size-base / 2;
   color: $color-danger;
@@ -257,7 +257,7 @@ $select-icon-size: ($select-padding-x / 1.75);
   line-height: 1;
 }
 
-.artof_select-hint {
+.select__hint {
   box-sizing: border-box;
   margin-top: $font-size-base / 2;
   color: $color-placeholder;
@@ -267,7 +267,7 @@ $select-icon-size: ($select-padding-x / 1.75);
   line-height: 1;
 }
 
-.artof_select-option.artof_select-select_all {
+.select__option.select__option--select_all {
   color: $color-primary;
 
   &:before {
@@ -275,7 +275,7 @@ $select-icon-size: ($select-padding-x / 1.75);
   }
 }
 
-.artof_select-clear {
+.select__clear {
   display: block;
   width: $font-size-base * $select-line-height;
   height: $font-size-base * $select-line-height;
@@ -289,7 +289,7 @@ $select-icon-size: ($select-padding-x / 1.75);
   opacity: 0;
   transition: all 300ms;
 
-  .artof_select-value:hover & {
+  .select__value:hover & {
     opacity: 1;
   }
 }
