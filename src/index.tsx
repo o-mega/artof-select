@@ -3,16 +3,16 @@ import "./select.scss";
 import React, { useState, useRef } from "react";
 import mergeRefs from "react-merge-refs";
 
+import { SelectValue } from "./components/value/SelectValue";
+import { classNames } from "./helpers/classNames";
+import { SelectLabel } from "./components/label/SelectLabel";
+import { SelectDropdown } from "./components/dropdown/SelectDropdown";
 import {
   SelectOption,
   SelectCommonProps,
   SelectSingle,
   SelectMultiple,
 } from "./Select.types";
-import { SelectValue } from "./components/value/SelectValue";
-import { classNames } from "./helpers/classNames";
-import { SelectLabel } from "./components/label/SelectLabel";
-import { SelectDropdown } from "./components/dropdown/SelectDropdown";
 
 const SelectComponent: React.ForwardRefRenderFunction<
   HTMLSelectElement,
@@ -288,5 +288,3 @@ export {
   SelectMultiple,
   Select,
 };
-
-export default Select;

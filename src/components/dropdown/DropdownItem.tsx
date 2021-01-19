@@ -10,7 +10,7 @@ interface Props extends SelectOption {
   allowMarkWords: boolean;
 }
 
-const Component: React.FC<Props> = ({
+export const DropdownItem: React.FC<Props> = React.memo(function dropdownItem({
   value,
   label,
   component,
@@ -18,7 +18,7 @@ const Component: React.FC<Props> = ({
   onClickOption,
   isSelected,
   allowMarkWords,
-}): JSX.Element => {
+}): JSX.Element {
   const text: ReactNode | ReactText = useMemo(() => {
     if (component) {
       return component;
@@ -36,7 +36,7 @@ const Component: React.FC<Props> = ({
         result.push(str);
 
         if (marks?.[i]) {
-          result.push(<mark>{marks[i]}</mark>);
+          result.push(<mark key={marks[i]}>{marks[i]}</mark>);
         }
       });
 
@@ -68,9 +68,4 @@ const Component: React.FC<Props> = ({
       {text}
     </div>
   );
-};
-
-const DropdownItem = React.memo(Component);
-DropdownItem.displayName = "DropdownItem";
-
-export { DropdownItem };
+});

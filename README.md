@@ -1,6 +1,5 @@
 # artof-select
 [![NPM](https://img.shields.io/npm/v/artof-select.svg)](https://www.npmjs.com/package/artof-select)
-![DEPENCENCIES](https://img.shields.io/librariesio/github/o-mega/artof-select.svg)
 [![BUNDLEPHOBIA](https://img.shields.io/bundlephobia/minzip/artof-select)](https://bundlephobia.com/result?p=artof-select)
 
 A simple, but powerful `<Select />` component for [React](https://reactjs.com).
