@@ -27,6 +27,7 @@ interface Props {
   onChange: SelectSingle["onChange"] | SelectMultiple["onChange"];
   selectRef: HTMLSelectElement | null;
   visibleFieldRef: HTMLDivElement | null;
+  dropdownOffset: [x: number, y: number];
 }
 
 export const SelectDropdown: React.FC<Props> = React.memo(function dropdown({
@@ -44,6 +45,7 @@ export const SelectDropdown: React.FC<Props> = React.memo(function dropdown({
   visibleFieldRef,
   textSelectAll,
   "data-testid": dataTestid,
+  dropdownOffset,
   ...restProps
 }): JSX.Element {
   const [typing, setTyping] = useState<string>("");
@@ -52,6 +54,14 @@ export const SelectDropdown: React.FC<Props> = React.memo(function dropdown({
 
   const { styles, attributes } = usePopper(visibleFieldRef, dropdown, {
     placement: "bottom",
+    modifiers: [
+      {
+        name: "offset",
+        options: {
+          offset: [dropdownOffset[0], dropdownOffset[1]],
+        },
+      },
+    ],
   });
 
   // bind click outside

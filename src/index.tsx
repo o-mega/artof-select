@@ -34,6 +34,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
     allowTagsCount = false,
     textSelected = "Selected",
     textSelectAll = "Select all",
+    dropdownOffset = [0, 4],
     renderValue,
     ...restProps
   },
@@ -267,6 +268,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
             onChange={restProps.onChange}
             selectRef={select.current}
             visibleFieldRef={visibleField.current}
+            dropdownOffset={dropdownOffset}
           />
         )}
       </div>
