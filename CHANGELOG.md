@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.2](https://github.com/o-mega/artof-select/compare/v1.2.1...v1.2.2) (2021-01-19)
+
+
+### Bug Fixes
+
+* Add offset to dropdown popper ([7f8e72f](https://github.com/o-mega/artof-select/commit/7f8e72f4930f2c004dfff5a7e62626472e39e9eb))
+
 ### [1.2.1](https://github.com/o-mega/artof-select/compare/v1.2.0...v1.2.1) (2021-01-19)
 
 
