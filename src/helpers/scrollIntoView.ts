@@ -1,6 +1,6 @@
 export const scrollIntoView = (dropdown: HTMLDivElement): void => {
   const selected = dropdown.querySelectorAll<HTMLDivElement>(
-    ".artof_select-option--selected"
+    ".select__option--selected"
   );
 
   if (selected.length) {

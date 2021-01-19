@@ -8,10 +8,10 @@
   margin-right: 5px;
 }
 
-.artof_select--multiple .artof_select-tag .flag_option span {
+.select--multiple .select__tag .flag_option span {
   display: none;
 }
 
-.artof_select--multiple .artof_select-tag .flag_option img {
+.select--multiple .select__tag .flag_option img {
   margin-right: 0;
 }

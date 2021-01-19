@@ -1,7 +1,7 @@
 import React, { ReactNode, ReactText, KeyboardEvent, useMemo } from "react";
 
-import { classNames } from "./classNames";
-import { SelectOption } from "../Select.types";
+import { classNames } from "../../helpers/classNames";
+import { SelectOption } from "../../Select.types";
 
 interface Props extends SelectOption {
   search: string;

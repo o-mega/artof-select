@@ -4,8 +4,8 @@ import {
   SelectMultiple,
   SelectCommonProps,
   SelectOption,
-} from "../Select.types";
-import { classNames } from "./classNames";
+} from "../../Select.types";
+import { classNames } from "../../helpers/classNames";
 
 interface Props {
   options: SelectOption[];

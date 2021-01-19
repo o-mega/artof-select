@@ -29,7 +29,6 @@
     "noEmit": false,
     "noImplicitAny": true,
     "noImplicitReturns": true,
-    "baseUrl": "./packages",
   },
   "exclude": [
     "./node_modules",

@@ -1,24 +1,18 @@
 import "./select.scss";
 
-import React, { useState, useRef, useEffect, ReactText } from "react";
+import React, { useState, useRef } from "react";
 import mergeRefs from "react-merge-refs";
-import { usePopper } from "react-popper";
 
-import { scrollIntoView, scrollToChild } from "./helpers/scrollIntoView";
-import { focusNext, focusPrev } from "./events";
-import { fireEvent } from "./fireEvent";
-import { SelectedValues } from "./helpers/SelectedValues";
-import { classNames } from "./helpers/classNames";
-import { SelectAllButton } from "./helpers/SelectAllButton";
 import {
   SelectOption,
   SelectCommonProps,
   SelectSingle,
   SelectMultiple,
 } from "./Select.types";
-import { DropdownItem } from "./helpers/DropdownItem";
-
-let typingTimeOut: ReturnType<typeof setTimeout>;
+import { SelectValue } from "./components/value/SelectValue";
+import { classNames } from "./helpers/classNames";
+import { SelectLabel } from "./components/label/SelectLabel";
+import { SelectDropdown } from "./components/dropdown/SelectDropdown";
 
 const SelectComponent: React.ForwardRefRenderFunction<
   HTMLSelectElement,
@@ -40,48 +34,16 @@ const SelectComponent: React.ForwardRefRenderFunction<
     allowTagsCount = false,
     textSelected = "Selected",
     textSelectAll = "Select all",
-    autoComplete = "off",
+    renderValue,
     ...restProps
   },
   ref
 ): JSX.Element => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");
-  const [typing, setTyping] = useState<string>("");
 
   const select = useRef<HTMLSelectElement>(null);
   const visibleField = useRef<HTMLDivElement>(null);
-  const [dropdown, setDropdown] = useState<HTMLDivElement | null>(null);
-
-  const { styles, attributes } = usePopper(visibleField.current, dropdown, {
-    placement: "bottom",
-  });
-
-  // bind click outside
-  useEffect(() => {
-    document.addEventListener("click", onClickOutside, false);
-
-    return () => {
-      document.removeEventListener("click", onClickOutside, false);
-      clearTimeout(typingTimeOut);
-    };
-  }, []);
-
-  // bind keyup
-  useEffect(() => {
-    document.addEventListener("keyup", handleKeyup, true);
-
-    return () => {
-      document.removeEventListener("keyup", handleKeyup, true);
-    };
-  }, [isOpen, dropdown, typing]);
-
-  // scroll to the first selected item if exist
-  useEffect(() => {
-    if (dropdown) {
-      scrollIntoView(dropdown);
-    }
-  }, [dropdown]);
 
   if (process.env.NODE_ENV !== "production") {
     React.useEffect(() => {
@@ -143,116 +105,38 @@ const SelectComponent: React.ForwardRefRenderFunction<
       // forward original select event
       onChange && onChange(event);
     }
-
-    setTyping("");
-    clearTimeout(typingTimeOut);
   };
 
   const onClickValue = (event: React.MouseEvent<HTMLDivElement>): void => {
+    // to manipulate with custom elements inside the value
+    const isCustomValue =
+      renderValue &&
+      (event.target as HTMLElement).closest(".select__value_custom");
+
     const isFocused = event.currentTarget === document.activeElement;
 
     if (
       !restProps.disabled &&
       !isFocused &&
-      (event.target as HTMLElement).className !== "select__clear"
+      (event.target as HTMLElement).className !== "select__clear" &&
+      !isCustomValue
     ) {
       setIsOpen(!isOpen);
     }
   };
 
   const onFocusValue = (event: React.FocusEvent<HTMLDivElement>): void => {
+    // to manipulate with custom elements inside the value
+    const isCustomValue =
+      renderValue &&
+      (event.target as HTMLElement).closest(".select__value_custom");
+
     if (
       !restProps.disabled &&
-      (event.target as HTMLElement).className !== "select__clear"
+      (event.target as HTMLElement).className !== "select__clear" &&
+      !isCustomValue
     ) {
       setIsOpen(true);
-    }
-  };
-
-  const onClickOption = (value: ReactText): void => {
-    if (select.current) {
-      const options = select.current.options;
-
-      for (let i = 0; i < options.length; i++) {
-        const option = options[i];
-        const isVisible = visibleOptions.find(
-          (opt) => opt.value === option.value
-        );
-
-        // if option not visible in dropdown, then unselect
-        if (!isVisible) {
-          option.selected = false;
-        }
-
-        // detect target option to toggle selection
-        else if (option.value === value) {
-          option.selected = !option.selected;
-        }
-      }
-
-      // force to fire event
-      fireEvent(select.current, "change");
-    }
-  };
-
-  const handleKeyup = (e: KeyboardEvent): void => {
-    if (isOpen) {
-      const key = e.key?.toLowerCase();
-
-      // navigate down
-      if (key === "arrowdown") {
-        focusNext();
-      }
-
-      // navigate up
-      else if (key === "arrowup") {
-        focusPrev();
-      }
-
-      // if tab outside of current options
-      else if (
-        key === "tab" &&
-        !visibleField.current?.contains(e.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-
-      // close dropdown on escape
-      else if (key === "escape") {
-        setIsOpen(false);
-      }
-
-      // to navigate through the options
-      else if (e.key.length === 1 && !allowSearch) {
-        setTyping(`${typing}${key}`);
-
-        const matched = visibleOptions.filter((opt) => {
-          return `${opt.label}`.toLocaleLowerCase().startsWith(`${typing}`);
-        });
-
-        if (matched.length && dropdown) {
-          const index = visibleOptions.indexOf(matched[0]);
-          const target = document.querySelectorAll<HTMLDivElement>(
-            `.select__option`
-          )?.[index];
-
-          if (target) {
-            scrollToChild(dropdown, target);
-            target.focus();
-          }
-        }
-
-        typingTimeOut = setTimeout(() => {
-          setTyping("");
-        }, 3000);
-      }
-    }
-  };
-
-  const onClickOutside = (event: MouseEvent): void => {
-    if (!visibleField.current?.parentNode?.contains(event.target as Node)) {
-      setIsOpen(false);
-      setSearch("");
     }
   };
 
@@ -269,7 +153,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
       const key = e.key?.toLowerCase();
 
       // if tab from search field focus
-      const selected = dropdown?.querySelectorAll<HTMLDivElement>(
+      const selected = visibleField.current?.querySelectorAll<HTMLDivElement>(
         ".select__option--selected"
       );
 
@@ -277,10 +161,6 @@ const SelectComponent: React.ForwardRefRenderFunction<
         selected[0].focus();
       }
     }
-  };
-
-  const onClickLabel = (): void => {
-    setIsOpen(true);
   };
 
   return (
@@ -321,14 +201,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
       </select>
 
       {label && (
-        <label
-          htmlFor={restProps.id}
-          className="select__label"
-          onClick={onClickLabel}
-          role="label"
-        >
-          {label}
-        </label>
+        <SelectLabel id={restProps.id} setIsOpen={setIsOpen} label={label} />
       )}
 
       <div className="select__field" ref={visibleField}>
@@ -339,7 +212,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
             onChange={onSearch}
             onFocus={onSearchFocus}
             onKeyUp={onSearchKeyUp}
-            autoComplete={autoComplete}
+            autoComplete="off"
             className={classNames([
               "select__search",
               !!search && "select__search--filled",
@@ -362,7 +235,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
               : undefined
           }
         >
-          <SelectedValues
+          <SelectValue
             multiple={multiple}
             options={options}
             asTags={asTags}
@@ -372,48 +245,29 @@ const SelectComponent: React.ForwardRefRenderFunction<
             allowTagsCount={allowTagsCount}
             allowClear={allowClear}
             select={select}
+            renderValue={renderValue}
           />
         </div>
 
         {isOpen && (
-          <div
-            className="select__dropdown"
-            ref={setDropdown}
-            data-testid={
-              restProps["data-testid"]
-                ? `${restProps["data-testid"]}--dropdown`
-                : undefined
-            }
-            style={styles.popper}
-            {...attributes.popper}
-          >
-            {multiple && allowSelectAll && visibleOptions.length > 1 && (
-              <SelectAllButton
-                options={options}
-                visibleOptions={visibleOptions}
-                value={(restProps as SelectMultiple).value}
-                onChange={(restProps as SelectMultiple).onChange}
-                textSelectAll={textSelectAll}
-              />
-            )}
-
-            {visibleOptions.map((option) => (
-              <DropdownItem
-                key={`dropdown_item__${option.value}`}
-                {...option}
-                search={search}
-                onClickOption={onClickOption}
-                isSelected={
-                  multiple
-                    ? !!(restProps as SelectMultiple).value?.includes(
-                        `${option.value}`
-                      )
-                    : option.value === (restProps as SelectSingle).value
-                }
-                allowMarkWords={allowMarkWords}
-              />
-            ))}
-          </div>
+          <SelectDropdown
+            options={options}
+            visibleOptions={visibleOptions}
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            search={search}
+            setSearch={setSearch}
+            data-testid={restProps["data-testid"]}
+            multiple={multiple}
+            allowSelectAll={allowSelectAll}
+            allowSearch={allowSearch}
+            allowMarkWords={allowMarkWords}
+            textSelectAll={textSelectAll}
+            value={restProps.value}
+            onChange={restProps.onChange}
+            selectRef={select.current}
+            visibleFieldRef={visibleField.current}
+          />
         )}
       </div>
 

@@ -349,7 +349,7 @@ describe("nulls check", () => {
   });
 });
 
-describe("props check", () => {
+describe("props", () => {
   it("should have aria-* attributes", () => {
     const { getByTestId } = render(
       <Select data-testid="select" options={TEST_OPTIONS} aria-hidden="true" />
@@ -409,6 +409,60 @@ describe("props check", () => {
         data-testid="select"
         placeholder={placeholder}
         options={TEST_OPTIONS}
+      />
+    );
+
+    expect(getByTestId("select--value")).toHaveTextContent(placeholder);
+  });
+
+  it("should use the prop to render the value", () => {
+    const { getByTestId } = render(
+      <Select
+        data-testid="select"
+        value="string1"
+        options={TEST_OPTIONS}
+        renderValue={(options) => (
+          <>
+            {options.map(({ label, value }) => (
+              <button
+                type="button"
+                key={value}
+                className="custom_render__button"
+                data-testid="custom_render_item"
+              >
+                {label}
+              </button>
+            ))}
+          </>
+        )}
+      />
+    );
+
+    expect(getByTestId("custom_render_item")).toBeInTheDocument();
+  });
+
+  it("should display placeholder with renderValue prop and no selection", () => {
+    const placeholder = "Test placeholder";
+
+    const { getByTestId } = render(
+      <Select
+        data-testid="select"
+        placeholder={placeholder}
+        options={TEST_OPTIONS}
+        renderValue={(options) => (
+          <>
+            {options.map(({ label, value }) => (
+              <button
+                type="button"
+                key={value}
+                className="custom_render__button"
+                data-testid="custom_render_item"
+              >
+                {label}
+              </button>
+            ))}
+          </>
+        )}
       />
     );
 

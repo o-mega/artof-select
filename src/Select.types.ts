@@ -6,20 +6,19 @@ export type SelectOption = {
   component?: ReactNode;
 };
 
-export interface SelectCommonProps
-  extends Omit<
-    React.SelectHTMLAttributes<HTMLSelectElement>,
-    | "children"
-    | "multiple"
-    | "value"
-    | "defaultValue"
-    | "options"
-    | "placeholder"
-    | "onChange"
-    | "onFocus"
-    | "onBlur"
-    | "autoFocus"
-  > {
+type BaseProps = Pick<
+  React.SelectHTMLAttributes<HTMLSelectElement>,
+  | "disabled"
+  | "form"
+  | "name"
+  | "required"
+  | "className"
+  | "id"
+  | "style"
+  | "datatype"
+>;
+
+export interface SelectCommonProps extends BaseProps {
   options?: SelectOption[];
   label?: ReactText;
   placeholder?: ReactText;
@@ -32,6 +31,7 @@ export interface SelectCommonProps
   allowMarkWords?: boolean;
   textSelected?: string;
   textSelectAll?: string;
+  renderValue?: (options: SelectOption[]) => JSX.Element;
   "data-testid"?: string;
   "data-cy"?: string;
 }

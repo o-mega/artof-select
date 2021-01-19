@@ -140,6 +140,10 @@ $select-icon-size: ($select-padding-x / 1.75);
   }
 }
 
+.select__value_custom {
+  margin-right: auto;
+}
+
 .select__tag {
   box-sizing: border-box;
   flex: 0 0 auto;
