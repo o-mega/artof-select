@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/o-mega/artof-select/compare/v1.1.3...v1.2.0) (2021-01-19)
+
+
+### Features
+
+* Add custom renderValue prop; perf: components ([8ea7006](https://github.com/o-mega/artof-select/commit/8ea7006b24035c05035f3a0a20035bc864f09a4b))
+
 ### [1.1.3](https://github.com/o-mega/artof-select/compare/v1.1.2...v1.1.3) (2021-01-18)
 
 ### [1.1.2](https://github.com/o-mega/artof-select/compare/v1.1.1...v1.1.2) (2021-01-18)
