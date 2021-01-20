@@ -96,17 +96,9 @@ export const SelectDropdown: React.FC<Props> = React.memo(function dropdown({
 
       for (let i = 0; i < options.length; i++) {
         const option = options[i];
-        const isVisible = visibleOptions.find(
-          (opt) => opt.value === option.value
-        );
-
-        // if option not visible in dropdown, then unselect
-        if (!isVisible) {
-          option.selected = false;
-        }
 
         // detect target option to toggle selection
-        else if (option.value === value) {
+        if (option.value === value) {
           option.selected = !option.selected;
         }
       }
