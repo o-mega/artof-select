@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.3](https://github.com/o-mega/artof-select/compare/v1.2.2...v1.2.3) (2021-01-20)
+
+
+### Bug Fixes
+
+* Add focus trigger event to select element ([a7a2e04](https://github.com/o-mega/artof-select/commit/a7a2e040cd85726d365922523d9263c4d361f59d))
+
 ### [1.2.2](https://github.com/o-mega/artof-select/compare/v1.2.1...v1.2.2) (2021-01-19)
 
 
