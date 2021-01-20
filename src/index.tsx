@@ -79,7 +79,9 @@ const SelectComponent: React.ForwardRefRenderFunction<
     `${label} ${value}`.toLowerCase().includes(search.toLowerCase())
   );
 
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+  const onChangeElement = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void => {
     if (multiple) {
       const { onChange } = restProps as SelectMultiple;
       const values: string[] = [];
@@ -106,6 +108,11 @@ const SelectComponent: React.ForwardRefRenderFunction<
       // forward original select event
       onChange && onChange(event);
     }
+  };
+
+  const onFocusElement = (): void => {
+    setIsOpen(true);
+    (visibleField.current?.childNodes[0] as HTMLElement).focus();
   };
 
   const onClickValue = (event: React.MouseEvent<HTMLDivElement>): void => {
@@ -187,10 +194,11 @@ const SelectComponent: React.ForwardRefRenderFunction<
         {...restProps}
         ref={mergeRefs([select, ref])}
         multiple={multiple}
-        onChange={handleChange}
+        onChange={onChangeElement}
+        onFocus={onFocusElement}
         value={restProps.value}
         tabIndex={-1}
-        className="select__select"
+        className="select__element"
       >
         {!multiple && <option value="" />}
 

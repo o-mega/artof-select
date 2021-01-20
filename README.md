@@ -79,7 +79,8 @@ Common props you may want to specify include:
 
 Also, the `onChange` prop can return `event: React.ChangeEvent<HTMLSelectElement>` or `values: string[]` depend on multiple option.
 
-In addition to above props, you can flavour `Select` component with all possible `HTMLSelectElement` props.
+In addition to above props, you can get access to the `Select` component with `ref`.
+This will allow you to force some events, like: `selectRef.current?.focus()`
 
 ## Run the Demo from local
 

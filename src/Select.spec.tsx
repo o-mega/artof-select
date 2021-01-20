@@ -63,6 +63,25 @@ describe("ref", () => {
 
     expect(ref.current?.name).toEqual("test_name");
   });
+
+  it("Open on ref focus", async () => {
+    const ref = React.createRef<HTMLSelectElement>();
+
+    const { findByTestId } = render(
+      <Select
+        data-testid="select"
+        name="test_name"
+        options={TEST_OPTIONS}
+        ref={ref}
+      />
+    );
+
+    if (ref.current) {
+      fireEvent.focus(ref.current);
+    }
+
+    expect(await findByTestId("select--wrapper")).toHaveClass("select--opened");
+  });
 });
 
 describe("classNames", () => {
