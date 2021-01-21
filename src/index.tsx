@@ -112,6 +112,8 @@ const SelectComponent: React.ForwardRefRenderFunction<
 
       // close dropdown on change value if only one option were available
       if (visibleOptions.length === 1) {
+        (visibleField.current?.childNodes[0] as HTMLElement).focus();
+
         setIsOpen(false);
         setSearch("");
       }
@@ -119,6 +121,8 @@ const SelectComponent: React.ForwardRefRenderFunction<
       const { onChange } = restProps as SelectSingle;
 
       // close dropdown on change value
+      (visibleField.current?.childNodes[0] as HTMLElement).focus();
+
       setIsOpen(false);
       setSearch("");
 
@@ -158,12 +162,20 @@ const SelectComponent: React.ForwardRefRenderFunction<
   const onSearchKeyup = (e: React.KeyboardEvent<HTMLInputElement>): void => {
     const key = e.key?.toLowerCase();
 
-    if (key === "enter" && visibleOptions.length === 1) {
+    if (key === "enter") {
+      if (visibleOptions.length === 1) {
+        (document.getElementsByClassName(
+          "select__option"
+        )[0] as HTMLElement).click();
+        e.currentTarget.blur();
+      } else if (visibleOptions.length === 0) {
+        setSearch("");
+        e.currentTarget.blur();
+      }
+    } else if (key === "arrowdown") {
       (document.getElementsByClassName(
         "select__option"
-      )[0] as HTMLElement).click();
-
-      e.currentTarget.blur();
+      )[0] as HTMLElement).focus();
     }
   };
 

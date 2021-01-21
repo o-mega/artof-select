@@ -104,7 +104,7 @@ $select-icon-size: ($select-padding-x / 1.75);
     color: $color-placeholder;
   }
 
-  .select:not(.select--disabled):not(.select--error):hover & {
+  .select:not(.select--disabled):not(.select--error):not(.select--opened):hover & {
     border-color: rgba($color-primary, .8);
   }
 
@@ -114,6 +114,7 @@ $select-icon-size: ($select-padding-x / 1.75);
   }
 
   .select:not(.select--disabled):not(.select--error) &:focus,
+  .select__search:focus ~ &,
   .select--opened & {
     border-color: rgba($color-primary, .8);
     box-shadow: 0 0 0 2px rgba($color-primary, .2);

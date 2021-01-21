@@ -32,8 +32,6 @@ export const DropdownItem: React.FC<Props> = React.memo(function dropdownItem({
       const marks = string.match(re);
       const result: React.ReactNode[] = [];
 
-      console.log(splits, marks);
-
       splits.forEach((str, i) => {
         result.push(str);
 

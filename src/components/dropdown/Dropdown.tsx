@@ -99,7 +99,11 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
 
         // detect target option to toggle selection
         if (option.value === value) {
-          option.selected = !option.selected;
+          if (option.selected && multiple) {
+            option.selected = !option.selected;
+          } else {
+            option.selected = true;
+          }
         }
       }
 
@@ -130,6 +134,7 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
       // close dropdown on escape
       else if (key === "escape") {
         setIsOpen(false);
+        (visibleFieldRef?.childNodes[0] as HTMLElement).focus();
       }
 
       // to navigate through the options
