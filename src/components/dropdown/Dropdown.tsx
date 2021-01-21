@@ -135,6 +135,7 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
       // to navigate through the options
       else if (e.key.length === 1 && !allowSearch) {
         setTyping(`${typing}${key}`);
+        clearTimeout(typingTimeOut);
 
         const matched = visibleOptions.filter((opt) => {
           return `${opt.label}`.toLocaleLowerCase().startsWith(`${typing}`);
@@ -154,7 +155,7 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
 
         typingTimeOut = setTimeout(() => {
           setTyping("");
-        }, 3000);
+        }, 2000);
       }
     }
   };
