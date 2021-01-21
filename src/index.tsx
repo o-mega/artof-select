@@ -155,6 +155,18 @@ const SelectComponent: React.ForwardRefRenderFunction<
     setIsOpen(true);
   };
 
+  const onSearchKeyup = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+    const key = e.key?.toLowerCase();
+
+    if (key === "enter" && visibleOptions.length === 1) {
+      (document.getElementsByClassName(
+        "select__option"
+      )[0] as HTMLElement).click();
+
+      e.currentTarget.blur();
+    }
+  };
+
   const handleKeydown = (e: KeyboardEvent): void => {
     const key = e.key?.toLowerCase();
     const inFocus = e.target === visibleField.current?.childNodes[0];
@@ -213,6 +225,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
             type="text"
             value={search}
             onChange={onSearch}
+            onKeyUp={onSearchKeyup}
             onFocus={onSearchFocus}
             autoComplete="off"
             className={classNames([
