@@ -155,7 +155,7 @@ describe("open dropdown", () => {
     expect(await findByTestId("select--wrapper")).toHaveClass("select--opened");
   });
 
-  it("should trigger to open dropdown in tab order", async () => {
+  it("should trigger correct focus on tab order", async () => {
     const { getByTestId, findByTestId } = render(
       <React.Fragment>
         <input data-testid="test_input" />
@@ -177,6 +177,23 @@ describe("open dropdown", () => {
     );
 
     fireEvent.click(getByRole("label"));
+
+    expect(await findByTestId("select--wrapper")).toHaveClass("select--opened");
+  });
+
+  it("open only with the left mouse button click", async () => {
+    const { getByRole, findByTestId } = render(
+      <Select data-testid="select" options={TEST_OPTIONS} />
+    );
+
+    const trigger = getByRole("button");
+
+    // If clicked by the right/middle mouse button, no options list should be opened
+    fireEvent.click(getByRole("button"), { button: 1 });
+
+    expect(await findByTestId("select--wrapper")).toHaveClass("select--opened");
+
+    fireEvent.click(trigger, { button: 2 });
 
     expect(await findByTestId("select--wrapper")).toHaveClass("select--opened");
   });
@@ -410,6 +427,16 @@ describe("props", () => {
     expect(getByTestId("select")).toHaveValue(val);
   });
 
+  it("can be labelled with a <label />", () => {
+    const label = "Test Label";
+
+    const { getByTestId } = render(
+      <Select data-testid="select" label={label} options={TEST_OPTIONS} />
+    );
+
+    expect(getByTestId("select").nextSibling).toHaveTextContent(label);
+  });
+
   it("should not trigger any event with disabled", () => {
     const { getByTestId } = render(
       <Select data-testid="select" disabled={true} options={TEST_OPTIONS} />
@@ -486,6 +513,39 @@ describe("props", () => {
     );
 
     expect(getByTestId("select--value")).toHaveTextContent(placeholder);
+  });
+
+  it("autoFocus: should focus select after Select did mount", async () => {
+    const { findByTestId } = render(
+      <Select data-testid="select" autoFocus={true} options={TEST_OPTIONS} />
+    );
+
+    expect(await findByTestId("select--value")).toHaveFocus();
+  });
+
+  it("should have select `name` when provided", () => {
+    const name = "test_name";
+    const { getByTestId } = render(
+      <Select data-testid="select" name={name} options={TEST_OPTIONS} />
+    );
+
+    expect(getByTestId("select")).toHaveAttribute("name", name);
+  });
+
+  it("should have `id` attribute for select and `htmlFor` for label when provided", () => {
+    const id = "test_name";
+
+    const { getByTestId } = render(
+      <Select
+        data-testid="select"
+        id={id}
+        label="Test Label"
+        options={TEST_OPTIONS}
+      />
+    );
+
+    expect(getByTestId("select")).toHaveAttribute("id", id);
+    expect(getByTestId("select").nextSibling).toHaveAttribute("for", id);
   });
 });
 
@@ -648,16 +708,12 @@ describe("visible options", () => {
 });
 
 describe("warnings", () => {
-  const originalWarn = console.warn;
-  const consoleOutput: string[] = [];
-  const mockedWarn = (output: string) => consoleOutput.push(output);
-
-  beforeEach(() => (console.warn = mockedWarn));
-
-  afterEach(() => (console.warn = originalWarn));
-
   it("warns when the value is not present in any option", () => {
+    const consoleOutput: string[] = [];
+    const mockedWarn = (output: string) => consoleOutput.push(output);
     const val = "ANOTHER";
+
+    console.warn = mockedWarn;
 
     render(<Select data-testid="select" value={val} options={TEST_OPTIONS} />);
 
@@ -667,6 +723,27 @@ describe("warnings", () => {
         `The available values are ${TEST_OPTIONS.map(
           ({ value }) => `\`${value}\``
         ).join(", ")}.`,
+    ]);
+  });
+
+  it("should throw if non array for multiple", () => {
+    const consoleOutput: string[] = [];
+    const mockedError = (output: string) => consoleOutput.push(output);
+
+    console.error = mockedError;
+
+    render(
+      // @ts-ignore need here to run the test
+      <Select
+        data-testid="select"
+        value="string1"
+        multiple={true}
+        options={TEST_OPTIONS}
+      />
+    );
+
+    expect(consoleOutput).toEqual([
+      "Warning: The `%s` prop supplied to <select> must be an array if `multiple` is true.%s%s",
     ]);
   });
 });

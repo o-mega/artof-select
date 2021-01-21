@@ -30,7 +30,7 @@ interface Props {
   dropdownOffset: [x: number, y: number];
 }
 
-export const SelectDropdown: React.FC<Props> = React.memo(function dropdown({
+export const Dropdown: React.FC<Props> = React.memo(function dropdown({
   options,
   visibleOptions,
   isOpen,
@@ -109,9 +109,9 @@ export const SelectDropdown: React.FC<Props> = React.memo(function dropdown({
   };
 
   const handleKeyup = (e: KeyboardEvent): void => {
-    if (isOpen) {
-      const key = e.key?.toLowerCase();
+    const key = e.key?.toLowerCase();
 
+    if (isOpen) {
       // navigate down
       if (key === "arrowdown") {
         focusNext();
@@ -170,6 +170,7 @@ export const SelectDropdown: React.FC<Props> = React.memo(function dropdown({
     <div
       className="select__dropdown"
       ref={setDropdown}
+      role="listbox"
       data-testid={dataTestid ? `${dataTestid}--dropdown` : undefined}
       style={styles.popper}
       {...attributes.popper}
@@ -184,22 +185,24 @@ export const SelectDropdown: React.FC<Props> = React.memo(function dropdown({
         />
       )}
 
-      {visibleOptions.map((option) => (
-        <DropdownItem
-          key={`dropdown_item__${option.value}`}
-          {...option}
-          search={search}
-          onClickOption={onClickOption}
-          isSelected={
-            multiple
-              ? !!(restProps as SelectMultiple).value?.includes(
-                  `${option.value}`
-                )
-              : option.value === (restProps as SelectSingle).value
-          }
-          allowMarkWords={allowMarkWords}
-        />
-      ))}
+      {visibleOptions.map((option, index) => {
+        return (
+          <DropdownItem
+            key={`dropdown_item__${index}`}
+            {...option}
+            search={search}
+            onClickOption={onClickOption}
+            isSelected={
+              multiple
+                ? !!(restProps as SelectMultiple).value?.includes(
+                    `${option.value}`
+                  )
+                : option.value === (restProps as SelectSingle).value
+            }
+            allowMarkWords={allowMarkWords}
+          />
+        );
+      })}
     </div>
   );
 });

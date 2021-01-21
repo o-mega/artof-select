@@ -1,12 +1,12 @@
 import "./select.scss";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import mergeRefs from "react-merge-refs";
 
 import { SelectValue } from "./components/value/SelectValue";
 import { classNames } from "./helpers/classNames";
 import { SelectLabel } from "./components/label/SelectLabel";
-import { SelectDropdown } from "./components/dropdown/SelectDropdown";
+import { Dropdown } from "./components/dropdown/Dropdown";
 import {
   SelectOption,
   SelectCommonProps,
@@ -35,6 +35,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
     textSelected = "Selected",
     textSelectAll = "Select all",
     dropdownOffset = [0, 4],
+    autoFocus,
     renderValue,
     ...restProps
   },
@@ -45,6 +46,22 @@ const SelectComponent: React.ForwardRefRenderFunction<
 
   const select = useRef<HTMLSelectElement>(null);
   const visibleField = useRef<HTMLDivElement>(null);
+
+  // bind global keydown spy
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeydown, false);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeydown, false);
+    };
+  }, []);
+
+  // autoFocus
+  useEffect(() => {
+    if (autoFocus && visibleField.current) {
+      (visibleField.current.childNodes[0] as HTMLElement).focus();
+    }
+  }, [visibleField.current]);
 
   if (process.env.NODE_ENV !== "production") {
     React.useEffect(() => {
@@ -121,30 +138,12 @@ const SelectComponent: React.ForwardRefRenderFunction<
       renderValue &&
       (event.target as HTMLElement).closest(".select__value_custom");
 
-    const isFocused = event.currentTarget === document.activeElement;
-
     if (
       !restProps.disabled &&
-      !isFocused &&
       (event.target as HTMLElement).className !== "select__clear" &&
       !isCustomValue
     ) {
       setIsOpen(!isOpen);
-    }
-  };
-
-  const onFocusValue = (event: React.FocusEvent<HTMLDivElement>): void => {
-    // to manipulate with custom elements inside the value
-    const isCustomValue =
-      renderValue &&
-      (event.target as HTMLElement).closest(".select__value_custom");
-
-    if (
-      !restProps.disabled &&
-      (event.target as HTMLElement).className !== "select__clear" &&
-      !isCustomValue
-    ) {
-      setIsOpen(true);
     }
   };
 
@@ -156,18 +155,13 @@ const SelectComponent: React.ForwardRefRenderFunction<
     setIsOpen(true);
   };
 
-  const onSearchKeyUp = (e: React.KeyboardEvent<HTMLInputElement>): void => {
-    if (isOpen) {
-      const key = e.key?.toLowerCase();
+  const handleKeydown = (e: KeyboardEvent): void => {
+    const key = e.key?.toLowerCase();
+    const inFocus = e.target === visibleField.current?.childNodes[0];
 
-      // if tab from search field focus
-      const selected = visibleField.current?.querySelectorAll<HTMLDivElement>(
-        ".select__option--selected"
-      );
-
-      if (key === "tab" && selected?.length) {
-        selected[0].focus();
-      }
+    if (inFocus && [" ", "arrowdown", "enter"].includes(key)) {
+      e.preventDefault();
+      setIsOpen(true);
     }
   };
 
@@ -202,8 +196,8 @@ const SelectComponent: React.ForwardRefRenderFunction<
       >
         {!multiple && <option value="" />}
 
-        {options.map((option) => (
-          <option key={`option_${option.value}`} value={option.value}>
+        {options.map((option, index) => (
+          <option key={`option_${index}`} value={option.value}>
             {option.label}
           </option>
         ))}
@@ -220,7 +214,6 @@ const SelectComponent: React.ForwardRefRenderFunction<
             value={search}
             onChange={onSearch}
             onFocus={onSearchFocus}
-            onKeyUp={onSearchKeyUp}
             autoComplete="off"
             className={classNames([
               "select__search",
@@ -236,13 +229,13 @@ const SelectComponent: React.ForwardRefRenderFunction<
             asTags && "select__value--tags",
           ])}
           tabIndex={allowSearch ? undefined : 0}
-          onFocus={onFocusValue}
           onClick={onClickValue}
           data-testid={
             restProps["data-testid"]
               ? `${restProps["data-testid"]}--value`
               : undefined
           }
+          role="button"
         >
           <SelectValue
             multiple={multiple}
@@ -259,7 +252,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
         </div>
 
         {isOpen && (
-          <SelectDropdown
+          <Dropdown
             options={options}
             visibleOptions={visibleOptions}
             isOpen={isOpen}

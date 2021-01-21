@@ -16,6 +16,7 @@ type BaseProps = Pick<
   | "id"
   | "style"
   | "datatype"
+  | "autoFocus"
 >;
 
 export interface SelectCommonProps extends BaseProps {
