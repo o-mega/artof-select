@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.3](https://github.com/o-mega/artof-select/compare/v1.4.2...v1.4.3) (2021-01-22)
+
+
+### Bug Fixes
+
+* Clear search on Escape ([2cee512](https://github.com/o-mega/artof-select/commit/2cee512db75dd910dfd6e94d93e1b28d344cbf63))
+
 ### [1.4.2](https://github.com/o-mega/artof-select/compare/v1.4.1...v1.4.2) (2021-01-22)
 
 
