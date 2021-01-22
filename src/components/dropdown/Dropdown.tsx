@@ -136,6 +136,7 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
       else if (key === "escape") {
         setIsOpen(false);
         visibleFieldRef?.focus();
+        setSearch("");
       }
 
       // to navigate through the options
