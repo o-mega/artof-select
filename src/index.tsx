@@ -155,7 +155,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
     setIsOpen(true);
   };
 
-  const onSearchKeyup = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+  const onSearchDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
     const key = e.key?.toLowerCase();
 
     if (key === "enter") {
@@ -254,7 +254,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
             type="text"
             value={search}
             onChange={onSearch}
-            onKeyUp={onSearchKeyup}
+            onKeyDown={onSearchDown}
             onFocus={onSearchFocus}
             autoComplete="off"
             role="search"

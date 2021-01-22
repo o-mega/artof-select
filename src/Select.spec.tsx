@@ -261,7 +261,7 @@ describe("close dropdown", () => {
 
     expect(await findByTestId("select--wrapper")).toHaveClass("select--opened");
 
-    fireEvent.keyUp(container, {
+    fireEvent.keyDown(container, {
       key: "Escape",
       code: "Escape",
       keyCode: 27,

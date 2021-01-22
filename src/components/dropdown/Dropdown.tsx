@@ -76,10 +76,10 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
 
   // bind keyup
   useEffect(() => {
-    document.addEventListener("keyup", handleKeyup, true);
+    document.addEventListener("keydown", handleKeyDown, true);
 
     return () => {
-      document.removeEventListener("keyup", handleKeyup, true);
+      document.removeEventListener("keydown", handleKeyDown, true);
     };
   }, [isOpen, dropdown, typing]);
 
@@ -112,7 +112,7 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
     }
   };
 
-  const handleKeyup = (e: KeyboardEvent): void => {
+  const handleKeyDown = (e: KeyboardEvent): void => {
     if (isOpen) {
       const key = e.key?.toLowerCase();
       const isCurrent = visibleFieldRef?.contains(e.target as Node);
