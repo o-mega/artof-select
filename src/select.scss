@@ -84,7 +84,7 @@ $select-icon-size: ($select-padding-x / 1.75);
   overflow: hidden;
   height: $select-height;
   margin: 0;
-  padding: $select-padding-y ($select-padding-x * 2 + $select-icon-size) $select-padding-y $select-padding-x;
+  padding: $select-padding-y ($select-padding-x * 2 + $select-icon-size + $font-size-base * $select-line-height) $select-padding-y $select-padding-x;
   outline: none;
   box-shadow: none;
   border: 1px solid $color-border;
@@ -136,16 +136,18 @@ $select-icon-size: ($select-padding-x / 1.75);
     }
   }
 
-  &.select__value--tags {
-    display: grid;
-    align-items: center;
-    justify-content: flex-start;
-    grid-template-columns: auto repeat( auto-fit, minmax(0, 1fr) );
-    column-gap: $font-size-base / 4;
-    grid-auto-flow: column;
+  &.select__value--tags:not(.select__value--placeholder) {
+    display: block;
+    white-space: nowrap;
     padding-top: $select-padding-y / 1.25;
     padding-bottom: $select-padding-y / 1.25;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
+}
+
+.select__value_text {
+  pointer-events: none;
 }
 
 .select__value_custom {
@@ -153,12 +155,11 @@ $select-icon-size: ($select-padding-x / 1.75);
 }
 
 .select__tag {
+  display: inline-block;
   box-sizing: border-box;
-  flex: 0 0 auto;
   height: $select-height - ($select-padding-y / 1.15 * 2);
   font-size: $font-size-base * .8125;
-  padding-top: ($select-height - ($select-padding-y / 1.15 * 2) - $font-size-base * .8125) / 2;
-  line-height: 1;
+  line-height: $select-height - ($select-padding-y / 1.15 * 2);
   background-color: rgba($color-primary, .2);
   text-transform: uppercase;
   white-space: nowrap;
@@ -169,6 +170,13 @@ $select-icon-size: ($select-padding-x / 1.75);
   color: darken($color-primary, 25%);
   overflow: hidden;
   text-overflow: ellipsis;
+  pointer-events: none;
+  vertical-align: middle;
+  margin-right: $font-size-base / 4;
+
+  &:last-child {
+    margin-right: 0;
+  }
 }
 
 .select__tags_count {
@@ -177,11 +185,13 @@ $select-icon-size: ($select-padding-x / 1.75);
   height: $select-height - ($select-padding-y * 2);
   width: $select-height - ($select-padding-y * 2);
   margin-left: $select-padding-y / -2;
-  display: flex;
+  margin-right: $font-size-base / 4;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   background-color: $color-primary;
   color: $color-white;
+  vertical-align: middle;
 }
 
 .select__dropdown {
@@ -287,11 +297,14 @@ $select-icon-size: ($select-padding-x / 1.75);
 }
 
 .select__clear {
+  position: absolute;
   display: block;
+  top: 50%;
+  transform: translateY(-50%);
+  right: ($select-padding-x * 2);
   width: $font-size-base * $select-line-height;
   height: $font-size-base * $select-line-height;
   padding: 0;
-  margin: 0 0 0 auto;
   border: none;
   box-shadow: none;
   outline: none;

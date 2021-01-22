@@ -246,12 +246,8 @@ const SelectMiltipleExample: React.FC<SelectMultiple> = (props) => {
 storiesOf("artof-select", module)
   .add("Single [default]", () => {
     return (
-      <div style={{
-        display: 'grid',
-        columnGap: 30,
-        gridTemplateColumns: 'repeat(2, 1fr)'
-      }}>
-        <div>
+      <div className="story__select-wrapper">
+        <div className="story__select-col">
           <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '0 0 20px' }}>Single Select</h3>
 
           <SelectSingleExample
@@ -321,7 +317,7 @@ storiesOf("artof-select", module)
           />
         </div>
 
-        <div>
+        <div className="story__select-col">
           <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '0 0 20px' }}>Searchable</h3>
 
           <SelectSingleExample
@@ -348,12 +344,8 @@ storiesOf("artof-select", module)
 
   .add("Multiple", () => {
     return (
-      <div style={{
-        display: 'grid',
-        columnGap: 30,
-        gridTemplateColumns: 'repeat(2, 1fr)'
-      }}>
-        <div>
+      <div className="story__select-wrapper">
+        <div className="story__select-col">
           <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '0 0 20px' }}>Multiple Select</h3>
 
           <SelectMiltipleExample
@@ -421,7 +413,7 @@ storiesOf("artof-select", module)
           />
         </div>
 
-        <div>
+        <div className="story__select-col">
           <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '0 0 20px' }}>Searchable</h3>
 
           <SelectMiltipleExample
@@ -463,12 +455,8 @@ storiesOf("artof-select", module)
 
   .add("Custom options", () => {
     return (
-      <div style={{
-        display: 'grid',
-        columnGap: 30,
-        gridTemplateColumns: 'repeat(2, 1fr)'
-      }}>
-        <div>
+      <div className="story__select-wrapper">
+        <div className="story__select-col">
           <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '0 0 20px' }}>Single Select</h3>
 
           <SelectSingleExample
@@ -481,7 +469,7 @@ storiesOf("artof-select", module)
           />
         </div>
 
-        <div>
+        <div className="story__select-col">
           <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '0 0 20px' }}>Multiple Select</h3>
 
           <SelectMiltipleExample
@@ -510,12 +498,8 @@ storiesOf("artof-select", module)
     };
 
     return (
-      <div style={{
-        display: 'grid',
-        columnGap: 30,
-        gridTemplateColumns: 'repeat(2, 1fr)'
-      }}>
-        <div>
+      <div className="story__select-wrapper">
+        <div className="story__select-col">
           <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '0 0 20px' }}>Custom Value Render</h3>
 
           <Select
@@ -541,7 +525,7 @@ storiesOf("artof-select", module)
           />
         </div>
 
-        <div id="example" style={{ fontSize: '1rem', fontFamily: 'sans-serif' }}>
+        <div className="story__select-col" style={{ fontSize: '1rem', fontFamily: 'sans-serif' }}>
           You can find a full example at <a href="https://gist.github.com/o-mega/bd89f4b45ee22f70f70e6207adb956a5" target="_blank">Github Gist</a>
         </div>
       </div>

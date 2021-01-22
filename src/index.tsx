@@ -186,6 +186,10 @@ const SelectComponent: React.ForwardRefRenderFunction<
       if (inFocus && [" ", "arrowdown", "enter"].includes(key)) {
         e.preventDefault();
         setIsOpen(true);
+
+        if (allowSearch) {
+          (visibleField.current?.childNodes[0] as HTMLElement)?.focus();
+        }
       }
     } else {
       setIsOpen(false);

@@ -1,5 +1,18 @@
+.story__select-wrapper {
+  display: flex;
+  width: 100%;
+}
+
+.story__select-col {
+  flex: 0 0 50%;
+  max-width: 50%;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
 .flag_option {
   display: flex;
+  height: 1.4376521739rem;
   align-items: center;
   line-height: 1;
 }
