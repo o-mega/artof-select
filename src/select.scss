@@ -35,6 +35,8 @@ $select-icon-size: ($select-padding-x / 1.75);
 
 .select__field {
   position: relative;
+  box-shadow: none;
+  outline: none;
 }
 
 .select__search {
@@ -113,7 +115,11 @@ $select-icon-size: ($select-padding-x / 1.75);
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23e94c88' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e");
   }
 
-  .select:not(.select--disabled):not(.select--error) &:focus,
+  .select--error:not(.select--opened) .select__field:focus & {
+    box-shadow: 0 0 0 2px rgba($color-danger, .2);
+  }
+
+  .select:not(.select--disabled):not(.select--error) .select__field:focus &,
   .select__search:focus ~ &,
   .select--opened & {
     border-color: rgba($color-primary, .8);

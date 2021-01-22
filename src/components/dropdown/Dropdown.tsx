@@ -113,28 +113,29 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
   };
 
   const handleKeyup = (e: KeyboardEvent): void => {
-    const key = e.key?.toLowerCase();
-
     if (isOpen) {
+      const key = e.key?.toLowerCase();
+      const isCurrent = visibleFieldRef?.contains(e.target as Node);
+
       // navigate down
-      if (key === "arrowdown") {
+      if (isCurrent && key === "arrowdown") {
         focusNext();
       }
 
       // navigate up
-      else if (key === "arrowup") {
+      else if (isCurrent && key === "arrowup") {
         focusPrev();
       }
 
       // if tab outside of current options
-      else if (key === "tab" && !visibleFieldRef?.contains(e.target as Node)) {
+      else if (["tab", "arrowdown", "arrowup"].includes(key) && !isCurrent) {
         setIsOpen(false);
       }
 
       // close dropdown on escape
       else if (key === "escape") {
         setIsOpen(false);
-        (visibleFieldRef?.childNodes[0] as HTMLElement).focus();
+        visibleFieldRef?.focus();
       }
 
       // to navigate through the options

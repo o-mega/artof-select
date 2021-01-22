@@ -94,11 +94,11 @@ describe("classNames", () => {
   });
 
   it("has special className when is open", async () => {
-    const { getByTestId, findByTestId } = render(
+    const { getByRole, findByTestId } = render(
       <Select data-testid="select" options={TEST_OPTIONS} />
     );
 
-    fireEvent.click(getByTestId("select--value"));
+    fireEvent.click(getByRole("button"));
 
     expect(await findByTestId("select--wrapper")).toHaveClass("select--opened");
   });
@@ -146,11 +146,11 @@ describe("classNames", () => {
 
 describe("open dropdown", () => {
   it("open dropdown with click on element", async () => {
-    const { getByTestId, findByTestId } = render(
+    const { getByRole, findByTestId } = render(
       <Select data-testid="select" name="test_name" options={TEST_OPTIONS} />
     );
 
-    fireEvent.click(getByTestId("select--value"));
+    fireEvent.click(getByRole("button"));
 
     expect(await findByTestId("select--wrapper")).toHaveClass("select--opened");
   });
@@ -168,7 +168,7 @@ describe("open dropdown", () => {
 
     userEvent.tab();
 
-    expect(await findByTestId("select--value")).toHaveFocus();
+    expect(await findByTestId("select--field")).toHaveFocus();
   });
 
   it("should open dropdown when its label is clicked", async () => {
@@ -201,7 +201,7 @@ describe("open dropdown", () => {
 
 describe("close dropdown", () => {
   it("opened select can be closed with outside click", async () => {
-    const { getByTestId, findByTestId } = render(
+    const { getByTestId, getByRole, findByTestId } = render(
       <div>
         <div data-testid="test-outside" style={{ height: 100 }} />
 
@@ -209,7 +209,7 @@ describe("close dropdown", () => {
       </div>
     );
 
-    fireEvent.click(getByTestId("select--value"));
+    fireEvent.click(getByRole("button"));
     expect(await findByTestId("select--wrapper")).toHaveClass("select--opened");
 
     fireEvent.click(getByTestId("test-outside"));
@@ -219,11 +219,11 @@ describe("close dropdown", () => {
   });
 
   it("single Select - dropdown closed after select an option", async () => {
-    const { getByTestId, findByTestId } = render(
+    const { getByRole, getByTestId, findByTestId } = render(
       <Select data-testid="select" name="test_name" options={TEST_OPTIONS} />
     );
 
-    fireEvent.click(getByTestId("select--value"));
+    fireEvent.click(getByRole("button"));
 
     const options = (
       await findByTestId("select--dropdown")
@@ -239,15 +239,13 @@ describe("close dropdown", () => {
   });
 
   it("multi Select - dropdown not closes after select an option", async () => {
-    const { getByTestId, findByTestId } = render(
+    const { getByRole, findByTestId, findAllByRole } = render(
       <Select data-testid="select" multiple={true} options={TEST_OPTIONS} />
     );
 
-    fireEvent.click(getByTestId("select--value"));
+    fireEvent.click(getByRole("button"));
 
-    const options = (
-      await findByTestId("select--dropdown")
-    ).getElementsByClassName("select__option");
+    const options = await findAllByRole("option");
 
     fireEvent.click(options[0]);
 
@@ -255,11 +253,11 @@ describe("close dropdown", () => {
   });
 
   it("opened dropdown closes with Esc", async () => {
-    const { getByTestId, container, findByTestId } = render(
+    const { getByRole, container, findByTestId } = render(
       <Select data-testid="select" multiple={true} options={TEST_OPTIONS} />
     );
 
-    fireEvent.click(getByTestId("select--value"));
+    fireEvent.click(getByRole("button"));
 
     expect(await findByTestId("select--wrapper")).toHaveClass("select--opened");
 
@@ -438,11 +436,11 @@ describe("props", () => {
   });
 
   it("should not trigger any event with disabled", () => {
-    const { getByTestId } = render(
+    const { getByTestId, getByRole } = render(
       <Select data-testid="select" disabled={true} options={TEST_OPTIONS} />
     );
 
-    fireEvent.click(getByTestId("select--value"));
+    fireEvent.click(getByRole("button"));
 
     expect(getByTestId("select--wrapper")).not.toHaveClass("select--opened");
   });
@@ -450,7 +448,7 @@ describe("props", () => {
   it("should display the placeholder if its value is empty", () => {
     const placeholder = "Test placeholder";
 
-    const { getByTestId } = render(
+    const { getByRole } = render(
       <Select
         data-testid="select"
         placeholder={placeholder}
@@ -458,7 +456,7 @@ describe("props", () => {
       />
     );
 
-    expect(getByTestId("select--value")).toHaveTextContent(placeholder);
+    expect(getByRole("button")).toHaveTextContent(placeholder);
   });
 
   it("should use the prop to render the value", () => {
@@ -490,7 +488,7 @@ describe("props", () => {
   it("should display placeholder with renderValue prop and no selection", () => {
     const placeholder = "Test placeholder";
 
-    const { getByTestId } = render(
+    const { getByRole } = render(
       <Select
         data-testid="select"
         placeholder={placeholder}
@@ -512,15 +510,15 @@ describe("props", () => {
       />
     );
 
-    expect(getByTestId("select--value")).toHaveTextContent(placeholder);
+    expect(getByRole("button")).toHaveTextContent(placeholder);
   });
 
-  it("autoFocus: should focus select after Select did mount", async () => {
-    const { findByTestId } = render(
+  it("autoFocus: should focus select after Select did mount", () => {
+    const { getByTestId } = render(
       <Select data-testid="select" autoFocus={true} options={TEST_OPTIONS} />
     );
 
-    expect(await findByTestId("select--value")).toHaveFocus();
+    expect(getByTestId("select--field")).toHaveFocus();
   });
 
   it("should have select `name` when provided", () => {
@@ -557,11 +555,11 @@ describe("onChange", () => {
       val = event.currentTarget.value;
     });
 
-    const { getByTestId, container, findByTestId } = render(
+    const { getByRole, container, findByTestId } = render(
       <Select data-testid="select" options={TEST_OPTIONS} onChange={onChange} />
     );
 
-    fireEvent.click(getByTestId("select--value"));
+    fireEvent.click(getByRole("button"));
 
     expect(await findByTestId("select--wrapper")).toHaveClass("select--opened");
 
@@ -581,7 +579,7 @@ describe("onChange", () => {
       val = values;
     });
 
-    const { getByTestId, container, findByTestId } = render(
+    const { getByRole, container, findByTestId } = render(
       <Select
         multiple
         data-testid="select"
@@ -590,7 +588,7 @@ describe("onChange", () => {
       />
     );
 
-    fireEvent.click(getByTestId("select--value"));
+    fireEvent.click(getByRole("button"));
 
     expect(await findByTestId("select--wrapper")).toHaveClass("select--opened");
 
@@ -608,7 +606,7 @@ describe("onChange", () => {
 
 describe("visible options", () => {
   it("options should have a data-value attribute", async () => {
-    const { getByTestId, findByTestId } = render(
+    const { getByRole, findByTestId } = render(
       <Select
         data-testid="select"
         className="test_classname"
@@ -616,7 +614,7 @@ describe("visible options", () => {
       />
     );
 
-    fireEvent.click(getByTestId("select--value"));
+    fireEvent.click(getByRole("button"));
 
     const options = (
       await findByTestId("select--dropdown")
@@ -630,11 +628,11 @@ describe("visible options", () => {
   it("single select - option should be selected correctly", async () => {
     const val = TEST_OPTIONS[1].value;
 
-    const { getByTestId, findByTestId } = render(
+    const { getByRole, findByTestId } = render(
       <Select data-testid="select" value={val} options={TEST_OPTIONS} />
     );
 
-    fireEvent.click(getByTestId("select--value"));
+    fireEvent.click(getByRole("button"));
 
     const option = (
       await findByTestId("select--dropdown")
@@ -646,7 +644,7 @@ describe("visible options", () => {
   it("multiple select - options should be selected correctly", async () => {
     const val = [TEST_OPTIONS[1].value, TEST_OPTIONS[3].value];
 
-    const { getByTestId, findByTestId } = render(
+    const { getByRole, findByTestId } = render(
       <Select
         data-testid="select"
         value={val}
@@ -655,7 +653,7 @@ describe("visible options", () => {
       />
     );
 
-    fireEvent.click(getByTestId("select--value"));
+    fireEvent.click(getByRole("button"));
 
     const options = (
       await findByTestId("select--dropdown")
@@ -669,17 +667,17 @@ describe("visible options", () => {
   it("single select - should display selected option", () => {
     const { value, label } = TEST_OPTIONS[1];
 
-    const { getByTestId } = render(
+    const { getByRole } = render(
       <Select data-testid="select" value={value} options={TEST_OPTIONS} />
     );
 
-    expect(getByTestId("select--value")).toHaveTextContent(label);
+    expect(getByRole("button")).toHaveTextContent(label);
   });
 
   it("single multiple - should display selected options count", () => {
     const val = [TEST_OPTIONS[1].value, TEST_OPTIONS[3].value];
 
-    const { getByTestId } = render(
+    const { getByRole } = render(
       <Select
         data-testid="select"
         value={val}
@@ -688,13 +686,11 @@ describe("visible options", () => {
       />
     );
 
-    expect(getByTestId("select--value")).toHaveTextContent(
-      `Selected ${val.length}`
-    );
+    expect(getByRole("button")).toHaveTextContent(`Selected ${val.length}`);
   });
 
   it("should display the selected item even if its value is empty", () => {
-    const { getByTestId } = render(
+    const { getByRole } = render(
       <Select
         data-testid="select"
         value=""
@@ -703,7 +699,7 @@ describe("visible options", () => {
       />
     );
 
-    expect(getByTestId("select--value")).toHaveTextContent("No value");
+    expect(getByRole("button")).toHaveTextContent("No value");
   });
 });
 

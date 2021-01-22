@@ -58,9 +58,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
 
   // autoFocus
   useEffect(() => {
-    if (autoFocus && visibleField.current) {
-      (visibleField.current.childNodes[0] as HTMLElement).focus();
-    }
+    autoFocus && visibleField.current?.focus();
   }, [visibleField.current]);
 
   if (process.env.NODE_ENV !== "production") {
@@ -112,7 +110,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
 
       // close dropdown on change value if only one option were available
       if (visibleOptions.length === 1) {
-        (visibleField.current?.childNodes[0] as HTMLElement).focus();
+        visibleField.current?.focus();
 
         setIsOpen(false);
         setSearch("");
@@ -121,7 +119,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
       const { onChange } = restProps as SelectSingle;
 
       // close dropdown on change value
-      (visibleField.current?.childNodes[0] as HTMLElement).focus();
+      visibleField.current?.focus();
 
       setIsOpen(false);
       setSearch("");
@@ -133,20 +131,18 @@ const SelectComponent: React.ForwardRefRenderFunction<
 
   const onFocusElement = (): void => {
     setIsOpen(true);
-    (visibleField.current?.childNodes[0] as HTMLElement).focus();
+    visibleField.current?.focus();
   };
 
-  const onClickValue = (event: React.MouseEvent<HTMLDivElement>): void => {
+  const onClickField = (event: React.MouseEvent<HTMLDivElement>): void => {
+    const target = event.target as HTMLElement;
+    const isButton = target.getAttribute("role") === "button";
+
     // to manipulate with custom elements inside the value
     const isCustomValue =
-      renderValue &&
-      (event.target as HTMLElement).closest(".select__value_custom");
+      renderValue && target.closest(".select__value_custom");
 
-    if (
-      !restProps.disabled &&
-      (event.target as HTMLElement).className !== "select__clear" &&
-      !isCustomValue
-    ) {
+    if (isButton && !restProps.disabled && !isCustomValue) {
       setIsOpen(!isOpen);
     }
   };
@@ -181,11 +177,18 @@ const SelectComponent: React.ForwardRefRenderFunction<
 
   const handleKeydown = (e: KeyboardEvent): void => {
     const key = e.key?.toLowerCase();
-    const inFocus = e.target === visibleField.current?.childNodes[0];
+    const inFocus = e.target === visibleField.current;
+    const isCurrent = visibleField.current?.parentNode?.contains(
+      e.target as Node
+    );
 
-    if (inFocus && [" ", "arrowdown", "enter"].includes(key)) {
-      e.preventDefault();
-      setIsOpen(true);
+    if (isCurrent) {
+      if (inFocus && [" ", "arrowdown", "enter"].includes(key)) {
+        e.preventDefault();
+        setIsOpen(true);
+      }
+    } else {
+      setIsOpen(false);
     }
   };
 
@@ -231,7 +234,17 @@ const SelectComponent: React.ForwardRefRenderFunction<
         <SelectLabel id={restProps.id} setIsOpen={setIsOpen} label={label} />
       )}
 
-      <div className="select__field" ref={visibleField}>
+      <div
+        className="select__field"
+        ref={visibleField}
+        onClick={onClickField}
+        tabIndex={0}
+        data-testid={
+          restProps["data-testid"]
+            ? `${restProps["data-testid"]}--field`
+            : undefined
+        }
+      >
         {allowSearch && (
           <input
             type="text"
@@ -240,6 +253,8 @@ const SelectComponent: React.ForwardRefRenderFunction<
             onKeyUp={onSearchKeyup}
             onFocus={onSearchFocus}
             autoComplete="off"
+            role="search"
+            tabIndex={-1}
             className={classNames([
               "select__search",
               !!search && "select__search--filled",
@@ -253,13 +268,6 @@ const SelectComponent: React.ForwardRefRenderFunction<
             !restProps.value?.length && "select__value--placeholder",
             asTags && "select__value--tags",
           ])}
-          tabIndex={allowSearch ? undefined : 0}
-          onClick={onClickValue}
-          data-testid={
-            restProps["data-testid"]
-              ? `${restProps["data-testid"]}--value`
-              : undefined
-          }
           role="button"
         >
           <SelectValue
