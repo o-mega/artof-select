@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/o-mega/artof-select/compare/v1.3.3...v1.4.0) (2021-01-22)
+
+
+### Features
+
+* Update focus events to optimize selection ([1928727](https://github.com/o-mega/artof-select/commit/19287274ccc16306cb57b6433ffcbd572dedd4f8))
+
 ### [1.3.3](https://github.com/o-mega/artof-select/compare/v1.3.2...v1.3.3) (2021-01-21)
 
 
