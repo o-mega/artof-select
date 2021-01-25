@@ -33,7 +33,7 @@ export interface SelectCommonProps extends BaseProps {
   textSelected?: string;
   textSelectAll?: string;
   renderValue?: (options: SelectOption[]) => JSX.Element;
-  dropdownOffset?: [x: number, y: number];
+  dropdownOffset?: [number, number];
   "data-testid"?: string;
   "data-cy"?: string;
 }
