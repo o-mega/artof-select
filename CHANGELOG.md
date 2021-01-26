@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.7](https://github.com/o-mega/artof-select/compare/v1.4.6...v1.4.7) (2021-01-26)
+
+
+### Bug Fixes
+
+* splitterBefore position fix ([a5a914b](https://github.com/o-mega/artof-select/commit/a5a914b0f59bd8e1ee23704a80e969a409887371))
+
 ### [1.4.6](https://github.com/o-mega/artof-select/compare/v1.4.5...v1.4.6) (2021-01-26)
 
 
