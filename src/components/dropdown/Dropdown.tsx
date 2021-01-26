@@ -98,7 +98,7 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
         const option = options[i];
 
         // detect target option to toggle selection
-        if (option.value === value) {
+        if (option.value === `${value}`) {
           if (option.selected && multiple) {
             option.selected = !option.selected;
           } else {

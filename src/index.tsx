@@ -68,7 +68,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
       );
 
       const matchedOptions = visibleOptions.filter(
-        ({ value }) => value === restProps.value
+        ({ value }) => `${value}` === restProps.value
       );
 
       if (restProps.value && !multiple && matchedOptions.length < 1) {
@@ -87,7 +87,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
           ].join("\n")
         );
       }
-    }, [multiple, JSON.stringify(restProps.value), JSON.stringify(options)]);
+    }, [multiple, JSON.stringify(restProps.value)]);
   }
 
   const visibleOptions = options.filter(({ label, value }) =>
