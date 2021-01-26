@@ -40,22 +40,18 @@ const SelectAllButton: React.FC<Props> = ({
   };
 
   return (
-    <>
-      <div
-        className={classNames([
-          "select__option",
-          "select__option--select_all",
-          options.length === value?.length && "select__option--selected",
-        ])}
-        onClick={onClickAll}
-        onKeyUp={onKeyupAll}
-        tabIndex={0}
-      >
-        {textSelectAll}
-      </div>
-
-      <div className="splitter" />
-    </>
+    <div
+      className={classNames([
+        "select__option",
+        "select__option--select_all",
+        options.length === value?.length && "select__option--selected",
+      ])}
+      onClick={onClickAll}
+      onKeyUp={onKeyupAll}
+      tabIndex={0}
+    >
+      {textSelectAll}
+    </div>
   );
 };
 

@@ -36,6 +36,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
     textSelectAll = "Select all",
     dropdownOffset = [0, 4],
     autoFocus,
+    splitterBefore = 0,
     renderValue,
     ...restProps
   },
@@ -307,6 +308,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
             selectRef={select.current}
             visibleFieldRef={visibleField.current}
             dropdownOffset={dropdownOffset}
+            splitterBefore={splitterBefore}
           />
         )}
       </div>

@@ -6,7 +6,12 @@ import { focusNext, focusPrev } from "../../helpers/events";
 import { fireEvent } from "../../helpers/fireEvent";
 import { SelectAllButton } from "./SelectAllButton";
 import { DropdownItem } from "./DropdownItem";
-import { SelectMultiple, SelectOption, SelectSingle } from "../../Select.types";
+import {
+  SelectCommonProps,
+  SelectMultiple,
+  SelectOption,
+  SelectSingle,
+} from "../../Select.types";
 
 let typingTimeOut: ReturnType<typeof setTimeout>;
 
@@ -28,6 +33,7 @@ interface Props {
   selectRef: HTMLSelectElement | null;
   visibleFieldRef: HTMLDivElement | null;
   dropdownOffset: [x: number, y: number];
+  splitterBefore: SelectCommonProps["splitterBefore"];
 }
 
 export const Dropdown: React.FC<Props> = React.memo(function dropdown({
@@ -46,6 +52,7 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
   textSelectAll,
   "data-testid": dataTestid,
   dropdownOffset,
+  splitterBefore,
   ...restProps
 }): JSX.Element {
   const [typing, setTyping] = useState<string>("");
@@ -195,20 +202,25 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
 
       {visibleOptions.map((option, index) => {
         return (
-          <DropdownItem
-            key={`dropdown_item__${index}`}
-            {...option}
-            search={search}
-            onClickOption={onClickOption}
-            isSelected={
-              multiple
-                ? !!(restProps as SelectMultiple).value?.includes(
-                    `${option.value}`
-                  )
-                : option.value === (restProps as SelectSingle).value
-            }
-            allowMarkWords={allowMarkWords}
-          />
+          <React.Fragment key={`dropdown_item__${index}`}>
+            {!!(splitterBefore && splitterBefore + 1 === index) && (
+              <div className="select__option_splitter" />
+            )}
+
+            <DropdownItem
+              {...option}
+              search={search}
+              onClickOption={onClickOption}
+              isSelected={
+                multiple
+                  ? !!(restProps as SelectMultiple).value?.includes(
+                      `${option.value}`
+                    )
+                  : option.value === (restProps as SelectSingle).value
+              }
+              allowMarkWords={allowMarkWords}
+            />
+          </React.Fragment>
         );
       })}
     </div>
