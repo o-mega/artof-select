@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.5](https://github.com/o-mega/artof-select/compare/v1.4.4...v1.4.5) (2021-01-26)
+
+
+### Bug Fixes
+
+* Fix types ([549ddfc](https://github.com/o-mega/artof-select/commit/549ddfc53e2df04531ddd410d38dc351b8533d0a))
+
 ### [1.4.4](https://github.com/o-mega/artof-select/compare/v1.4.3...v1.4.4) (2021-01-25)
 
 ### [1.4.3](https://github.com/o-mega/artof-select/compare/v1.4.2...v1.4.3) (2021-01-22)
