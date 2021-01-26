@@ -203,7 +203,7 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
       {visibleOptions.map((option, index) => {
         return (
           <React.Fragment key={`dropdown_item__${index}`}>
-            {!!(splitterBefore && splitterBefore + 1 === index) && (
+            {!!(splitterBefore && splitterBefore - 1 === index) && (
               <div className="select__option_splitter" />
             )}
 
