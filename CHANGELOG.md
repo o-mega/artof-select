@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.6](https://github.com/o-mega/artof-select/compare/v1.4.5...v1.4.6) (2021-01-26)
+
+
+### Bug Fixes
+
+* Add splitterBefore props ([f91c421](https://github.com/o-mega/artof-select/commit/f91c42117b4965361f4385aa08e5542f10c91323))
+
 ### [1.4.5](https://github.com/o-mega/artof-select/compare/v1.4.4...v1.4.5) (2021-01-26)
 
 
