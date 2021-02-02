@@ -135,11 +135,13 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
 
       // navigate down
       if (isCurrent && !isLast && key === "arrowdown") {
+        e.preventDefault();
         focusNext();
       }
 
       // navigate up
       else if (isCurrent && !isFirst && key === "arrowup") {
+        e.preventDefault();
         focusPrev();
       }
 
@@ -150,6 +152,7 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
         !isFirst &&
         isLast
       ) {
+        e.preventDefault();
         setIsOpen(false);
         visibleFieldRef?.focus();
         setSearch("");
@@ -157,6 +160,7 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
 
       // close dropdown on escape
       else if (key === "escape") {
+        e.preventDefault();
         setIsOpen(false);
         visibleFieldRef?.focus();
         setSearch("");

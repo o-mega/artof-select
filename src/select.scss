@@ -61,7 +61,11 @@ $select-icon-size: ($select-padding-x / 1.75);
       color: $color-placeholder;
 
       .select__tag {
-        opacity: .3;
+        opacity: 0;
+      }
+
+      &.select__value--tags {
+        color: transparent;
       }
     }
   }
@@ -143,6 +147,7 @@ $select-icon-size: ($select-padding-x / 1.75);
     padding-bottom: $select-padding-y / 1.25;
     overflow: hidden;
     text-overflow: ellipsis;
+    padding-right: 0;
   }
 }
 

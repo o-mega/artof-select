@@ -125,7 +125,7 @@ const industryOptions: SelectOption[] = [
   {
     label: 'Trades & Services',
     value: 'trades'
-  },
+  }
 ];
 
 const countryOptions: SelectOption[] = [

@@ -2,7 +2,7 @@ import { ReactNode, ReactText } from "react";
 
 export type SelectOption = {
   label?: ReactText;
-  value?: ReactText;
+  value?: string;
   component?: ReactNode;
 };
 

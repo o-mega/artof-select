@@ -24,7 +24,7 @@ export const DropdownItem: React.FC<Props> = React.memo(function dropdownItem({
       return component;
     }
 
-    const string = `${label || value}`;
+    const string = `${label ?? value}`;
 
     if (search && allowMarkWords) {
       const re = new RegExp(search, "gi");
@@ -47,9 +47,15 @@ export const DropdownItem: React.FC<Props> = React.memo(function dropdownItem({
   }, [component, label, value, search, allowMarkWords]);
 
   const onKeyUp = (e: KeyboardEvent<HTMLDivElement>): void => {
-    if (e.key?.toLowerCase() === "enter" || e.key?.toLowerCase() === " ") {
-      onClickOption(value || "");
+    const key = e.key?.toLowerCase();
+
+    if (["enter", " "].includes(key)) {
+      onClickOption(value ?? "");
     }
+  };
+
+  const onClick = (): void => {
+    onClickOption(value ?? "");
   };
 
   return (
@@ -58,7 +64,7 @@ export const DropdownItem: React.FC<Props> = React.memo(function dropdownItem({
         "select__option",
         isSelected && "select__option--selected",
       ])}
-      onClick={() => onClickOption(value || "")}
+      onClick={onClick}
       onKeyUp={onKeyUp}
       tabIndex={0}
       data-value={value}

@@ -32,7 +32,7 @@ export const SelectedValueTags: React.FC<Props> = ({
       {selectedOptions.map(
         (option): JSX.Element => (
           <div className="select__tag" key={`select__tag__${option.value}`}>
-            {option.component || option.label}
+            {option.component ?? option.label}
           </div>
         )
       )}

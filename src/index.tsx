@@ -38,12 +38,12 @@ const SelectComponent: React.ForwardRefRenderFunction<
     autoFocus,
     splitterBefore = 0,
     renderValue,
-    "aria-expanded": ariaExpanded,
+    "aria-expanded": ariaExpanded = false,
     ...restProps
   },
   ref
 ): JSX.Element => {
-  const [isOpen, setIsOpen] = useState<boolean>(ariaExpanded || false);
+  const [isOpen, setIsOpen] = useState<boolean>(ariaExpanded);
   const [search, setSearch] = useState<string>("");
 
   const select = useRef<HTMLSelectElement>(null);
@@ -82,10 +82,9 @@ const SelectComponent: React.ForwardRefRenderFunction<
               restProps.name ? `(name="${restProps.name}") ` : ""
             }component.`,
             "Consider providing a value that matches one of the available options or ''.",
-            `The available values are ${
-              visibleOptions.map(({ value }) => `\`${value}\``).join(", ") ||
-              '""'
-            }.`,
+            `The available values are ${visibleOptions
+              .map(({ value }) => `\`${value}\``)
+              .join(", ")}.`,
           ].join("\n")
         );
       }

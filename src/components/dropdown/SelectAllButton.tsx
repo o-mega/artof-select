@@ -34,7 +34,9 @@ const SelectAllButton: React.FC<Props> = ({
   };
 
   const onKeyupAll = (e: React.KeyboardEvent<HTMLDivElement>): void => {
-    if (e.key?.toLowerCase() === "enter" || e.key?.toLowerCase() === " ") {
+    const key = e.key?.toLowerCase();
+
+    if (["enter", " "].includes(key)) {
       onClickAll();
     }
   };
