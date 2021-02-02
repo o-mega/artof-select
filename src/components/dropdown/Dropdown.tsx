@@ -144,12 +144,12 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
       }
 
       // if tab outside of current options
-      else if (["tab", "arrowdown", "arrowup"].includes(key) && !isCurrent) {
-        setIsOpen(false);
-      }
-
-      // navigate to the last
-      else if (["arrowdown", "arrowup"].includes(key) && (isFirst || isLast)) {
+      else if (
+        ["tab", "arrowdown", "arrowup"].includes(key) &&
+        !isCurrent &&
+        !isFirst &&
+        isLast
+      ) {
         setIsOpen(false);
         visibleFieldRef?.focus();
         setSearch("");
