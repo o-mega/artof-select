@@ -40,7 +40,13 @@ export default [
         ],
       },
     ],
-    external: ["react", "react-dom", "react-merge-refs", "react-popper"],
+    external: [
+      "react",
+      "react-dom",
+      "react-merge-refs",
+      "react-popper",
+      "@popperjs/core"
+    ],
     plugins: [
       clear({
         targets: ["./dist"],

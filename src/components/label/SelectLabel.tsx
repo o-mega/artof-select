@@ -4,15 +4,19 @@ interface Props {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   label: React.ReactText;
   id?: string;
+  disabled?: boolean;
 }
 
 export const SelectLabel: React.FC<Props> = ({
   setIsOpen,
   label,
   id,
+  disabled,
 }): JSX.Element => {
   const onClickLabel = (): void => {
-    setIsOpen(true);
+    if (!disabled) {
+      setIsOpen(true);
+    }
   };
 
   return (

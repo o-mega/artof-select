@@ -37,6 +37,7 @@ export interface SelectCommonProps extends BaseProps {
   splitterBefore?: number;
   "data-testid"?: string;
   "data-cy"?: string;
+  "aria-expanded"?: boolean;
 }
 
 export interface SelectSingle extends SelectCommonProps {

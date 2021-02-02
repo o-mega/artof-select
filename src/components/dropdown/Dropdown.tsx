@@ -81,7 +81,7 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
     };
   }, []);
 
-  // bind keyup
+  // bind keydown
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown, true);
 
@@ -122,21 +122,37 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
   const handleKeyDown = (e: KeyboardEvent): void => {
     if (isOpen) {
       const key = e.key?.toLowerCase();
-      const isCurrent = visibleFieldRef?.contains(e.target as Node);
+      const target = e.target as Node;
+      const isCurrent = visibleFieldRef?.contains(target);
+
+      const isFirst =
+        (target as HTMLElement).className.includes("select__option") &&
+        !target.previousSibling;
+
+      const isLast =
+        (target as HTMLElement).className.includes("select__option") &&
+        !target.nextSibling;
 
       // navigate down
-      if (isCurrent && key === "arrowdown") {
+      if (isCurrent && !isLast && key === "arrowdown") {
         focusNext();
       }
 
       // navigate up
-      else if (isCurrent && key === "arrowup") {
+      else if (isCurrent && !isFirst && key === "arrowup") {
         focusPrev();
       }
 
       // if tab outside of current options
       else if (["tab", "arrowdown", "arrowup"].includes(key) && !isCurrent) {
         setIsOpen(false);
+      }
+
+      // navigate to the last
+      else if (["arrowdown", "arrowup"].includes(key) && (isFirst || isLast)) {
+        setIsOpen(false);
+        visibleFieldRef?.focus();
+        setSearch("");
       }
 
       // close dropdown on escape
@@ -147,7 +163,7 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
       }
 
       // to navigate through the options
-      else if (e.key.length === 1 && !allowSearch) {
+      else if (key?.length === 1 && !allowSearch) {
         setTyping(`${typing}${key}`);
         clearTimeout(typingTimeOut);
 

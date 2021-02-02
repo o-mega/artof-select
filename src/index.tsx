@@ -38,11 +38,12 @@ const SelectComponent: React.ForwardRefRenderFunction<
     autoFocus,
     splitterBefore = 0,
     renderValue,
+    "aria-expanded": ariaExpanded,
     ...restProps
   },
   ref
 ): JSX.Element => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(ariaExpanded || false);
   const [search, setSearch] = useState<string>("");
 
   const select = useRef<HTMLSelectElement>(null);
@@ -131,8 +132,10 @@ const SelectComponent: React.ForwardRefRenderFunction<
   };
 
   const onFocusElement = (): void => {
-    setIsOpen(true);
-    visibleField.current?.focus();
+    if (!restProps.disabled) {
+      setIsOpen(true);
+      visibleField.current?.focus();
+    }
   };
 
   const onClickField = (event: React.MouseEvent<HTMLDivElement>): void => {
@@ -153,10 +156,12 @@ const SelectComponent: React.ForwardRefRenderFunction<
   };
 
   const onSearchFocus = (): void => {
-    setIsOpen(true);
+    if (!restProps.disabled) {
+      setIsOpen(true);
+    }
   };
 
-  const onSearchDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+  const onSearchKeyUp = (e: React.KeyboardEvent<HTMLInputElement>): void => {
     const key = e.key?.toLowerCase();
 
     if (key === "enter") {
@@ -177,23 +182,25 @@ const SelectComponent: React.ForwardRefRenderFunction<
   };
 
   const handleKeydown = (e: KeyboardEvent): void => {
-    const key = e.key?.toLowerCase();
-    const inFocus = e.target === visibleField.current;
-    const isCurrent = visibleField.current?.parentNode?.contains(
-      e.target as Node
-    );
+    if (!restProps.disabled) {
+      const key = e.key?.toLowerCase();
+      const inFocus = e.target === visibleField.current;
+      const isCurrent = visibleField.current?.parentNode?.contains(
+        e.target as Node
+      );
 
-    if (isCurrent) {
-      if (inFocus && [" ", "arrowdown", "enter"].includes(key)) {
-        e.preventDefault();
-        setIsOpen(true);
+      if (isCurrent) {
+        if (inFocus && [" ", "arrowdown", "enter"].includes(key)) {
+          e.preventDefault();
+          setIsOpen(true);
 
-        if (allowSearch) {
-          (visibleField.current?.childNodes[0] as HTMLElement)?.focus();
+          if (allowSearch) {
+            (visibleField.current?.childNodes[0] as HTMLElement)?.focus();
+          }
         }
+      } else {
+        setIsOpen(false);
       }
-    } else {
-      setIsOpen(false);
     }
   };
 
@@ -207,6 +214,8 @@ const SelectComponent: React.ForwardRefRenderFunction<
         multiple && "select--multiple",
         className,
       ])}
+      aria-expanded={isOpen || undefined}
+      aria-disabled={restProps.disabled || undefined}
       data-testid={
         restProps["data-testid"]
           ? `${restProps["data-testid"]}--wrapper`
@@ -236,7 +245,12 @@ const SelectComponent: React.ForwardRefRenderFunction<
       </select>
 
       {label && (
-        <SelectLabel id={restProps.id} setIsOpen={setIsOpen} label={label} />
+        <SelectLabel
+          id={restProps.id}
+          setIsOpen={setIsOpen}
+          label={label}
+          disabled={restProps.disabled}
+        />
       )}
 
       <div
@@ -255,7 +269,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
             type="text"
             value={search}
             onChange={onSearch}
-            onKeyDown={onSearchDown}
+            onKeyUp={onSearchKeyUp}
             onFocus={onSearchFocus}
             autoComplete="off"
             role="search"

@@ -46,7 +46,7 @@ export const DropdownItem: React.FC<Props> = React.memo(function dropdownItem({
     return string;
   }, [component, label, value, search, allowMarkWords]);
 
-  const onKeyupOption = (e: KeyboardEvent<HTMLDivElement>): void => {
+  const onKeyUp = (e: KeyboardEvent<HTMLDivElement>): void => {
     if (e.key?.toLowerCase() === "enter" || e.key?.toLowerCase() === " ") {
       onClickOption(value || "");
     }
@@ -59,7 +59,7 @@ export const DropdownItem: React.FC<Props> = React.memo(function dropdownItem({
         isSelected && "select__option--selected",
       ])}
       onClick={() => onClickOption(value || "")}
-      onKeyUp={onKeyupOption}
+      onKeyUp={onKeyUp}
       tabIndex={0}
       data-value={value}
       aria-selected={isSelected ? "true" : undefined}

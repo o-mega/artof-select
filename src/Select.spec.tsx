@@ -197,6 +197,18 @@ describe("open dropdown", () => {
 
     expect(await findByTestId("select--wrapper")).toHaveClass("select--opened");
   });
+
+  it("can be opened with aria-expanded props", async () => {
+    const { findByTestId } = render(
+      <Select
+        data-testid="select"
+        aria-expanded={true}
+        options={TEST_OPTIONS}
+      />
+    );
+
+    expect(await findByTestId("select--wrapper")).toHaveClass("select--opened");
+  });
 });
 
 describe("close dropdown", () => {
@@ -741,5 +753,69 @@ describe("warnings", () => {
     expect(consoleOutput).toEqual([
       "Warning: The `%s` prop supplied to <select> must be an array if `multiple` is true.%s%s",
     ]);
+  });
+});
+
+describe("accessibility", () => {
+  it("aria-expanded is not present if the options isnt displayed", async () => {
+    const { findByTestId } = render(
+      <Select data-testid="select" options={TEST_OPTIONS} />
+    );
+
+    expect(await findByTestId("select--wrapper")).not.toHaveAttribute(
+      "aria-expanded"
+    );
+  });
+
+  it("sets aria-expanded=true when the options are displayed", async () => {
+    const { getByRole, findByTestId } = render(
+      <Select data-testid="select" options={TEST_OPTIONS} />
+    );
+
+    fireEvent.click(getByRole("button"));
+
+    expect(await findByTestId("select--wrapper")).toHaveAttribute(
+      "aria-expanded",
+      "true"
+    );
+  });
+
+  it("aria-disabled is not present if the Select isn't disabled", async () => {
+    const { findByTestId } = render(
+      <Select data-testid="select" options={TEST_OPTIONS} />
+    );
+
+    expect(await findByTestId("select--wrapper")).not.toHaveAttribute(
+      "aria-disabled"
+    );
+  });
+
+  it("sets aria-disabled=true when the Select is disabled", async () => {
+    const { findByTestId } = render(
+      <Select data-testid="select" disabled={true} options={TEST_OPTIONS} />
+    );
+
+    expect(await findByTestId("select--wrapper")).toHaveAttribute(
+      "aria-disabled",
+      "true"
+    );
+  });
+
+  it("indicates the selected option", async () => {
+    const { getByRole, findByTestId } = render(
+      <Select
+        data-testid="select"
+        value={TEST_OPTIONS[0].value}
+        options={TEST_OPTIONS}
+      />
+    );
+
+    fireEvent.click(getByRole("button"));
+
+    const options = (
+      await findByTestId("select--dropdown")
+    ).getElementsByClassName("select__option");
+
+    expect(options[0]).toHaveAttribute("aria-selected");
   });
 });
