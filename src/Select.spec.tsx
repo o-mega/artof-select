@@ -819,3 +819,47 @@ describe("accessibility", () => {
     expect(options[0]).toHaveAttribute("aria-selected");
   });
 });
+
+describe("interactions", () => {
+  it("should correctly select the option with empty value", async () => {
+    const label = "test label for empty value";
+
+    const { findByRole } = render(
+      <Select
+        data-testid="select"
+        options={[{ label, value: "" }, ...TEST_OPTIONS]}
+        value=""
+      />
+    );
+
+    expect(await findByRole("button")).toHaveTextContent(label);
+  });
+
+  it("should correctly select option with zero value", async () => {
+    const label = "test label for empty value";
+
+    const { findByRole } = render(
+      <Select
+        data-testid="select"
+        options={[{ label, value: "0" }, ...TEST_OPTIONS]}
+        value="0"
+      />
+    );
+
+    expect(await findByRole("button")).toHaveTextContent(label);
+  });
+
+  it("should display empty label", async () => {
+    const label = "";
+
+    const { findByRole } = render(
+      <Select
+        data-testid="select"
+        options={[{ label, value: "test_value" }, ...TEST_OPTIONS]}
+        value="test_value"
+      />
+    );
+
+    expect(await findByRole("button")).toHaveTextContent(label);
+  });
+});
