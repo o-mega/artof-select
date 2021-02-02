@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/o-mega/artof-select/compare/v1.4.7...v1.5.0) (2021-02-02)
+
+
+### Features
+
+* Add accessibility; Update keyboard events ([d3eff8a](https://github.com/o-mega/artof-select/commit/d3eff8af686bdbf62b844a28406208742caf3b45))
+
 ### [1.4.7](https://github.com/o-mega/artof-select/compare/v1.4.6...v1.4.7) (2021-01-26)
 
 
