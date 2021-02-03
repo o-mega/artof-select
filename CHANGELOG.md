@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.4](https://github.com/o-mega/artof-select/compare/v1.5.3...v1.5.4) (2021-02-03)
+
+
+### Bug Fixes
+
+* Types for SelectOption; Update docs ([e71d7a3](https://github.com/o-mega/artof-select/commit/e71d7a3127cb3d16fd733b83ad7181caa6f78fcf))
+
 ### [1.5.3](https://github.com/o-mega/artof-select/compare/v1.5.2...v1.5.3) (2021-02-02)
 
 
