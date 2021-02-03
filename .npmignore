@@ -11,6 +11,7 @@ test-coverage
 .gitignore
 .npmignore
 CHANGELOG.md
+README.md
 LICENSE
 tsconfig.json
 yarn.lock

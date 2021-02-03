@@ -50,6 +50,7 @@ export const DropdownItem: React.FC<Props> = React.memo(function dropdownItem({
     const key = e.key?.toLowerCase();
 
     if (["enter", " "].includes(key)) {
+      e.preventDefault();
       onClickOption(value ?? "");
     }
   };

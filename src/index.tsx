@@ -165,11 +165,17 @@ const SelectComponent: React.ForwardRefRenderFunction<
 
     if (key === "enter") {
       if (visibleOptions.length === 1) {
+        e.preventDefault();
+
         (document.getElementsByClassName(
           "select__option"
         )[0] as HTMLElement).click();
+
+        setSearch("");
         e.currentTarget.blur();
       } else if (visibleOptions.length === 0) {
+        e.preventDefault();
+
         setSearch("");
         e.currentTarget.blur();
       }

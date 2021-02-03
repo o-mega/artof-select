@@ -862,4 +862,107 @@ describe("interactions", () => {
 
     expect(await findByRole("button")).toHaveTextContent(label);
   });
+
+  it("should select with enter if the only child in search results", async () => {
+    const searchBy = TEST_OPTIONS[0];
+
+    const { getByRole, getByTestId, findByTestId } = render(
+      <Select data-testid="select" allowSearch={true} options={TEST_OPTIONS} />
+    );
+
+    fireEvent.focus(getByRole("search"));
+
+    fireEvent.change(getByRole("search"), {
+      target: { value: searchBy.label },
+    });
+
+    const options = (
+      await findByTestId("select--dropdown")
+    ).getElementsByClassName("select__option");
+
+    expect(options.length).toEqual(1);
+
+    console.log(options[0]);
+
+    fireEvent.keyUp(getByRole("search"), {
+      key: "Enter",
+      code: "Enter",
+      keyCode: 13,
+      charCode: 13,
+    });
+
+    expect(getByTestId("select")).toHaveValue(searchBy.value);
+  });
+
+  it("should not submit form on pressing enter when selecting only option", async () => {
+    const onSubmit = jest.fn(() => {});
+
+    const { getByRole, findByTestId } = render(
+      <form onSubmit={onSubmit}>
+        <Select
+          data-testid="select"
+          allowSearch={true}
+          options={TEST_OPTIONS}
+        />
+      </form>
+    );
+
+    fireEvent.focus(getByRole("search"));
+
+    fireEvent.change(getByRole("search"), {
+      target: { value: TEST_OPTIONS[1].label },
+    });
+
+    expect(await findByTestId("select--wrapper")).toHaveClass("select--opened");
+
+    fireEvent.keyUp(getByRole("search"), {
+      key: "Enter",
+      code: "Enter",
+      keyCode: 13,
+      charCode: 13,
+    });
+
+    expect(onSubmit).toHaveBeenCalledTimes(0);
+
+    expect(await findByTestId("select--wrapper")).not.toHaveClass(
+      "select--opened"
+    );
+  });
+
+  it("should not submit form on pressing enter when selecting multiple values", async () => {
+    const onSubmit = jest.fn(() => {});
+
+    const { getByRole, findByTestId, getByTestId } = render(
+      <form onSubmit={onSubmit}>
+        <Select multiple={true} data-testid="select" options={TEST_OPTIONS} />
+      </form>
+    );
+
+    fireEvent.click(getByRole("button"));
+
+    const options = (
+      await findByTestId("select--dropdown")
+    ).getElementsByClassName("select__option");
+
+    fireEvent.keyUp(options[1], {
+      key: "Enter",
+      code: "Enter",
+      keyCode: 13,
+      charCode: 13,
+    });
+
+    fireEvent.keyUp(options[2], {
+      key: "Enter",
+      code: "Enter",
+      keyCode: 13,
+      charCode: 13,
+    });
+
+    expect(onSubmit).toHaveBeenCalledTimes(0);
+
+    expect(getByTestId("select")).toHaveValue([
+      TEST_OPTIONS[1].value,
+      TEST_OPTIONS[2].value,
+    ]);
+  });
 });
