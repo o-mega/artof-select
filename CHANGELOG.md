@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.6](https://github.com/o-mega/artof-select/compare/v1.5.5...v1.5.6) (2021-02-03)
+
+
+### Bug Fixes
+
+* Disable enter key when select is active ([a67a13c](https://github.com/o-mega/artof-select/commit/a67a13c9de8a46cc4748d03a9484e64f9c29e6f8))
+
 ### [1.5.5](https://github.com/o-mega/artof-select/compare/v1.5.4...v1.5.5) (2021-02-03)
 
 
