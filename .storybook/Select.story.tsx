@@ -128,6 +128,16 @@ const industryOptions: SelectOption[] = [
   }
 ];
 
+const yearsOptions: SelectOption[] = [];
+let year = new Date().getFullYear();
+
+while (year-- > 1900) {
+  yearsOptions.push({
+    value: `${year}`,
+    label: year
+  });
+}
+
 const countryOptions: SelectOption[] = [
   {
     label: 'Switzerland',
@@ -335,6 +345,16 @@ storiesOf("artof-select", module)
             label="Search with value"
             value="banking"
             options={industryOptions}
+            allowSearch={true}
+          />
+
+          <br />
+          <br/>
+
+          <SelectSingleExample
+            label="Choose your birthday"
+            value=""
+            options={yearsOptions}
             allowSearch={true}
           />
         </div>

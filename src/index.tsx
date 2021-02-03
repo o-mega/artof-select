@@ -164,22 +164,27 @@ const SelectComponent: React.ForwardRefRenderFunction<
     const key = e.key?.toLowerCase();
 
     if (key === "enter") {
-      if (visibleOptions.length === 1) {
-        e.preventDefault();
+      e.preventDefault();
 
+      // precheck option if only one found
+      if (visibleOptions.length === 1) {
         (document.getElementsByClassName(
           "select__option"
         )[0] as HTMLElement).click();
 
         setSearch("");
         e.currentTarget.blur();
-      } else if (visibleOptions.length === 0) {
-        e.preventDefault();
+      }
 
+      // reset search and remove focus
+      else if (visibleOptions.length === 0) {
         setSearch("");
         e.currentTarget.blur();
       }
-    } else if (key === "arrowdown") {
+    }
+
+    // move focus from the search to first option item
+    else if (key === "arrowdown") {
       (document.getElementsByClassName(
         "select__option"
       )[0] as HTMLElement).focus();
@@ -193,6 +198,10 @@ const SelectComponent: React.ForwardRefRenderFunction<
       const isCurrent = visibleField.current?.parentNode?.contains(
         e.target as Node
       );
+
+      if (key === "enter") {
+        e.preventDefault();
+      }
 
       if (isCurrent) {
         if (inFocus && [" ", "arrowdown", "enter"].includes(key)) {
