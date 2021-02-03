@@ -882,8 +882,6 @@ describe("interactions", () => {
 
     expect(options.length).toEqual(1);
 
-    console.log(options[0]);
-
     fireEvent.keyUp(getByRole("search"), {
       key: "Enter",
       code: "Enter",
