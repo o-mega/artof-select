@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.5](https://github.com/o-mega/artof-select/compare/v1.5.4...v1.5.5) (2021-02-03)
+
+
+### Bug Fixes
+
+* Do not submit form on pressing Enter ([e13ef76](https://github.com/o-mega/artof-select/commit/e13ef76e106c81f370c07ec701986d902bbe212c))
+
 ### [1.5.4](https://github.com/o-mega/artof-select/compare/v1.5.3...v1.5.4) (2021-02-03)
 
 
