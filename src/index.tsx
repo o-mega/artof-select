@@ -199,7 +199,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
         e.target as Node
       );
 
-      if (key === "enter") {
+      if (key === "enter" && isCurrent) {
         e.preventDefault();
       }
 
