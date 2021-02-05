@@ -56,7 +56,7 @@ export default [
         tsconfig: "./tsconfig.json",
       }),
       babel({
-        ...require("../babel.config"),
+        ...require("./babel.config"),
         extensions: [".ts", ".tsx"],
         babelHelpers: "bundled",
       }),

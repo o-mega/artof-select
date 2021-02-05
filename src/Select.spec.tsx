@@ -2,51 +2,9 @@ import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import userEvent from "@testing-library/user-event";
+import { industryOptions } from "../.storybook/static/options.mock";
 
-import { Select } from ".";
-
-const TEST_OPTIONS = [
-  {
-    label: "String 1 label",
-    value: "string1",
-  },
-  {
-    label: "String 2 label",
-    value: "string2",
-  },
-  {
-    label: "String 3 label",
-    value: "string3",
-  },
-  {
-    label: "String 4 label",
-    value: "string4",
-  },
-  {
-    label: "String 5 label",
-    value: "string5",
-  },
-  {
-    label: "String 6 label",
-    value: "string6",
-  },
-  {
-    label: "String 7 label",
-    value: "string7",
-  },
-  {
-    label: "String 8 label",
-    value: "string8",
-  },
-  {
-    label: "String 9 label",
-    value: "string9",
-  },
-  {
-    label: "String 10 label",
-    value: "string10",
-  },
-];
+import { Select } from "./Select";
 
 describe("ref", () => {
   it("Pass correct ref", () => {
@@ -56,7 +14,7 @@ describe("ref", () => {
       <Select
         data-testid="select"
         name="test_name"
-        options={TEST_OPTIONS}
+        options={industryOptions}
         ref={ref}
       />
     );
@@ -71,7 +29,7 @@ describe("ref", () => {
       <Select
         data-testid="select"
         name="test_name"
-        options={TEST_OPTIONS}
+        options={industryOptions}
         ref={ref}
       />
     );
@@ -87,7 +45,7 @@ describe("ref", () => {
 describe("classNames", () => {
   it("has basic className", () => {
     const { getByTestId } = render(
-      <Select data-testid="select" options={TEST_OPTIONS} />
+      <Select data-testid="select" options={industryOptions} />
     );
 
     expect(getByTestId("select--wrapper")).toHaveClass("select");
@@ -95,7 +53,7 @@ describe("classNames", () => {
 
   it("has special className when is open", async () => {
     const { getByRole, findByTestId } = render(
-      <Select data-testid="select" options={TEST_OPTIONS} />
+      <Select data-testid="select" options={industryOptions} />
     );
 
     fireEvent.click(getByRole("button"));
@@ -105,7 +63,7 @@ describe("classNames", () => {
 
   it("has special className when disabled", () => {
     const { getByTestId } = render(
-      <Select data-testid="select" disabled={true} options={TEST_OPTIONS} />
+      <Select data-testid="select" disabled={true} options={industryOptions} />
     );
 
     expect(getByTestId("select--wrapper")).toHaveClass("select--disabled");
@@ -113,7 +71,7 @@ describe("classNames", () => {
 
   it("has special className when multiple", () => {
     const { getByTestId } = render(
-      <Select data-testid="select" multiple={true} options={TEST_OPTIONS} />
+      <Select data-testid="select" multiple={true} options={industryOptions} />
     );
 
     expect(getByTestId("select--wrapper")).toHaveClass("select--multiple");
@@ -124,7 +82,7 @@ describe("classNames", () => {
       <Select
         data-testid="select"
         errorText="Error test"
-        options={TEST_OPTIONS}
+        options={industryOptions}
       />
     );
 
@@ -136,7 +94,7 @@ describe("classNames", () => {
       <Select
         data-testid="select"
         className="test_classname"
-        options={TEST_OPTIONS}
+        options={industryOptions}
       />
     );
 
@@ -147,7 +105,7 @@ describe("classNames", () => {
 describe("open dropdown", () => {
   it("open dropdown with click on element", async () => {
     const { getByRole, findByTestId } = render(
-      <Select data-testid="select" name="test_name" options={TEST_OPTIONS} />
+      <Select data-testid="select" name="test_name" options={industryOptions} />
     );
 
     fireEvent.click(getByRole("button"));
@@ -160,7 +118,7 @@ describe("open dropdown", () => {
       <React.Fragment>
         <input data-testid="test_input" />
 
-        <Select data-testid="select" options={TEST_OPTIONS} />
+        <Select data-testid="select" options={industryOptions} />
       </React.Fragment>
     );
 
@@ -173,7 +131,11 @@ describe("open dropdown", () => {
 
   it("should open dropdown when its label is clicked", async () => {
     const { getByRole, findByTestId } = render(
-      <Select data-testid="select" label="Test label" options={TEST_OPTIONS} />
+      <Select
+        data-testid="select"
+        label="Test label"
+        options={industryOptions}
+      />
     );
 
     fireEvent.click(getByRole("label"));
@@ -183,7 +145,7 @@ describe("open dropdown", () => {
 
   it("open only with the left mouse button click", async () => {
     const { getByRole, findByTestId } = render(
-      <Select data-testid="select" options={TEST_OPTIONS} />
+      <Select data-testid="select" options={industryOptions} />
     );
 
     const trigger = getByRole("button");
@@ -203,7 +165,7 @@ describe("open dropdown", () => {
       <Select
         data-testid="select"
         aria-expanded={true}
-        options={TEST_OPTIONS}
+        options={industryOptions}
       />
     );
 
@@ -217,7 +179,7 @@ describe("close dropdown", () => {
       <div>
         <div data-testid="test-outside" style={{ height: 100 }} />
 
-        <Select data-testid="select" options={TEST_OPTIONS} />
+        <Select data-testid="select" options={industryOptions} />
       </div>
     );
 
@@ -232,7 +194,7 @@ describe("close dropdown", () => {
 
   it("single Select - dropdown closed after select an option", async () => {
     const { getByRole, getByTestId, findByTestId } = render(
-      <Select data-testid="select" name="test_name" options={TEST_OPTIONS} />
+      <Select data-testid="select" name="test_name" options={industryOptions} />
     );
 
     fireEvent.click(getByRole("button"));
@@ -243,7 +205,7 @@ describe("close dropdown", () => {
 
     fireEvent.click(options[0]);
 
-    expect(getByTestId("select")).toHaveValue("string1");
+    expect(getByTestId("select")).toHaveValue(`${industryOptions[0].value}`);
 
     expect(await findByTestId("select--wrapper")).not.toHaveClass(
       "select--opened"
@@ -252,7 +214,7 @@ describe("close dropdown", () => {
 
   it("multi Select - dropdown not closes after select an option", async () => {
     const { getByRole, findByTestId, findAllByRole } = render(
-      <Select data-testid="select" multiple={true} options={TEST_OPTIONS} />
+      <Select data-testid="select" multiple={true} options={industryOptions} />
     );
 
     fireEvent.click(getByRole("button"));
@@ -266,19 +228,14 @@ describe("close dropdown", () => {
 
   it("opened dropdown closes with Esc", async () => {
     const { getByRole, container, findByTestId } = render(
-      <Select data-testid="select" multiple={true} options={TEST_OPTIONS} />
+      <Select data-testid="select" multiple={true} options={industryOptions} />
     );
 
     fireEvent.click(getByRole("button"));
 
     expect(await findByTestId("select--wrapper")).toHaveClass("select--opened");
 
-    fireEvent.keyDown(container, {
-      key: "Escape",
-      code: "Escape",
-      keyCode: 27,
-      charCode: 27,
-    });
+    fireEvent.keyDown(container, { key: "Escape" });
 
     expect(await findByTestId("select--wrapper")).not.toHaveClass(
       "select--opened"
@@ -289,7 +246,11 @@ describe("close dropdown", () => {
 describe("search", () => {
   it("clicking on allowSearch={true} cause focus on input", async () => {
     const { getByTestId, findByTestId } = render(
-      <Select data-testid="select" allowSearch={true} options={TEST_OPTIONS} />
+      <Select
+        data-testid="select"
+        allowSearch={true}
+        options={industryOptions}
+      />
     );
 
     fireEvent.focus(
@@ -325,7 +286,7 @@ describe("nulls check", () => {
         options={[
           {
             label: undefined,
-            value: "string1",
+            value: industryOptions[0].value,
           },
         ]}
       />
@@ -339,7 +300,7 @@ describe("nulls check", () => {
       (await findByTestId("select--dropdown")).getElementsByClassName(
         "select__option"
       )[0]
-    ).toHaveTextContent("string1");
+    ).toHaveTextContent(`${industryOptions[0].value}`);
   });
 
   it("correct renders with undefined option value", async () => {
@@ -377,7 +338,7 @@ describe("nulls check", () => {
           {
             component: null,
             label: "test_label",
-            value: "string1",
+            value: industryOptions[0].value,
           },
         ]}
       />
@@ -398,7 +359,11 @@ describe("nulls check", () => {
 describe("props", () => {
   it("should have aria-* attributes", () => {
     const { getByTestId } = render(
-      <Select data-testid="select" options={TEST_OPTIONS} aria-hidden="true" />
+      <Select
+        data-testid="select"
+        options={industryOptions}
+        aria-hidden="true"
+      />
     );
 
     expect(getByTestId("select")).toHaveAttribute("aria-hidden", "true");
@@ -406,31 +371,35 @@ describe("props", () => {
 
   it("should have data-* attributes", () => {
     const { getByTestId } = render(
-      <Select data-testid="select" options={TEST_OPTIONS} data-custom="test" />
+      <Select
+        data-testid="select"
+        options={industryOptions}
+        data-custom="test"
+      />
     );
 
     expect(getByTestId("select")).toHaveAttribute("data-custom", "test");
   });
 
   it("single - should apply value to select tag", () => {
-    const val = TEST_OPTIONS[1].value;
+    const val = `${industryOptions[1].value}`;
 
     const { getByTestId } = render(
-      <Select data-testid="select" value={val} options={TEST_OPTIONS} />
+      <Select data-testid="select" value={val} options={industryOptions} />
     );
 
     expect(getByTestId("select")).toHaveValue(val);
   });
 
   it("multiple - should apply value to select tag", () => {
-    const val = [TEST_OPTIONS[1].value, TEST_OPTIONS[3].value];
+    const val = [`${industryOptions[1].value}`, `${industryOptions[3].value}`];
 
     const { getByTestId } = render(
       <Select
         data-testid="select"
         value={val}
         multiple={true}
-        options={TEST_OPTIONS}
+        options={industryOptions}
       />
     );
 
@@ -441,7 +410,7 @@ describe("props", () => {
     const label = "Test Label";
 
     const { getByTestId } = render(
-      <Select data-testid="select" label={label} options={TEST_OPTIONS} />
+      <Select data-testid="select" label={label} options={industryOptions} />
     );
 
     expect(getByTestId("select").nextSibling).toHaveTextContent(label);
@@ -449,7 +418,7 @@ describe("props", () => {
 
   it("should not trigger any event with disabled", () => {
     const { getByTestId, getByRole } = render(
-      <Select data-testid="select" disabled={true} options={TEST_OPTIONS} />
+      <Select data-testid="select" disabled={true} options={industryOptions} />
     );
 
     fireEvent.click(getByRole("button"));
@@ -464,7 +433,7 @@ describe("props", () => {
       <Select
         data-testid="select"
         placeholder={placeholder}
-        options={TEST_OPTIONS}
+        options={industryOptions}
       />
     );
 
@@ -475,8 +444,8 @@ describe("props", () => {
     const { getByTestId } = render(
       <Select
         data-testid="select"
-        value="string1"
-        options={TEST_OPTIONS}
+        value={`${industryOptions[0].value}`}
+        options={industryOptions}
         renderValue={(options) => (
           <>
             {options.map(({ label, value }) => (
@@ -504,7 +473,7 @@ describe("props", () => {
       <Select
         data-testid="select"
         placeholder={placeholder}
-        options={TEST_OPTIONS}
+        options={industryOptions}
         renderValue={(options) => (
           <>
             {options.map(({ label, value }) => (
@@ -527,7 +496,7 @@ describe("props", () => {
 
   it("autoFocus: should focus select after Select did mount", () => {
     const { getByTestId } = render(
-      <Select data-testid="select" autoFocus={true} options={TEST_OPTIONS} />
+      <Select data-testid="select" autoFocus={true} options={industryOptions} />
     );
 
     expect(getByTestId("select--field")).toHaveFocus();
@@ -536,7 +505,7 @@ describe("props", () => {
   it("should have select `name` when provided", () => {
     const name = "test_name";
     const { getByTestId } = render(
-      <Select data-testid="select" name={name} options={TEST_OPTIONS} />
+      <Select data-testid="select" name={name} options={industryOptions} />
     );
 
     expect(getByTestId("select")).toHaveAttribute("name", name);
@@ -550,7 +519,7 @@ describe("props", () => {
         data-testid="select"
         id={id}
         label="Test Label"
-        options={TEST_OPTIONS}
+        options={industryOptions}
       />
     );
 
@@ -568,7 +537,11 @@ describe("onChange", () => {
     });
 
     const { getByRole, container, findByTestId } = render(
-      <Select data-testid="select" options={TEST_OPTIONS} onChange={onChange} />
+      <Select
+        data-testid="select"
+        options={industryOptions}
+        onChange={onChange}
+      />
     );
 
     fireEvent.click(getByRole("button"));
@@ -581,7 +554,7 @@ describe("onChange", () => {
 
     expect(onChange).toHaveBeenCalledTimes(1);
 
-    expect(val).toEqual(TEST_OPTIONS[0].value);
+    expect(val).toEqual(industryOptions[0].value);
   });
 
   it("multiple select - should get selected values", async () => {
@@ -595,7 +568,7 @@ describe("onChange", () => {
       <Select
         multiple
         data-testid="select"
-        options={TEST_OPTIONS}
+        options={industryOptions}
         onChange={onChange}
       />
     );
@@ -612,7 +585,7 @@ describe("onChange", () => {
 
     expect(onChange).toHaveBeenCalledTimes(2);
 
-    expect(val).toEqual([TEST_OPTIONS[0].value, TEST_OPTIONS[1].value]);
+    expect(val).toEqual([industryOptions[0].value, industryOptions[1].value]);
   });
 });
 
@@ -622,7 +595,7 @@ describe("visible options", () => {
       <Select
         data-testid="select"
         className="test_classname"
-        options={TEST_OPTIONS}
+        options={industryOptions}
       />
     );
 
@@ -633,15 +606,18 @@ describe("visible options", () => {
     ).getElementsByClassName("select__option");
 
     for (let i = 0; i < options.length; i++) {
-      expect(options[i]).toHaveAttribute("data-value", TEST_OPTIONS[i].value);
+      expect(options[i]).toHaveAttribute(
+        "data-value",
+        industryOptions[i].value
+      );
     }
   });
 
   it("single select - option should be selected correctly", async () => {
-    const val = TEST_OPTIONS[1].value;
+    const val = `${industryOptions[1].value}`;
 
     const { getByRole, findByTestId } = render(
-      <Select data-testid="select" value={val} options={TEST_OPTIONS} />
+      <Select data-testid="select" value={val} options={industryOptions} />
     );
 
     fireEvent.click(getByRole("button"));
@@ -654,14 +630,14 @@ describe("visible options", () => {
   });
 
   it("multiple select - options should be selected correctly", async () => {
-    const val = [TEST_OPTIONS[1].value, TEST_OPTIONS[3].value];
+    const val = [`${industryOptions[1].value}`, `${industryOptions[3].value}`];
 
     const { getByRole, findByTestId } = render(
       <Select
         data-testid="select"
         value={val}
         multiple={true}
-        options={TEST_OPTIONS}
+        options={industryOptions}
       />
     );
 
@@ -677,24 +653,28 @@ describe("visible options", () => {
   });
 
   it("single select - should display selected option", () => {
-    const { value, label } = TEST_OPTIONS[1];
+    const { value, label } = industryOptions[1];
 
     const { getByRole } = render(
-      <Select data-testid="select" value={value} options={TEST_OPTIONS} />
+      <Select
+        data-testid="select"
+        value={`${value}`}
+        options={industryOptions}
+      />
     );
 
-    expect(getByRole("button")).toHaveTextContent(label);
+    expect(getByRole("button")).toHaveTextContent(`${label}`);
   });
 
   it("single multiple - should display selected options count", () => {
-    const val = [TEST_OPTIONS[1].value, TEST_OPTIONS[3].value];
+    const val = [`${industryOptions[1].value}`, `${industryOptions[3].value}`];
 
     const { getByRole } = render(
       <Select
         data-testid="select"
         value={val}
         multiple={true}
-        options={TEST_OPTIONS}
+        options={industryOptions}
       />
     );
 
@@ -707,7 +687,7 @@ describe("visible options", () => {
         data-testid="select"
         value=""
         placeholder="Should not be visible"
-        options={[...TEST_OPTIONS, { label: "No value", value: "" }]}
+        options={[...industryOptions, { label: "No value", value: "" }]}
       />
     );
 
@@ -723,14 +703,16 @@ describe("warnings", () => {
 
     console.warn = mockedWarn;
 
-    render(<Select data-testid="select" value={val} options={TEST_OPTIONS} />);
+    render(
+      <Select data-testid="select" value={val} options={industryOptions} />
+    );
 
     expect(consoleOutput).toEqual([
       `artof-select: You have provided a non-exist value \`${val}\` for the select component.\n` +
         "Consider providing a value that matches one of the available options or ''.\n" +
-        `The available values are ${TEST_OPTIONS.map(
-          ({ value }) => `\`${value}\``
-        ).join(", ")}.`,
+        `The available values are ${industryOptions
+          .map(({ value }) => `\`${value}\``)
+          .join(", ")}.`,
     ]);
   });
 
@@ -744,9 +726,9 @@ describe("warnings", () => {
       // @ts-ignore need here to run the test
       <Select
         data-testid="select"
-        value="string1"
+        value={`${industryOptions[0].value}`}
         multiple={true}
-        options={TEST_OPTIONS}
+        options={industryOptions}
       />
     );
 
@@ -759,7 +741,7 @@ describe("warnings", () => {
 describe("accessibility", () => {
   it("aria-expanded is not present if the options isnt displayed", async () => {
     const { findByTestId } = render(
-      <Select data-testid="select" options={TEST_OPTIONS} />
+      <Select data-testid="select" options={industryOptions} />
     );
 
     expect(await findByTestId("select--wrapper")).not.toHaveAttribute(
@@ -769,7 +751,7 @@ describe("accessibility", () => {
 
   it("sets aria-expanded=true when the options are displayed", async () => {
     const { getByRole, findByTestId } = render(
-      <Select data-testid="select" options={TEST_OPTIONS} />
+      <Select data-testid="select" options={industryOptions} />
     );
 
     fireEvent.click(getByRole("button"));
@@ -782,7 +764,7 @@ describe("accessibility", () => {
 
   it("aria-disabled is not present if the Select isn't disabled", async () => {
     const { findByTestId } = render(
-      <Select data-testid="select" options={TEST_OPTIONS} />
+      <Select data-testid="select" options={industryOptions} />
     );
 
     expect(await findByTestId("select--wrapper")).not.toHaveAttribute(
@@ -792,7 +774,7 @@ describe("accessibility", () => {
 
   it("sets aria-disabled=true when the Select is disabled", async () => {
     const { findByTestId } = render(
-      <Select data-testid="select" disabled={true} options={TEST_OPTIONS} />
+      <Select data-testid="select" disabled={true} options={industryOptions} />
     );
 
     expect(await findByTestId("select--wrapper")).toHaveAttribute(
@@ -805,8 +787,8 @@ describe("accessibility", () => {
     const { getByRole, findByTestId } = render(
       <Select
         data-testid="select"
-        value={TEST_OPTIONS[0].value}
-        options={TEST_OPTIONS}
+        value={`${industryOptions[0].value}`}
+        options={industryOptions}
       />
     );
 
@@ -827,7 +809,7 @@ describe("interactions", () => {
     const { findByRole } = render(
       <Select
         data-testid="select"
-        options={[{ label, value: "" }, ...TEST_OPTIONS]}
+        options={[{ label, value: "" }, ...industryOptions]}
         value=""
       />
     );
@@ -841,7 +823,7 @@ describe("interactions", () => {
     const { findByRole } = render(
       <Select
         data-testid="select"
-        options={[{ label, value: "0" }, ...TEST_OPTIONS]}
+        options={[{ label, value: "0" }, ...industryOptions]}
         value="0"
       />
     );
@@ -855,7 +837,7 @@ describe("interactions", () => {
     const { findByRole } = render(
       <Select
         data-testid="select"
-        options={[{ label, value: "test_value" }, ...TEST_OPTIONS]}
+        options={[{ label, value: "test_value" }, ...industryOptions]}
         value="test_value"
       />
     );
@@ -864,10 +846,14 @@ describe("interactions", () => {
   });
 
   it("should select with enter if the only child in search results", async () => {
-    const searchBy = TEST_OPTIONS[0];
+    const searchBy = industryOptions[0];
 
     const { getByRole, getByTestId, findByTestId } = render(
-      <Select data-testid="select" allowSearch={true} options={TEST_OPTIONS} />
+      <Select
+        data-testid="select"
+        allowSearch={true}
+        options={industryOptions}
+      />
     );
 
     fireEvent.focus(getByRole("search"));
@@ -882,12 +868,7 @@ describe("interactions", () => {
 
     expect(options.length).toEqual(1);
 
-    fireEvent.keyUp(getByRole("search"), {
-      key: "Enter",
-      code: "Enter",
-      keyCode: 13,
-      charCode: 13,
-    });
+    fireEvent.keyUp(getByRole("search"), { key: "Enter" });
 
     expect(getByTestId("select")).toHaveValue(searchBy.value);
   });
@@ -900,7 +881,7 @@ describe("interactions", () => {
         <Select
           data-testid="select"
           allowSearch={true}
-          options={TEST_OPTIONS}
+          options={industryOptions}
         />
       </form>
     );
@@ -908,17 +889,12 @@ describe("interactions", () => {
     fireEvent.focus(getByRole("search"));
 
     fireEvent.change(getByRole("search"), {
-      target: { value: TEST_OPTIONS[1].label },
+      target: { value: industryOptions[1].label },
     });
 
     expect(await findByTestId("select--wrapper")).toHaveClass("select--opened");
 
-    fireEvent.keyUp(getByRole("search"), {
-      key: "Enter",
-      code: "Enter",
-      keyCode: 13,
-      charCode: 13,
-    });
+    fireEvent.keyUp(getByRole("search"), { key: "Enter" });
 
     expect(onSubmit).toHaveBeenCalledTimes(0);
 
@@ -932,7 +908,11 @@ describe("interactions", () => {
 
     const { getByRole, findByTestId, getByTestId } = render(
       <form onSubmit={onSubmit}>
-        <Select multiple={true} data-testid="select" options={TEST_OPTIONS} />
+        <Select
+          multiple={true}
+          data-testid="select"
+          options={industryOptions}
+        />
       </form>
     );
 
@@ -942,25 +922,66 @@ describe("interactions", () => {
       await findByTestId("select--dropdown")
     ).getElementsByClassName("select__option");
 
-    fireEvent.keyUp(options[1], {
-      key: "Enter",
-      code: "Enter",
-      keyCode: 13,
-      charCode: 13,
-    });
-
-    fireEvent.keyUp(options[2], {
-      key: "Enter",
-      code: "Enter",
-      keyCode: 13,
-      charCode: 13,
-    });
+    fireEvent.keyUp(options[1], { key: "Enter" });
+    fireEvent.keyUp(options[2], { key: "Enter" });
 
     expect(onSubmit).toHaveBeenCalledTimes(0);
 
     expect(getByTestId("select")).toHaveValue([
-      TEST_OPTIONS[1].value,
-      TEST_OPTIONS[2].value,
+      `${industryOptions[1].value}`,
+      `${industryOptions[2].value}`,
     ]);
+  });
+
+  it("should not apply matching options when typing over focused opened component", async () => {
+    const { getByTestId } = render(
+      <Select
+        data-testid="select"
+        aria-expanded={true}
+        options={industryOptions}
+      />
+    );
+
+    const targetOption = industryOptions.filter(({ label }) => {
+      return `${label}`.toLowerCase().startsWith("f");
+    });
+
+    fireEvent.focus(getByTestId("select--field"));
+    fireEvent.keyDown(getByTestId("select--field"), { key: "f" });
+    fireEvent.keyDown(getByTestId("select--field"), { key: "a" });
+
+    expect(getByTestId("select")).not.toHaveValue(`${targetOption[0].value}`);
+  });
+
+  it("should apply matching options when typing over focused component", async () => {
+    const { getByTestId } = render(
+      <Select data-testid="select" options={industryOptions} />
+    );
+
+    const targetOption = industryOptions.filter(({ label }) => {
+      return `${label}`.toLowerCase().startsWith("f");
+    });
+
+    fireEvent.focus(getByTestId("select--field"));
+    fireEvent.keyDown(getByTestId("select--field"), { key: "f" });
+    fireEvent.keyDown(getByTestId("select--field"), { key: "a" });
+
+    expect(getByTestId("select")).toHaveValue(`${targetOption[0].value}`);
+  });
+
+  it("should not match options when typing over focused multiple component", async () => {
+    const { getByTestId } = render(
+      <Select data-testid="select" multiple={true} options={industryOptions} />
+    );
+
+    const targetOption = industryOptions.filter(({ label }) => {
+      return `${label}`.toLowerCase().startsWith("f");
+    });
+
+    fireEvent.focus(getByTestId("select--field"));
+    fireEvent.keyDown(getByTestId("select--field"), { key: "f" });
+    fireEvent.keyDown(getByTestId("select--field"), { key: "a" });
+
+    expect(getByTestId("select")).not.toHaveValue(`${targetOption[0].value}`);
   });
 });

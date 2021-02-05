@@ -2,7 +2,6 @@
 .jest-cache
 .storybook
 .vscode
-config
 docs
 node_modules
 src
@@ -13,5 +12,6 @@ test-coverage
 CHANGELOG.md
 README.md
 LICENSE
+rollup.config.js
 tsconfig.json
 yarn.lock

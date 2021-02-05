@@ -168,11 +168,11 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
 
       // to navigate through the options
       else if (key?.length === 1 && !allowSearch) {
-        setTyping(`${typing}${key}`);
+        setTyping(`${typing}${key.toLowerCase()}`);
         clearTimeout(typingTimeOut);
 
-        const matched = visibleOptions.filter((opt) => {
-          return `${opt.label}`.toLocaleLowerCase().startsWith(`${typing}`);
+        const matched = visibleOptions.filter(({ label }) => {
+          return label && `${label}`.toLowerCase().startsWith(`${typing}`);
         });
 
         if (matched.length && dropdown) {
@@ -189,7 +189,7 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
 
         typingTimeOut = setTimeout(() => {
           setTyping("");
-        }, 2000);
+        }, 1500);
       }
     }
   };
