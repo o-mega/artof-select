@@ -10,7 +10,7 @@
     "react-component",
     "ui"
   ],
-  "version": "1.5.7",
+  "version": "1.6.0",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",

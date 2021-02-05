@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/o-mega/artof-select/compare/v1.5.7...v1.6.0) (2021-02-05)
+
+
+### Features
+
+* Select value while typing on focused component ([0821612](https://github.com/o-mega/artof-select/commit/08216122c1c4962c8e145e390d23715eb11aca78))
+
 ### [1.5.7](https://github.com/o-mega/artof-select/compare/v1.5.6...v1.5.7) (2021-02-04)
 
 
