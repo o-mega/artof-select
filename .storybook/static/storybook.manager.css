@@ -7,13 +7,31 @@ body,
   background-color: #212121;
 }
 
-.sidebar-header,
 .search-field {
+  display: none !important;
+}
+
+.sidebar-header > div:first-child {
+  margin-right: 0 !important;
+  margin-bottom: 20px;
+}
+
+.sidebar-header > div:first-child > a {
+  margin: 0 !important;
+  border: 0 !important;
+  padding: 0 !important;
+}
+
+.sidebar-header > div:last-child {
   display: none !important;
 }
 
 #storybook-explorer-menu {
   margin: 0 !important;
+}
+
+#storybook-explorer-tree #artof-select.sidebar-item {
+  display: none !important;
 }
 
 #storybook-explorer-tree > div > div {

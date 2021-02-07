@@ -1,3 +1,7 @@
+.sb-show-main.sb-main-padded {
+  padding: 30px;
+}
+
 .story__select-wrapper {
   display: flex;
   width: 100%;

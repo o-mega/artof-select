@@ -1,1 +1,1 @@
-import './storybook.preview.css';
+import './static/storybook.preview.css';

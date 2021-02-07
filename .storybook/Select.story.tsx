@@ -1,4 +1,3 @@
-import './static/select.story.css';
 import '../src/select.scss';
 
 import React, { useState } from "react";
