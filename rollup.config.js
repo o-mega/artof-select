@@ -45,7 +45,8 @@ export default [
       "react-dom",
       "react-merge-refs",
       "react-popper",
-      "@popperjs/core"
+      "@popperjs",
+      "@popperjs/core",
     ],
     plugins: [
       clear({
