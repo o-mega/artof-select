@@ -8,10 +8,10 @@ src
 test-coverage
 .eslintignore
 .gitignore
-.npmignore
+babel.config.js
 CHANGELOG.md
-README.md
 LICENSE
+README.md
 rollup.config.js
 tsconfig.json
 yarn.lock
