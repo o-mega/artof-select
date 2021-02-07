@@ -3,15 +3,11 @@
 .storybook
 .vscode
 docs
-node_modules
 src
 test-coverage
 .eslintignore
 .gitignore
 babel.config.js
-CHANGELOG.md
-LICENSE
-README.md
 rollup.config.js
 tsconfig.json
 yarn.lock
