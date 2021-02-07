@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.2](https://github.com/o-mega/artof-select/compare/v1.6.1...v1.6.2) (2021-02-07)
+
+
+### Bug Fixes
+
+* Update building process ([69d2fa7](https://github.com/o-mega/artof-select/commit/69d2fa7d2de5041094914be3dc0abc07662a4029))
+
 ### [1.6.1](https://github.com/o-mega/artof-select/compare/v1.6.0...v1.6.1) (2021-02-07)
 
 
