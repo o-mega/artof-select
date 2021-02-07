@@ -933,6 +933,37 @@ describe("interactions", () => {
     ]);
   });
 
+  it("should changes when typing one symbol match over focused component", async () => {
+    const { getByTestId } = render(
+      <Select data-testid="select" options={industryOptions} />
+    );
+
+    const targetOption = industryOptions.filter(({ label }) => {
+      return `${label}`.toLowerCase().startsWith("f");
+    });
+
+    fireEvent.focus(getByTestId("select--field"));
+    fireEvent.keyUp(getByTestId("select--field"), { key: "f" });
+
+    expect(getByTestId("select")).toHaveValue(`${targetOption[0].value}`);
+  });
+
+  it("should changes when typing few symbols match over focused component", async () => {
+    const { getByTestId } = render(
+      <Select data-testid="select" options={industryOptions} />
+    );
+
+    const targetOption = industryOptions.filter(({ label }) => {
+      return `${label}`.toLowerCase().startsWith("fa");
+    });
+
+    fireEvent.focus(getByTestId("select--field"));
+    fireEvent.keyUp(getByTestId("select--field"), { key: "f" });
+    fireEvent.keyUp(getByTestId("select--field"), { key: "a" });
+
+    expect(getByTestId("select")).toHaveValue(`${targetOption[0].value}`);
+  });
+
   it("should not apply matching options when typing over focused opened component", async () => {
     const { getByTestId } = render(
       <Select
@@ -948,25 +979,8 @@ describe("interactions", () => {
 
     fireEvent.focus(getByTestId("select--field"));
     fireEvent.keyDown(getByTestId("select--field"), { key: "f" });
-    fireEvent.keyDown(getByTestId("select--field"), { key: "a" });
 
     expect(getByTestId("select")).not.toHaveValue(`${targetOption[0].value}`);
-  });
-
-  it("should apply matching options when typing over focused component", async () => {
-    const { getByTestId } = render(
-      <Select data-testid="select" options={industryOptions} />
-    );
-
-    const targetOption = industryOptions.filter(({ label }) => {
-      return `${label}`.toLowerCase().startsWith("f");
-    });
-
-    fireEvent.focus(getByTestId("select--field"));
-    fireEvent.keyDown(getByTestId("select--field"), { key: "f" });
-    fireEvent.keyDown(getByTestId("select--field"), { key: "a" });
-
-    expect(getByTestId("select")).toHaveValue(`${targetOption[0].value}`);
   });
 
   it("should not match options when typing over focused multiple component", async () => {
@@ -979,8 +993,7 @@ describe("interactions", () => {
     });
 
     fireEvent.focus(getByTestId("select--field"));
-    fireEvent.keyDown(getByTestId("select--field"), { key: "f" });
-    fireEvent.keyDown(getByTestId("select--field"), { key: "a" });
+    fireEvent.keyUp(getByTestId("select--field"), { key: "f" });
 
     expect(getByTestId("select")).not.toHaveValue(`${targetOption[0].value}`);
   });

@@ -48,10 +48,19 @@ const SelectComponent: React.ForwardRefRenderFunction<
 
   // bind global keydown spy
   useEffect(() => {
-    window.addEventListener("keydown", handleKeydown, true);
+    window.addEventListener("keydown", handleKeydown, false);
 
     return () => {
-      window.removeEventListener("keydown", handleKeydown, true);
+      window.removeEventListener("keydown", handleKeydown, false);
+    };
+  }, []);
+
+  // bind global keyup spy
+  useEffect(() => {
+    window.addEventListener("keyup", handleKeyup, true);
+
+    return () => {
+      window.removeEventListener("keyup", handleKeyup, true);
     };
   }, [typing, isOpen]);
 
@@ -212,6 +221,16 @@ const SelectComponent: React.ForwardRefRenderFunction<
       } else {
         setIsOpen(false);
       }
+    }
+  };
+
+  const handleKeyup = (e: KeyboardEvent): void => {
+    if (!restProps.disabled) {
+      const key = e.key?.toLowerCase();
+      const inFocus = e.target === visibleField.current;
+      const isCurrent = visibleField.current?.parentNode?.contains(
+        e.target as Node
+      );
 
       if (
         key?.length === 1 &&
@@ -221,11 +240,12 @@ const SelectComponent: React.ForwardRefRenderFunction<
         !multiple &&
         select.current
       ) {
-        setTyping(`${typing}${key.toLowerCase()}`);
+        const newValue = `${typing}${key.toLowerCase()}`;
+        setTyping(newValue);
         clearTimeout(typingTimeOut);
 
         const matched = visibleOptions.filter(({ label }) => {
-          return label && `${label}`.toLowerCase().startsWith(`${typing}`);
+          return label && `${label}`.toLowerCase().startsWith(newValue);
         });
 
         const matchedValue = matched.length && matched[0]?.value;

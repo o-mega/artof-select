@@ -168,11 +168,12 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
 
       // to navigate through the options
       else if (key?.length === 1 && !allowSearch) {
-        setTyping(`${typing}${key.toLowerCase()}`);
+        const newValue = `${typing}${key.toLowerCase()}`;
+        setTyping(newValue);
         clearTimeout(typingTimeOut);
 
         const matched = visibleOptions.filter(({ label }) => {
-          return label && `${label}`.toLowerCase().startsWith(`${typing}`);
+          return label && `${label}`.toLowerCase().startsWith(newValue);
         });
 
         if (matched.length && dropdown) {

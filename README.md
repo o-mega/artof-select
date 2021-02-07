@@ -1,6 +1,7 @@
 # artof-select
 [![NPM](https://img.shields.io/npm/v/artof-select.svg)](https://www.npmjs.com/package/artof-select)
 [![BUNDLEPHOBIA](https://img.shields.io/bundlephobia/minzip/artof-select)](https://bundlephobia.com/result?p=artof-select)
+[![NPM](https://img.shields.io/npm/dm/artof-select)](https://www.npmjs.com/package/artof-select)
 
 A simple, but powerful [React](https://reactjs.com) `Select` component.
 Can be used for both Select Single React form element and Select Multiple React form element.
