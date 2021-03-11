@@ -369,9 +369,6 @@ const SelectComponent: React.ForwardRefRenderFunction<
             allowTagsCount={allowTagsCount}
             allowClearAll={allowClearAll}
             allowRemoveTag={allowRemoveTag}
-            onChange={
-              multiple ? (restProps as SelectMultiple).onChange : undefined
-            }
             select={select}
             renderValue={renderValue}
           />

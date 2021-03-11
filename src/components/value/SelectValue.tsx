@@ -21,7 +21,6 @@ interface Props {
   allowRemoveTag: SelectCommonProps["allowRemoveTag"];
   select: React.RefObject<HTMLSelectElement>;
   renderValue: SelectCommonProps["renderValue"];
-  onChange: SelectMultiple["onChange"];
 }
 
 export const SelectValue: React.FC<Props> = React.memo(function selectValue({
@@ -33,7 +32,6 @@ export const SelectValue: React.FC<Props> = React.memo(function selectValue({
   allowClearAll,
   allowRemoveTag,
   select,
-  onChange,
   ...props
 }): JSX.Element {
   const selectedOptions = options.filter((option) => {
@@ -69,7 +67,6 @@ export const SelectValue: React.FC<Props> = React.memo(function selectValue({
           allowClearAll={allowClearAll}
           allowRemoveTag={allowRemoveTag}
           select={select}
-          onChange={onChange}
         />
       );
     } else if (value?.length) {
