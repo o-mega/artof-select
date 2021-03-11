@@ -23,7 +23,8 @@ const SelectComponent: React.ForwardRefRenderFunction<
     placeholder,
     className,
     asTags = false,
-    allowClear = false,
+    allowClearAll = false,
+    allowRemoveTag = false,
     allowSearch = false,
     allowMarkWords = true,
     allowSelectAll = false,
@@ -366,7 +367,11 @@ const SelectComponent: React.ForwardRefRenderFunction<
             placeholder={placeholder}
             textSelected={textSelected}
             allowTagsCount={allowTagsCount}
-            allowClear={allowClear}
+            allowClearAll={allowClearAll}
+            allowRemoveTag={allowRemoveTag}
+            onChange={
+              multiple ? (restProps as SelectMultiple).onChange : undefined
+            }
             select={select}
             renderValue={renderValue}
           />

@@ -175,12 +175,56 @@ $select-icon-size: ($select-padding-x / 1.75);
   color: darken($color-primary, 25%);
   overflow: hidden;
   text-overflow: ellipsis;
-  pointer-events: none;
   vertical-align: middle;
   margin-right: $font-size-base / 4;
+  pointer-events: none;
 
   &:last-child {
     margin-right: 0;
+  }
+
+  &.select__tag--removable {
+    position: relative;
+    padding-right: calc(1.35rem + 8px);
+    pointer-events: all;
+  }
+}
+
+.select__tag-remove {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 0 4px 4px 0;
+  padding: 0;
+  border: none;
+  border-left: rgba($color-primary, .2) 1px solid;
+  background: transparent;
+  box-shadow: none;
+  outline: none;
+  cursor: pointer;
+  transition: all 300ms;
+
+  &:before {
+    content: "";
+    display: block;
+    width: $font-size-base * $select-line-height;
+    height: $font-size-base * $select-line-height;
+    background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3e%3cpath fill='%23003933' d='M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z'/%3e%3c/svg%3e") no-repeat center center / $select-font-size $select-font-size;
+    opacity: .5;
+    transition: all 300ms;
+  }
+
+  .select__tag--removable:hover & {
+    background-color: rgba($color-primary, .2);
+    border-left-color: transparent;
+
+    &:before {
+      opacity: 1;
+    }
   }
 }
 

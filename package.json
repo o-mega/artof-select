@@ -8,7 +8,7 @@
     "form",
     "react",
     "react-component",
-    "ui"
+    "component"
   ],
   "version": "1.6.2",
   "main": "dist/index.js",
@@ -34,9 +34,9 @@
     "release": "standard-version && git push --follow-tags origin master"
   },
   "dependencies": {
-    "react-merge-refs": "^1.1.0",
-    "react-popper": "^2.2.4",
-    "@popperjs/core": "^2.6.0"
+    "react-merge-refs": "1.1.0",
+    "react-popper": "2.2.4",
+    "@popperjs/core": "2.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
@@ -149,7 +149,7 @@
       }
     },
     "testPathIgnorePatterns": [
-      "<rootDir>/packages/(?:.+?)/lib/"
+      "<rootDir>/(?:.+?)/lib/"
     ],
     "moduleNameMapper": {
       "^.+\\.(scss|svg)$": "identity-obj-proxy"

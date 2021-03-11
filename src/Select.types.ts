@@ -26,7 +26,8 @@ export interface SelectCommonProps extends BaseProps {
   errorText?: ReactText;
   hintText?: ReactText;
   asTags?: boolean;
-  allowClear?: boolean;
+  allowClearAll?: boolean;
+  allowRemoveTag?: boolean;
   allowTagsCount?: boolean;
   allowSearch?: boolean;
   allowMarkWords?: boolean;

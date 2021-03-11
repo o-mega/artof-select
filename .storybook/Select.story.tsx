@@ -60,7 +60,7 @@ storiesOf("artof-select", module)
             label="With Clear button on hover"
             value="construction"
             placeholder="Select your option"
-            allowClear={true}
+            allowClearAll={true}
             options={industryOptions}
           />
 
@@ -179,7 +179,7 @@ storiesOf("artof-select", module)
             label="With Clear button on hover"
             value={['banking', 'government']}
             multiple={true}
-            allowClear={true}
+            allowClearAll={true}
             placeholder="Add some options"
             options={industryOptions}
           />
@@ -203,7 +203,20 @@ storiesOf("artof-select", module)
             multiple={true}
             asTags={true}
             allowTagsCount={true}
-            allowClear={true}
+            allowClearAll={true}
+            placeholder="Add some options"
+            options={industryOptions}
+          />
+
+          <br />
+          <br />
+
+          <SelectMiltipleExample
+            label="Every tag can also be removed"
+            value={['banking', 'government']}
+            multiple={true}
+            asTags={true}
+            allowRemoveTag={true}
             placeholder="Add some options"
             options={industryOptions}
           />

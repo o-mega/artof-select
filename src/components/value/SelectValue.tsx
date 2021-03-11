@@ -17,9 +17,11 @@ interface Props {
   placeholder: SelectCommonProps["placeholder"];
   textSelected: SelectCommonProps["textSelected"];
   allowTagsCount: SelectCommonProps["allowTagsCount"];
-  allowClear: SelectCommonProps["allowClear"];
+  allowClearAll: SelectCommonProps["allowClearAll"];
+  allowRemoveTag: SelectCommonProps["allowRemoveTag"];
   select: React.RefObject<HTMLSelectElement>;
   renderValue: SelectCommonProps["renderValue"];
+  onChange: SelectMultiple["onChange"];
 }
 
 export const SelectValue: React.FC<Props> = React.memo(function selectValue({
@@ -28,8 +30,10 @@ export const SelectValue: React.FC<Props> = React.memo(function selectValue({
   options,
   placeholder,
   allowTagsCount,
-  allowClear,
+  allowClearAll,
+  allowRemoveTag,
   select,
+  onChange,
   ...props
 }): JSX.Element {
   const selectedOptions = options.filter((option) => {
@@ -62,8 +66,10 @@ export const SelectValue: React.FC<Props> = React.memo(function selectValue({
           selectedOptions={selectedOptions}
           placeholder={placeholder}
           allowTagsCount={allowTagsCount}
-          allowClear={allowClear}
+          allowClearAll={allowClearAll}
+          allowRemoveTag={allowRemoveTag}
           select={select}
+          onChange={onChange}
         />
       );
     } else if (value?.length) {
@@ -73,7 +79,7 @@ export const SelectValue: React.FC<Props> = React.memo(function selectValue({
             {textSelected} {value.length}
           </div>
 
-          {allowClear && <SelectedValueClear select={select} />}
+          {allowClearAll && <SelectedValueClear select={select} />}
         </>
       );
     } else {
@@ -89,7 +95,7 @@ export const SelectValue: React.FC<Props> = React.memo(function selectValue({
       <>
         <div className="select__value_text">{label ?? value}</div>
 
-        {allowClear && <SelectedValueClear select={select} />}
+        {allowClearAll && <SelectedValueClear select={select} />}
       </>
     );
   }

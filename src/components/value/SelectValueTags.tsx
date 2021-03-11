@@ -2,13 +2,16 @@ import React from "react";
 
 import { SelectOption } from "../..";
 import { SelectedValueClear } from "./SelectValueClear";
+import { classNames } from "../../helpers/classNames";
 import { SelectCommonProps } from "../../Select.types";
+import { fireEvent } from "../../helpers/fireEvent";
 
 interface Props {
   selectedOptions: SelectOption[];
   placeholder: SelectCommonProps["placeholder"];
   allowTagsCount: SelectCommonProps["allowTagsCount"];
-  allowClear: SelectCommonProps["allowClear"];
+  allowClearAll: SelectCommonProps["allowClearAll"];
+  allowRemoveTag: SelectCommonProps["allowRemoveTag"];
   select: React.RefObject<HTMLSelectElement>;
 }
 
@@ -16,9 +19,28 @@ export const SelectedValueTags: React.FC<Props> = ({
   selectedOptions,
   placeholder,
   allowTagsCount,
-  allowClear,
+  allowClearAll,
+  allowRemoveTag,
   select,
 }): JSX.Element => {
+  const handleRemove = (value?: React.ReactText): void => {
+    if (select.current && value) {
+      const options = select.current.options;
+
+      for (let i = 0; i < options.length; i++) {
+        const option = options[i];
+
+        // detect target option to toggle selection
+        if (option.value === `${value}`) {
+          option.selected = !option.selected;
+        }
+      }
+
+      // force to fire event
+      fireEvent(select.current, "change");
+    }
+  };
+
   if (!selectedOptions.length) {
     return <>{placeholder}</>;
   }
@@ -31,13 +53,24 @@ export const SelectedValueTags: React.FC<Props> = ({
 
       {selectedOptions.map(
         (option): JSX.Element => (
-          <div className="select__tag" key={`select__tag__${option.value}`}>
+          <div
+            className={classNames([
+              "select__tag",
+              allowRemoveTag && "select__tag--removable",
+            ])}
+            key={`select__tag__${option.value}`}
+            onClick={
+              allowRemoveTag ? () => handleRemove(option.value) : undefined
+            }
+          >
             {option.component ?? option.label}
+
+            {allowRemoveTag && <div className="select__tag-remove" />}
           </div>
         )
       )}
 
-      {allowClear && <SelectedValueClear select={select} />}
+      {allowClearAll && <SelectedValueClear select={select} />}
     </>
   );
 };
