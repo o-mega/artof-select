@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/o-mega/artof-select/compare/v1.6.2...v1.7.0) (2021-03-11)
+
+
+### Features
+
+* Remove single selected tag ([a9007fe](https://github.com/o-mega/artof-select/commit/a9007fe2ab73cbc9093661130000ed251269a4fa))
+
 ### [1.6.2](https://github.com/o-mega/artof-select/compare/v1.6.1...v1.6.2) (2021-02-07)
 
 
