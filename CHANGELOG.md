@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/o-mega/artof-select/compare/v1.7.0...v1.8.0) (2021-03-30)
+
+
+### Features
+
+* Add onFocus, onBlur, onKeyDown and onKeyUp events handlers ([45ca969](https://github.com/o-mega/artof-select/commit/45ca9696d24be2955ab08adfb46e58f5ae307e7e))
+
 ## [1.7.0](https://github.com/o-mega/artof-select/compare/v1.6.2...v1.7.0) (2021-03-11)
 
 
