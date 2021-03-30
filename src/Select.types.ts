@@ -39,6 +39,10 @@ export interface SelectCommonProps extends BaseProps {
   "data-testid"?: string;
   "data-cy"?: string;
   "aria-expanded"?: boolean;
+  onBlur?: () => void;
+  onFocus?: () => void;
+  onKeyDown?: () => void;
+  onKeyUp?: () => void;
 }
 
 export interface SelectSingle extends SelectCommonProps {

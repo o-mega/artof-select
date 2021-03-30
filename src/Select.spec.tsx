@@ -526,6 +526,76 @@ describe("props", () => {
     expect(getByTestId("select")).toHaveAttribute("id", id);
     expect(getByTestId("select").nextSibling).toHaveAttribute("for", id);
   });
+
+  it("handle onKeyUp event", () => {
+    const onKeyUp = jest.fn(() => {});
+
+    const { getByTestId } = render(
+      <Select
+        data-testid="select"
+        options={industryOptions}
+        onKeyUp={onKeyUp}
+      />
+    );
+
+    fireEvent.focus(getByTestId("select--field"));
+    fireEvent.keyUp(getByTestId("select--field"), { key: "f" });
+
+    expect(onKeyUp).toHaveBeenCalledTimes(1);
+  });
+
+  it("handle onKeyDown event", () => {
+    const onKeyDown = jest.fn(() => {});
+
+    const { getByTestId } = render(
+      <Select
+        data-testid="select"
+        options={industryOptions}
+        onKeyDown={onKeyDown}
+      />
+    );
+
+    fireEvent.focus(getByTestId("select--field"));
+    fireEvent.keyDown(getByTestId("select--field"), { key: "f" });
+
+    expect(onKeyDown).toHaveBeenCalledTimes(1);
+  });
+
+  it("handle onFocus event", () => {
+    const onFocus = jest.fn(() => {});
+
+    const { getByTestId } = render(
+      <Select
+        data-testid="select"
+        options={industryOptions}
+        onFocus={onFocus}
+      />
+    );
+
+    fireEvent.focus(getByTestId("select--field"));
+
+    expect(onFocus).toHaveBeenCalledTimes(1);
+  });
+
+  it("handle onBlur event", () => {
+    const onBlur = jest.fn(() => {});
+
+    const { getByTestId } = render(
+      <div>
+        <Select
+          data-testid="select"
+          options={industryOptions}
+          onBlur={onBlur}
+        />
+
+        <input type="text" data-testid="input" />
+      </div>
+    );
+
+    fireEvent.blur(getByTestId("select--field"));
+
+    expect(onBlur).toHaveBeenCalledTimes(1);
+  });
 });
 
 describe("onChange", () => {

@@ -82,6 +82,10 @@ Common props you may want to specify include:
 | `label`              | `undefined`  | Generates an label with this name above the Select            |
 | `multiple`           | `false`      | Allow the user to select multiple values                      |
 | `name`               | `undefined`  | Default `<select />`'s attribute                              |
+| `onBlur`             | `undefined`  | Handle the Blur event                                         |
+| `onFocus`            | `undefined`  | Handle the Focus event                                        |
+| `onKeyDown`          | `undefined`  | Handle the KeyDown event                                      |
+| `onKeyUp`            | `undefined`  | Handle the KeyUp event                                        |
 | `options`            | `[]`         | Specify the options the user can select from                  |
 | `placeholder`        | `undefined`  | The text displayed when no option is selected                 |
 | `renderValue`        | `undefined`  | A function, that can render custom selected value             |

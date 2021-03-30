@@ -36,6 +36,10 @@ const SelectComponent: React.ForwardRefRenderFunction<
     splitterBefore = 0,
     renderValue,
     "aria-expanded": ariaExpanded = false,
+    onBlur,
+    onFocus,
+    onKeyDown,
+    onKeyUp,
     ...restProps
   },
   ref
@@ -222,6 +226,8 @@ const SelectComponent: React.ForwardRefRenderFunction<
       } else {
         setIsOpen(false);
       }
+
+      onKeyDown && onKeyDown();
     }
   };
 
@@ -271,6 +277,8 @@ const SelectComponent: React.ForwardRefRenderFunction<
           setTyping("");
         }, 1300);
       }
+
+      onKeyUp && onKeyUp();
     }
   };
 
@@ -327,6 +335,8 @@ const SelectComponent: React.ForwardRefRenderFunction<
         className="select__field"
         ref={visibleField}
         onClick={onClickField}
+        onFocus={onFocus}
+        onBlur={onBlur}
         tabIndex={0}
         data-testid={
           restProps["data-testid"]
