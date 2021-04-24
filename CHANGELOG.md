@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.1](https://github.com/o-mega/artof-select/compare/v1.8.0...v1.8.1) (2021-04-24)
+
+
+### Bug Fixes
+
+* Update aria-expanded from outside; Perf build process; Add knobs playground ([5d10b53](https://github.com/o-mega/artof-select/commit/5d10b53ec6217b499dc6f007a808ea54c567f6ed))
+
 ## [1.8.0](https://github.com/o-mega/artof-select/compare/v1.7.0...v1.8.0) (2021-03-30)
 
 
