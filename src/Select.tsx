@@ -74,6 +74,11 @@ const SelectComponent: React.ForwardRefRenderFunction<
     autoFocus && visibleField.current?.focus();
   }, [visibleField.current]);
 
+  // aria-expanded changes
+  useEffect(() => {
+    ariaExpanded !== isOpen && setIsOpen(ariaExpanded);
+  }, [ariaExpanded]);
+
   if (process.env.NODE_ENV !== "production") {
     React.useEffect(() => {
       const visibleOptions = options.filter(({ label, value }) =>

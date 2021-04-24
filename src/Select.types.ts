@@ -25,14 +25,9 @@ export interface SelectCommonProps extends BaseProps {
   placeholder?: ReactText;
   errorText?: ReactText;
   hintText?: ReactText;
-  asTags?: boolean;
   allowClearAll?: boolean;
-  allowRemoveTag?: boolean;
-  allowTagsCount?: boolean;
   allowSearch?: boolean;
   allowMarkWords?: boolean;
-  textSelected?: string;
-  textSelectAll?: string;
   renderValue?: (options: SelectOption[]) => JSX.Element;
   dropdownOffset?: [number, number];
   splitterBefore?: number;
@@ -50,6 +45,11 @@ export interface SelectSingle extends SelectCommonProps {
   value?: string;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   allowSelectAll?: undefined;
+  asTags?: undefined;
+  allowRemoveTag?: undefined;
+  allowTagsCount?: undefined;
+  textSelected?: undefined;
+  textSelectAll?: undefined;
 }
 
 export interface SelectMultiple extends SelectCommonProps {
@@ -57,4 +57,9 @@ export interface SelectMultiple extends SelectCommonProps {
   value?: string[];
   onChange?: (values: string[]) => void;
   allowSelectAll?: boolean;
+  asTags?: boolean;
+  allowRemoveTag?: boolean;
+  allowTagsCount?: boolean;
+  textSelected?: string;
+  textSelectAll?: string;
 }

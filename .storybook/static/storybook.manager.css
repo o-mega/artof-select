@@ -74,3 +74,46 @@ body,
 #root > div > div:last-child {
   top: 0 !important;
 }
+
+[role="main"] #storybook-panel-root > .os-host {
+  display: none !important;
+}
+
+[role="main"] #storybook-panel-root #panel-tab-content > div:last-child {
+  display: none !important;
+}
+
+#root > div {
+  background-color: #333333;
+}
+
+#panel-tab-content .os-content select {
+  background: #3f3f3f url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23aaa' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 10px center / 10px 10px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: '';
+}
+
+#panel-tab-content .os-content > form > label {
+  align-items: flex-start;
+}
+
+#panel-tab-content .os-content > form > label > span:first-child {
+  width: 250px;
+  white-space: pre-wrap;
+  font-weight: 400;
+}
+
+#panel-tab-content .os-content > form > label > span:first-child > span:first-line {
+ font-weight: 700;
+ line-height: 2em;
+}
+
+#panel-tab-content .os-content textarea {
+  resize: none;
+}
+
+#panel-tab-content .os-content input[type=number] {
+  max-width: 100px;
+}

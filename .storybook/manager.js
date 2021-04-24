@@ -5,7 +5,9 @@ import { themes } from '@storybook/theming';
 import logo from './static/logo.svg';
 
 addons.setConfig({
-  showRoots: false,
+  sidebar: {
+    showRoots: false
+  },
   enableShortcuts: false,
   theme: {
     ...themes.dark,

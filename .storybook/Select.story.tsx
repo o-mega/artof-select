@@ -2,6 +2,7 @@ import '../src/select.scss';
 
 import React, { useState } from "react";
 import { storiesOf } from "@storybook/react";
+import { text, number, boolean, select, optionsKnob } from "@storybook/addon-knobs";
 
 import { Select } from "../src/Select";
 import { SelectMultiple, SelectSingle } from "../src/Select.types";
@@ -146,6 +147,10 @@ storiesOf("artof-select", module)
         </div>
       </div>
     );
+  }, {
+    options: {
+      showPanel: false
+    }
   })
 
   .add("Multiple", () => {
@@ -270,6 +275,10 @@ storiesOf("artof-select", module)
         </div>
       </div>
     );
+  }, {
+    options: {
+      showPanel: false
+    }
   })
 
   .add("Custom options", () => {
@@ -281,7 +290,6 @@ storiesOf("artof-select", module)
           <SelectSingleExample
             label="Choose your country"
             value="ch"
-            asTags={true}
             placeholder="Search"
             options={countryOptions}
             allowSearch={true}
@@ -303,6 +311,10 @@ storiesOf("artof-select", module)
         </div>
       </div>
     );
+  }, {
+    options: {
+      showPanel: false
+    }
   })
 
   .add("Custom value", () => {
@@ -349,4 +361,99 @@ storiesOf("artof-select", module)
         </div>
       </div>
     );
+  }, {
+    options: {
+      showPanel: false
+    }
+  })
+
+  .add("Playground - Single", () => {
+    const valueKnobs = React.useMemo(() => {
+      const obj = {
+        '': ''
+      };
+
+      countryOptions.forEach(({ label, value }) => {
+        obj[label] = `${value}`;
+      })
+
+      return obj;
+    }, []);
+
+    return (
+      <div className="story__select-wrapper">
+        <div className="story__select-col">
+          <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '0 0 20px' }}>Single Select</h3>
+
+          <Select
+            options={countryOptions}
+            label={text('[label]\nThe label above the Select', 'Select Country')}
+            placeholder={text('[placeholder]\nPlaceholder will be displayed when no value is selected', 'Choose your country')}
+            value={select('[value]\nSelected value', valueKnobs, '')}
+            allowClearAll={boolean('[allowClearAll]\nAdd Clear All button', false)}
+            allowSearch={boolean('[allowSearch]\nAllow to search', true)}
+            allowMarkWords={boolean('[allowMarkWords]\nAllow to mark searching letters', true)}
+            hintText={text('[hintText]\nHint text displays under the select', 'You should select the country from the list')}
+            errorText={text('[errorText]\nError Text displays under the select', '')}
+            autoFocus={boolean('[autoFocus]\nNote: it works only with first render', false)}
+            disabled={boolean('[disabled]\nDisabled', false)}
+            dropdownOffset={[number('[dropdownOffset]\nDropdown offset by X', 0), number('[dropdownOffset]\nDropdown offset by Y', 4)]}
+            splitterBefore={number('[splitterBefore]\nShow the horizontal line before the option with index', 0)}
+            aria-expanded={boolean('[aria-expanded]\nExpand the dropdown', false)}
+          />
+        </div>
+      </div>
+    );
+  }, {
+    options: {
+      showPanel: true
+    }
+  })
+
+  .add("Playground - Multiple", () => {
+    const valueKnobs = React.useMemo(() => {
+      const obj = {};
+
+      countryOptions.forEach(({ label, value }) => {
+        obj[label] = `${value}`;
+      })
+
+      return obj;
+    }, []);
+
+    return (
+      <div className="story__select-wrapper">
+        <div className="story__select-col">
+          <h3 style={{ fontSize: '1.3rem', fontFamily: 'sans-serif', margin: '0 0 20px' }}>Multiple Select</h3>
+
+          <Select
+            options={countryOptions}
+            multiple={true}
+            label={text('[label]\nThe label above the Select', 'Select some countries')}
+            placeholder={text('[placeholder]\nPlaceholder will be displayed when no values were selected', 'Choose the countries')}
+            value={optionsKnob('[value]\nSelected values', valueKnobs, [], { display: 'inline-check' }) as any}
+            asTags={boolean('[asTags]\nTo display selected values ss tags', false)}
+            allowClearAll={boolean('[allowClearAll]\nAdd Clear All button', false)}
+            allowSelectAll={boolean('[allowSelectAll]\nAdd Select All option to dropdown options list', true)}
+            allowRemoveTag={boolean('[allowRemoveTag]\nAdd the Remove button to each tag when asTags=true', false)}
+            allowTagsCount={boolean('[allowTagsCount]\nAdd additional tags counter before the tags', false)}
+            allowSearch={boolean('[allowSearch]\nAllow to search', true)}
+            allowMarkWords={boolean('[allowMarkWords]\nAllow to mark searching letters', true)}
+            textSelected={text('[textSelected]\nTranslation for `Selected`', '')}
+            textSelectAll={text('[textSelectAll]\nTranslation for `Select All`', '')}
+            hintText={text('[hintText]\nHint text displays under the select', 'You should select the country from the list')}
+            errorText={text('[errorText]\nError Text displays under the select', '')}
+            autoFocus={boolean('[autoFocus]\nNote: it works only with first render', false)}
+            disabled={boolean('[disabled]\nDisabled', false)}
+            dropdownOffset={[number('[dropdownOffset]\nDropdown offset by X', 0), number('[dropdownOffset]\nDropdown offset by Y', 4)]}
+            splitterBefore={number('[splitterBefore]\nShow the horizontal line before the option with index', 0)}
+            aria-expanded={boolean('[aria-expanded]\nExpand the dropdown', false)}
+          />
+        </div>
+      </div>
+    );
+  }, {
+    options: {
+      showPanel: true
+    }
   });

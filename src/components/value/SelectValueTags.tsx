@@ -3,15 +3,15 @@ import React from "react";
 import { SelectOption } from "../..";
 import { SelectedValueClear } from "./SelectValueClear";
 import { classNames } from "../../helpers/classNames";
-import { SelectCommonProps } from "../../Select.types";
+import { SelectCommonProps, SelectMultiple } from "../../Select.types";
 import { fireEvent } from "../../helpers/fireEvent";
 
 interface Props {
   selectedOptions: SelectOption[];
   placeholder: SelectCommonProps["placeholder"];
-  allowTagsCount: SelectCommonProps["allowTagsCount"];
+  allowTagsCount: SelectMultiple["allowTagsCount"];
   allowClearAll: SelectCommonProps["allowClearAll"];
-  allowRemoveTag: SelectCommonProps["allowRemoveTag"];
+  allowRemoveTag: SelectMultiple["allowRemoveTag"];
   select: React.RefObject<HTMLSelectElement>;
 }
 

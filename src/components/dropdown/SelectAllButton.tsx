@@ -1,10 +1,6 @@
 import React from "react";
 
-import {
-  SelectMultiple,
-  SelectCommonProps,
-  SelectOption,
-} from "../../Select.types";
+import { SelectMultiple, SelectOption } from "../../Select.types";
 import { classNames } from "../../helpers/classNames";
 
 interface Props {
@@ -12,7 +8,7 @@ interface Props {
   visibleOptions: SelectOption[];
   value: SelectMultiple["value"];
   onChange: SelectMultiple["onChange"];
-  textSelectAll: SelectCommonProps["textSelectAll"];
+  textSelectAll: SelectMultiple["textSelectAll"];
 }
 
 const SelectAllButton: React.FC<Props> = ({

@@ -12,13 +12,13 @@ import { SelectedValueTags } from "./SelectValueTags";
 interface Props {
   multiple: boolean;
   options: SelectOption[];
-  asTags: SelectCommonProps["asTags"];
+  asTags: SelectMultiple["asTags"];
   value: SelectMultiple["value"] | SelectSingle["value"];
   placeholder: SelectCommonProps["placeholder"];
-  textSelected: SelectCommonProps["textSelected"];
-  allowTagsCount: SelectCommonProps["allowTagsCount"];
+  textSelected: SelectMultiple["textSelected"];
+  allowTagsCount: SelectMultiple["allowTagsCount"];
   allowClearAll: SelectCommonProps["allowClearAll"];
-  allowRemoveTag: SelectCommonProps["allowRemoveTag"];
+  allowRemoveTag: SelectMultiple["allowRemoveTag"];
   select: React.RefObject<HTMLSelectElement>;
   renderValue: SelectCommonProps["renderValue"];
 }

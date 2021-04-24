@@ -832,6 +832,49 @@ describe("accessibility", () => {
     );
   });
 
+  it("update state of aria-expanded from outside", async () => {
+    const TestComponent = () => {
+      const [open, setOpen] = React.useState<boolean>(false);
+
+      return (
+        <>
+          <Select
+            data-testid="select"
+            aria-expanded={open}
+            options={industryOptions}
+          />
+
+          <button
+            type="button"
+            data-testid="toggler"
+            onClick={() => setOpen(!open)}
+          >
+            toggle
+          </button>
+        </>
+      );
+    };
+
+    const { findByTestId } = render(<TestComponent />);
+
+    expect(await findByTestId("select--wrapper")).not.toHaveAttribute(
+      "aria-expanded"
+    );
+
+    fireEvent.click(await findByTestId("toggler"));
+
+    expect(await findByTestId("select--wrapper")).toHaveAttribute(
+      "aria-expanded",
+      "true"
+    );
+
+    fireEvent.click(await findByTestId("toggler"));
+
+    expect(await findByTestId("select--wrapper")).not.toHaveAttribute(
+      "aria-expanded"
+    );
+  });
+
   it("aria-disabled is not present if the Select isn't disabled", async () => {
     const { findByTestId } = render(
       <Select data-testid="select" options={industryOptions} />
