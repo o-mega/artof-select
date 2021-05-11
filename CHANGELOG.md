@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.2](https://github.com/o-mega/artof-select/compare/v1.8.1...v1.8.2) (2021-05-11)
+
+
+### Bug Fixes
+
+* onBlur event fires correctly ([9f1585d](https://github.com/o-mega/artof-select/commit/9f1585dacafe38e1c4627caf6709b6c99ad702d6))
+
 ### [1.8.1](https://github.com/o-mega/artof-select/compare/v1.8.0...v1.8.1) (2021-04-24)
 
 
