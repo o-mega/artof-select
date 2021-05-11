@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import mergeRefs from "react-merge-refs";
 
 import { SelectValue } from "./components/value/SelectValue";
@@ -110,6 +110,12 @@ const SelectComponent: React.ForwardRefRenderFunction<
   const visibleOptions = options.filter(({ label, value }) =>
     `${label} ${value}`.toLowerCase().includes(search.toLowerCase())
   );
+
+  const handleBlur = useCallback(() => {
+    if (onBlur && !isOpen) {
+      onBlur();
+    }
+  }, [onBlur, isOpen]);
 
   const onChangeElement = (
     event: React.ChangeEvent<HTMLSelectElement>
@@ -341,7 +347,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
         ref={visibleField}
         onClick={onClickField}
         onFocus={onFocus}
-        onBlur={onBlur}
+        onBlur={handleBlur}
         tabIndex={0}
         data-testid={
           restProps["data-testid"]

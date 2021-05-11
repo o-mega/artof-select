@@ -31,7 +31,7 @@
     "build:select": "rollup -c ./rollup.config.js --silent && yarn build:clean",
     "build:storybook": "build-storybook -o ./docs --quiet",
     "build:clean": "rm ./dist/index.esm.scss && rm ./dist/index.esm.d.ts",
-    "release": "standard-version && git push --follow-tags origin master"
+    "release": "standard-version && git push --follow-tags origin master && npm publish"
   },
   "dependencies": {
     "react-merge-refs": "1.1.0",

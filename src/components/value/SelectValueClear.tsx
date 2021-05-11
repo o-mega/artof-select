@@ -16,5 +16,12 @@ export const SelectedValueClear: React.FC<Props> = ({
     }
   };
 
-  return <button type="button" onClick={onClear} className="select__clear" />;
+  return (
+    <button
+      type="button"
+      onClick={onClear}
+      tabIndex={-1}
+      className="select__clear"
+    />
+  );
 };
