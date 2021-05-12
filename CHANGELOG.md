@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.9.1](https://github.com/o-mega/artof-select/compare/v1.9.0...v1.9.1) (2021-05-12)
+
+
+### Bug Fixes
+
+* Selected option with component ([ca4d082](https://github.com/o-mega/artof-select/commit/ca4d082749f53731474e72c4f521dce9913580b6))
+
 ## [1.9.0](https://github.com/o-mega/artof-select/compare/v1.8.2...v1.9.0) (2021-05-12)
 
 
