@@ -66,6 +66,10 @@ $select-icon-size: ($select-padding-x / 1.75);
     ~ .select__value {
       color: $color-placeholder;
 
+      .select__value_text {
+        opacity: .5;
+      }
+
       .select__tag {
         opacity: 0;
       }
@@ -84,6 +88,7 @@ $select-icon-size: ($select-padding-x / 1.75);
     ~ .select__value {
       color: transparent;
 
+      .select__value_text,
       .select__label,
       .select__tag {
         opacity: 0;

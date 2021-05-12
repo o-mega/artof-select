@@ -85,12 +85,14 @@ export const SelectValue: React.FC<Props> = React.memo(function selectValue({
   }
 
   const value = props.value as SelectSingle["value"];
-  const label = options.find((option) => value === option.value)?.label;
+  const selectedOption = options.find((option) => value === option.value);
 
-  if (label ?? value) {
+  if (selectedOption?.component ?? selectedOption?.label ?? value) {
     return (
       <>
-        <div className="select__value_text">{label ?? value}</div>
+        <div className="select__value_text">
+          {selectedOption?.component ?? selectedOption?.label ?? value}
+        </div>
 
         {allowClearAll && <SelectedValueClear select={select} />}
       </>
