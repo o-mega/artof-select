@@ -80,6 +80,7 @@ Common props you may want to specify include:
 | `hintText`           | `undefined`  | A text below the Select (and under the `errorText`)           |
 | `id`                 | `undefined`  | Default `<select />`'s attribute                              |
 | `label`              | `undefined`  | Generates an label with this name above the Select            |
+| `labelPosition`      | `before`     | Position for Label (`before` | `inside` | `after`)            |
 | `multiple`           | `false`      | Allow the user to select multiple values                      |
 | `name`               | `undefined`  | Default `<select />`'s attribute                              |
 | `onBlur`             | `undefined`  | Handle the Blur event                                         |

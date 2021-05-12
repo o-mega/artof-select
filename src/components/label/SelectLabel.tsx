@@ -1,22 +1,18 @@
 import React from "react";
 
 interface Props {
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  label: React.ReactText;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>> | undefined;
+  label: React.ReactNode;
   id?: string;
-  disabled?: boolean;
 }
 
 export const SelectLabel: React.FC<Props> = ({
   setIsOpen,
   label,
   id,
-  disabled,
 }): JSX.Element => {
   const onClickLabel = (): void => {
-    if (!disabled) {
-      setIsOpen(true);
-    }
+    setIsOpen && setIsOpen(true);
   };
 
   return (

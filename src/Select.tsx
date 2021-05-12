@@ -18,6 +18,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
     multiple = false,
     options = [],
     label,
+    labelPosition = "before",
     errorText,
     hintText,
     placeholder,
@@ -333,12 +334,11 @@ const SelectComponent: React.ForwardRefRenderFunction<
         ))}
       </select>
 
-      {label && (
+      {label && labelPosition === "before" && (
         <SelectLabel
           id={restProps.id}
-          setIsOpen={setIsOpen}
           label={label}
-          disabled={restProps.disabled}
+          setIsOpen={!restProps.disabled ? setIsOpen : undefined}
         />
       )}
 
@@ -380,6 +380,14 @@ const SelectComponent: React.ForwardRefRenderFunction<
           ])}
           role="button"
         >
+          {label && labelPosition === "inside" && (
+            <SelectLabel
+              id={restProps.id}
+              label={label}
+              setIsOpen={!restProps.disabled ? setIsOpen : undefined}
+            />
+          )}
+
           <SelectValue
             multiple={multiple}
             options={options}
@@ -418,6 +426,14 @@ const SelectComponent: React.ForwardRefRenderFunction<
           />
         )}
       </div>
+
+      {label && labelPosition === "after" && (
+        <SelectLabel
+          id={restProps.id}
+          label={label}
+          setIsOpen={!restProps.disabled ? setIsOpen : undefined}
+        />
+      )}
 
       {errorText && <div className="select__error">{errorText}</div>}
 

@@ -31,6 +31,12 @@ $select-icon-size: ($select-padding-x / 1.75);
   font-weight: 500;
   font-style: normal;
   line-height: 1;
+
+  .select__value & {
+    display: inline-block;
+    margin-bottom: 0;
+    margin-right: ($font-size-base / 2);
+  }
 }
 
 .select__field {
@@ -64,6 +70,10 @@ $select-icon-size: ($select-padding-x / 1.75);
         opacity: 0;
       }
 
+      .select__label {
+        color: $color-placeholder;
+      }
+
       &.select__value--tags {
         color: transparent;
       }
@@ -74,6 +84,7 @@ $select-icon-size: ($select-padding-x / 1.75);
     ~ .select__value {
       color: transparent;
 
+      .select__label,
       .select__tag {
         opacity: 0;
       }

@@ -581,20 +581,86 @@ describe("props", () => {
     const onBlur = jest.fn(() => {});
 
     const { getByTestId } = render(
-      <div>
-        <Select
-          data-testid="select"
-          options={industryOptions}
-          onBlur={onBlur}
-        />
-
-        <input type="text" data-testid="input" />
-      </div>
+      <Select data-testid="select" options={industryOptions} onBlur={onBlur} />
     );
 
     fireEvent.blur(getByTestId("select--field"));
 
     expect(onBlur).toHaveBeenCalledTimes(1);
+  });
+
+  it("Renders label correctly", () => {
+    const testLabel = "Test Label";
+
+    const { getByRole } = render(
+      <Select
+        data-testid="select"
+        options={industryOptions}
+        label={testLabel}
+      />
+    );
+
+    expect(getByRole("label")).toHaveTextContent(testLabel);
+  });
+
+  it("Adds `for` attribute to the Label, if `id` provided", () => {
+    const testLabel = "Test Label";
+    const testSelectId = "select_test_id";
+
+    const { getByRole } = render(
+      <Select
+        data-testid="select"
+        options={industryOptions}
+        label={testLabel}
+        id={testSelectId}
+      />
+    );
+
+    expect(getByRole("label")).toHaveAttribute("for", testSelectId);
+  });
+
+  it("labelPosition: default position for label is before the select", () => {
+    const testLabel = "Test Label";
+
+    const { getByRole } = render(
+      <Select
+        data-testid="select"
+        options={industryOptions}
+        label={testLabel}
+      />
+    );
+
+    expect(getByRole("label").nextSibling).toHaveClass("select__field");
+  });
+
+  it("labelPosition: Label can be placed after the Select", () => {
+    const testLabel = "Test Label";
+
+    const { getByRole } = render(
+      <Select
+        data-testid="select"
+        options={industryOptions}
+        label={testLabel}
+        labelPosition="after"
+      />
+    );
+
+    expect(getByRole("label").previousSibling).toHaveClass("select__field");
+  });
+
+  it("labelPosition: Label can be placed inside to the Value container", () => {
+    const testLabel = "Test Label";
+
+    const { getByRole } = render(
+      <Select
+        data-testid="select"
+        options={industryOptions}
+        label={testLabel}
+        labelPosition="inside"
+      />
+    );
+
+    expect(getByRole("label").parentNode).toHaveClass("select__value");
   });
 });
 

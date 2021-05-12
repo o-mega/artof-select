@@ -21,7 +21,8 @@ type BaseProps = Pick<
 
 export interface SelectCommonProps extends BaseProps {
   options?: SelectOption[];
-  label?: ReactText;
+  label?: ReactNode;
+  labelPosition?: "before" | "inside" | "after";
   placeholder?: ReactText;
   errorText?: ReactText;
   hintText?: ReactText;

@@ -400,6 +400,15 @@ storiesOf("artof-select", module)
             label={text('[label]\nThe label above the Select', 'Select Country')}
             placeholder={text('[placeholder]\nPlaceholder will be displayed when no value is selected', 'Choose your country')}
             value={select('[value]\nSelected value', valueKnobs, '')}
+            labelPosition={select(
+              '[labelPosition]\nPlacement for label tag',
+              {
+                'before': 'before',
+                'inside': 'inside',
+                'after': 'after'
+              },
+              'before'
+            )}
             allowClearAll={boolean('[allowClearAll]\nAdd Clear All button', false)}
             allowSearch={boolean('[allowSearch]\nAllow to search', true)}
             allowMarkWords={boolean('[allowMarkWords]\nAllow to mark searching letters', true)}
@@ -442,6 +451,15 @@ storiesOf("artof-select", module)
             label={text('[label]\nThe label above the Select', 'Select some countries')}
             placeholder={text('[placeholder]\nPlaceholder will be displayed when no values were selected', 'Choose the countries')}
             value={optionsKnob('[value]\nSelected values', valueKnobs, [], { display: 'inline-check' }) as any}
+            labelPosition={select(
+              '[labelPosition]\nPlacement for label tag',
+              {
+                'before': 'before',
+                'inside': 'inside',
+                'after': 'after'
+              },
+              'before'
+            )}
             asTags={boolean('[asTags]\nTo display selected values ss tags', false)}
             allowClearAll={boolean('[allowClearAll]\nAdd Clear All button', false)}
             allowSelectAll={boolean('[allowSelectAll]\nAdd Select All option to dropdown options list', true)}
