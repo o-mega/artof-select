@@ -39,6 +39,7 @@ export interface SelectCommonProps extends BaseProps {
   onFocus?: () => void;
   onKeyDown?: () => void;
   onKeyUp?: () => void;
+  onToggle?: (state: boolean) => void;
 }
 
 export interface SelectSingle extends SelectCommonProps {

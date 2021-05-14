@@ -1,18 +1,18 @@
 import React from "react";
 
 interface Props {
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>> | undefined;
   label: React.ReactNode;
   id?: string;
+  toggleDropdown?: (state: boolean) => void;
 }
 
 export const SelectLabel: React.FC<Props> = ({
-  setIsOpen,
+  toggleDropdown,
   label,
   id,
 }): JSX.Element => {
   const onClickLabel = (): void => {
-    setIsOpen && setIsOpen(true);
+    toggleDropdown && toggleDropdown(true);
   };
 
   return (

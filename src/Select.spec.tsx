@@ -662,6 +662,26 @@ describe("props", () => {
 
     expect(getByRole("label").parentNode).toHaveClass("select__value");
   });
+
+  it("handle onToggle event", async () => {
+    const onToggle = jest.fn((state: boolean) => {
+      expect(state).toBe(true);
+    });
+
+    const { getByRole, findByTestId } = render(
+      <Select
+        data-testid="select"
+        options={industryOptions}
+        onToggle={onToggle}
+      />
+    );
+
+    fireEvent.click(getByRole("button"));
+
+    await findByTestId("select--wrapper");
+
+    expect(onToggle).toHaveBeenCalledTimes(1);
+  });
 });
 
 describe("onChange", () => {

@@ -19,7 +19,7 @@ interface Props {
   options: SelectOption[];
   visibleOptions: SelectOption[];
   isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  toggleDropdown: (state: boolean) => void;
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
   "data-testid"?: string;
@@ -40,7 +40,7 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
   options,
   visibleOptions,
   isOpen,
-  setIsOpen,
+  toggleDropdown,
   search,
   setSearch,
   multiple,
@@ -153,7 +153,7 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
         isLast
       ) {
         e.preventDefault();
-        setIsOpen(false);
+        toggleDropdown(false);
         visibleFieldRef?.focus();
         setSearch("");
       }
@@ -161,7 +161,7 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
       // close dropdown on escape
       else if (key === "escape") {
         e.preventDefault();
-        setIsOpen(false);
+        toggleDropdown(false);
         visibleFieldRef?.focus();
         setSearch("");
       }
@@ -197,7 +197,7 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
 
   const onClickOutside = (event: MouseEvent): void => {
     if (!visibleFieldRef?.parentNode?.contains(event.target as Node)) {
-      setIsOpen(false);
+      toggleDropdown(false);
       setSearch("");
     }
   };
