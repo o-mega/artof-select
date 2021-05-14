@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.10.0](https://github.com/o-mega/artof-select/compare/v1.9.1...v1.10.0) (2021-05-14)
+
+
+### Features
+
+* Add onToggle props to handle Dropdown state ([3518e54](https://github.com/o-mega/artof-select/commit/3518e54c657d56b5c4f7a57031a79566fd818743))
+
 ### [1.9.1](https://github.com/o-mega/artof-select/compare/v1.9.0...v1.9.1) (2021-05-12)
 
 
