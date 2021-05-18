@@ -1,4 +1,5 @@
 import { ReactNode, ReactText } from "react";
+import { Placement } from "@popperjs/core/lib/enums";
 
 export type SelectOption = {
   label?: ReactText;
@@ -31,6 +32,7 @@ export interface SelectCommonProps extends BaseProps {
   allowMarkWords?: boolean;
   renderValue?: (options: SelectOption[]) => JSX.Element;
   dropdownOffset?: [number, number];
+  dropdownPosition?: Placement;
   splitterBefore?: number;
   "data-testid"?: string;
   "data-cy"?: string;

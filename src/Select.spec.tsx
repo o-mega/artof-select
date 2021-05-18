@@ -682,6 +682,25 @@ describe("props", () => {
 
     expect(onToggle).toHaveBeenCalledTimes(1);
   });
+
+  it("Sets dropdown placement", async () => {
+    const testPlacement = "right-start";
+
+    const { getByRole, findByRole } = render(
+      <Select
+        data-testid="select"
+        options={industryOptions}
+        dropdownPosition={testPlacement}
+      />
+    );
+
+    fireEvent.click(getByRole("button"));
+
+    expect(await findByRole("listbox")).toHaveAttribute(
+      "data-popper-placement",
+      testPlacement
+    );
+  });
 });
 
 describe("onChange", () => {

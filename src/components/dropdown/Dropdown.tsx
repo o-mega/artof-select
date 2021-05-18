@@ -33,6 +33,7 @@ interface Props {
   selectRef: HTMLSelectElement | null;
   visibleFieldRef: HTMLDivElement | null;
   dropdownOffset: [x: number, y: number];
+  dropdownPosition: SelectCommonProps["dropdownPosition"];
   splitterBefore: SelectCommonProps["splitterBefore"];
 }
 
@@ -52,6 +53,7 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
   textSelectAll,
   "data-testid": dataTestid,
   dropdownOffset,
+  dropdownPosition,
   splitterBefore,
   ...restProps
 }): JSX.Element {
@@ -60,7 +62,7 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
   const [dropdown, setDropdown] = useState<HTMLDivElement | null>(null);
 
   const { styles, attributes } = usePopper(visibleFieldRef, dropdown, {
-    placement: "bottom",
+    placement: dropdownPosition,
     modifiers: [
       {
         name: "offset",

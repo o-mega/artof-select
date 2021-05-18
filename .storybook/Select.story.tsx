@@ -417,6 +417,27 @@ storiesOf("artof-select", module)
             autoFocus={boolean('[autoFocus]\nNote: it works only with first render', false)}
             disabled={boolean('[disabled]\nDisabled', false)}
             dropdownOffset={[number('[dropdownOffset]\nDropdown offset by X', 0), number('[dropdownOffset]\nDropdown offset by Y', 4)]}
+            dropdownPosition={select(
+              '[dropdownPosition]\The placement for dropdown',
+              {
+                'auto': 'auto',
+                'auto-start': 'auto-start',
+                'auto-end': 'auto-end',
+                'top': 'top',
+                'top-start': 'top-start',
+                'top-end': 'top-end',
+                'bottom': 'bottom',
+                'bottom-start': 'bottom-start',
+                'bottom-end': 'bottom-end',
+                'right': 'right',
+                'right-start': 'right-start',
+                'right-end': 'right-end',
+                'left': 'left',
+                'left-start': 'left-start',
+                'left-end': 'left-end'
+              },
+              'bottom-start'
+            )}
             splitterBefore={number('[splitterBefore]\nShow the horizontal line before the option with index', 0)}
             aria-expanded={boolean('[aria-expanded]\nExpand the dropdown', false)}
           />
@@ -474,6 +495,27 @@ storiesOf("artof-select", module)
             autoFocus={boolean('[autoFocus]\nNote: it works only with first render', false)}
             disabled={boolean('[disabled]\nDisabled', false)}
             dropdownOffset={[number('[dropdownOffset]\nDropdown offset by X', 0), number('[dropdownOffset]\nDropdown offset by Y', 4)]}
+            dropdownPosition={select(
+              '[dropdownPosition]\The placement for dropdown',
+              {
+                'auto': 'auto',
+                'auto-start': 'auto-start',
+                'auto-end': 'auto-end',
+                'top': 'top',
+                'top-start': 'top-start',
+                'top-end': 'top-end',
+                'bottom': 'bottom',
+                'bottom-start': 'bottom-start',
+                'bottom-end': 'bottom-end',
+                'right': 'right',
+                'right-start': 'right-start',
+                'right-end': 'right-end',
+                'left': 'left',
+                'left-start': 'left-start',
+                'left-end': 'left-end'
+              },
+              'bottom-start'
+            )}
             splitterBefore={number('[splitterBefore]\nShow the horizontal line before the option with index', 0)}
             aria-expanded={boolean('[aria-expanded]\nExpand the dropdown', false)}
           />
