@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.11.0](https://github.com/o-mega/artof-select/compare/v1.10.0...v1.11.0) (2021-05-18)
+
+
+### Features
+
+* Add dropdownPosition props ([d6517e2](https://github.com/o-mega/artof-select/commit/d6517e2c2b8b829e00cd53032765cc6679c9159d))
+
 ## [1.10.0](https://github.com/o-mega/artof-select/compare/v1.9.1...v1.10.0) (2021-05-14)
 
 
