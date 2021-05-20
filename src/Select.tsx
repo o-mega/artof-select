@@ -237,7 +237,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
             (visibleField.current?.childNodes[0] as HTMLElement)?.focus();
           }
         }
-      } else {
+      } else if (isOpen) {
         toggleDropdown(false);
       }
 

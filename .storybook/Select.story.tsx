@@ -15,16 +15,11 @@ const SelectSingleExample: React.FC<SelectSingle> = (props) => {
     setSelected(event.currentTarget.value);
   };
 
-  const onBlur = (): void => {
-    console.log(props.label);
-  };
-
   return (
     <Select
       {...props}
       value={selected}
       onChange={onChange}
-      onBlur={onBlur}
     />
   );
 }
@@ -36,16 +31,11 @@ const SelectMiltipleExample: React.FC<SelectMultiple> = (props) => {
     setSelected(values);
   };
 
-  const onBlur = (): void => {
-    console.log(props.label);
-  };
-
   return (
     <Select
       {...props}
       value={selected}
       onChange={onChange}
-      onBlur={onBlur}
     />
   );
 }
