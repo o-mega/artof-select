@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.11.2](https://github.com/o-mega/artof-select/compare/v1.11.1...v1.11.2) (2021-05-20)
+
+
+### Bug Fixes
+
+* Add second parameter for better onToggle handling ([6fa7102](https://github.com/o-mega/artof-select/commit/6fa7102a86a130de0ebcb9661873805686862913))
+
 ### [1.11.1](https://github.com/o-mega/artof-select/compare/v1.11.0...v1.11.1) (2021-05-20)
 
 
