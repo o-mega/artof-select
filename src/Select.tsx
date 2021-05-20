@@ -298,7 +298,23 @@ const SelectComponent: React.ForwardRefRenderFunction<
 
   const toggleDropdown = (state: boolean): void => {
     setIsOpen(state);
-    onToggle && onToggle(state);
+
+    if (onToggle && select.current) {
+      if (multiple) {
+        const options = select.current.options;
+        const selectedValues: string[] = [];
+
+        for (let i = 0; i < options.length; i++) {
+          if (options[i].selected) {
+            selectedValues.push(options[i].value);
+          }
+        }
+
+        onToggle(state, selectedValues);
+      } else {
+        onToggle(state, select.current.value);
+      }
+    }
   };
 
   return (
