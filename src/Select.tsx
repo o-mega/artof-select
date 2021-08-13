@@ -443,7 +443,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
             value={restProps.value}
             onChange={restProps.onChange}
             selectRef={select.current}
-            visibleFieldRef={visibleField.current}
+            visibleFieldRef={visibleField}
             dropdownOffset={dropdownOffset}
             dropdownPosition={dropdownPosition}
             splitterBefore={splitterBefore}
