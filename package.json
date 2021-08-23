@@ -23,6 +23,9 @@
   "repository": {
     "url": "https://github.com/o-mega/artof-select.git"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "lint": "eslint --ext **/*.{ts,tsx} --ignore-pattern dist --ignore-pattern node_modules",
     "test": "jest",
