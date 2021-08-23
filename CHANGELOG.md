@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.11.3](https://github.com/o-mega/artof-select/compare/v1.11.2...v1.11.3) (2021-08-23)
+
+
+### Bug Fixes
+
+* fixed conditional rendering ([#1](https://github.com/o-mega/artof-select/issues/1)) ([21aee03](https://github.com/o-mega/artof-select/commit/21aee039df7b76dd94d5b4498d09c6e2cf8738db))
+
 ### [1.11.2](https://github.com/o-mega/artof-select/compare/v1.11.1...v1.11.2) (2021-05-20)
 
 
