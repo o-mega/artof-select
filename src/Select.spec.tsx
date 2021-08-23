@@ -173,6 +173,38 @@ describe("open dropdown", () => {
   });
 });
 
+it("render of initially expanded select on state changes", async () => {
+  const TestComponent = () => {
+    const [render, setRender] = React.useState<boolean>(false);
+
+    return (
+      <>
+        {render && (
+          <Select
+            data-testid="select"
+            aria-expanded={true}
+            options={industryOptions}
+          />
+        )}
+
+        <button
+          type="button"
+          data-testid="toggler"
+          onClick={() => setRender(!render)}
+        >
+          toggle
+        </button>
+      </>
+    );
+  };
+
+  const { findByTestId } = render(<TestComponent />);
+
+  fireEvent.click(await findByTestId("toggler"));
+
+  expect(await findByTestId("select--wrapper")).toHaveClass("select--opened");
+});
+
 describe("close dropdown", () => {
   it("opened select can be closed with outside click", async () => {
     const { getByTestId, getByRole, findByTestId } = render(

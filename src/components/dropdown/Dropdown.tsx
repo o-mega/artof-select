@@ -31,7 +31,7 @@ interface Props {
   value: SelectSingle["value"] | SelectMultiple["value"];
   onChange: SelectSingle["onChange"] | SelectMultiple["onChange"];
   selectRef: HTMLSelectElement | null;
-  visibleFieldRef: HTMLDivElement | null;
+  visibleFieldRef: React.RefObject<HTMLDivElement> | null;
   dropdownOffset: [x: number, y: number];
   dropdownPosition: SelectCommonProps["dropdownPosition"];
   splitterBefore: SelectCommonProps["splitterBefore"];
@@ -61,7 +61,7 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
 
   const [dropdown, setDropdown] = useState<HTMLDivElement | null>(null);
 
-  const { styles, attributes } = usePopper(visibleFieldRef, dropdown, {
+  const { styles, attributes } = usePopper(visibleFieldRef?.current, dropdown, {
     placement: dropdownPosition,
     modifiers: [
       {
@@ -75,10 +75,9 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
 
   // bind click outside
   useEffect(() => {
-    document.addEventListener("click", onClickOutside, false);
-
+    document.addEventListener("click", onClickOutside, true);
     return () => {
-      document.removeEventListener("click", onClickOutside, false);
+      document.removeEventListener("click", onClickOutside, true);
       clearTimeout(typingTimeOut);
     };
   }, []);
@@ -125,7 +124,7 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
     if (isOpen) {
       const key = e.key?.toLowerCase();
       const target = e.target as Node;
-      const isCurrent = visibleFieldRef?.contains(target);
+      const isCurrent = visibleFieldRef?.current?.contains(target);
 
       const isFirst =
         (target as HTMLElement).className.includes("select__option") &&
@@ -156,7 +155,7 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
       ) {
         e.preventDefault();
         toggleDropdown(false);
-        visibleFieldRef?.focus();
+        visibleFieldRef?.current?.focus();
         setSearch("");
       }
 
@@ -164,7 +163,7 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
       else if (key === "escape") {
         e.preventDefault();
         toggleDropdown(false);
-        visibleFieldRef?.focus();
+        visibleFieldRef?.current?.focus();
         setSearch("");
       }
 
@@ -198,7 +197,7 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
   };
 
   const onClickOutside = (event: MouseEvent): void => {
-    if (!visibleFieldRef?.parentNode?.contains(event.target as Node)) {
+    if (!visibleFieldRef?.current?.parentNode?.contains(event.target as Node)) {
       toggleDropdown(false);
       setSearch("");
     }
