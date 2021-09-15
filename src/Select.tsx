@@ -82,6 +82,12 @@ const SelectComponent: React.ForwardRefRenderFunction<
     ariaExpanded !== isOpen && toggleDropdown(ariaExpanded);
   }, [ariaExpanded]);
 
+  useEffect(() => {
+    if (isOpen && restProps.disabled) {
+      toggleDropdown(false);
+    }
+  }, [isOpen, restProps.disabled]);
+
   if (process.env.NODE_ENV !== "production") {
     React.useEffect(() => {
       const visibleOptions = options.filter(({ label, value }) =>
@@ -388,6 +394,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
             autoComplete="off"
             role="search"
             tabIndex={-1}
+            disabled={restProps.disabled}
             className={classNames([
               "select__search",
               !!search && "select__search--filled",

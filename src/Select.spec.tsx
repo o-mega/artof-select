@@ -291,6 +291,20 @@ describe("search", () => {
 
     expect(await findByTestId("select--wrapper")).toHaveClass("select--opened");
   });
+
+  it("searching is not allowed for disabled Select", async () => {
+    const { getByTestId, findByTestId } = render(
+      <Select data-testid="select" allowSearch={true} disabled={true} />
+    );
+
+    fireEvent.focus(
+      getByTestId("select--wrapper").getElementsByClassName("select__search")[0]
+    );
+
+    expect(await findByTestId("select--wrapper")).not.toHaveClass(
+      "select--opened"
+    );
+  });
 });
 
 describe("nulls check", () => {
