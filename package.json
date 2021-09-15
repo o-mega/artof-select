@@ -10,7 +10,7 @@
     "react-component",
     "component"
   ],
-  "version": "1.11.5",
+  "version": "1.11.6",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",

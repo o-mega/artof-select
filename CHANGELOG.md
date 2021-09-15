@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.11.6](https://github.com/o-mega/artof-select/compare/v1.11.5...v1.11.6) (2021-09-15)
+
+
+### Bug Fixes
+
+* Do not allow searching for disabled Select ([9019009](https://github.com/o-mega/artof-select/commit/901900988b4d7d6c8b9d94d27194d7269748f9e0))
+
 ### [1.11.5](https://github.com/o-mega/artof-select/compare/v1.11.4...v1.11.5) (2021-08-23)
 
 ### [1.11.4](https://github.com/o-mega/artof-select/compare/v1.11.3...v1.11.4) (2021-08-23)
