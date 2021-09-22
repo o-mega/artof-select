@@ -30,6 +30,7 @@ interface Props {
   textSelectAll?: string;
   value: SelectSingle["value"] | SelectMultiple["value"];
   onChange: SelectSingle["onChange"] | SelectMultiple["onChange"];
+  onBlur: SelectCommonProps["onBlur"];
   selectRef: HTMLSelectElement | null;
   visibleFieldRef: React.RefObject<HTMLDivElement> | null;
   dropdownOffset: [x: number, y: number];
@@ -55,6 +56,7 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
   dropdownOffset,
   dropdownPosition,
   splitterBefore,
+  onBlur,
   ...restProps
 }): JSX.Element {
   const [typing, setTyping] = useState<string>("");
@@ -198,6 +200,7 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
 
   const onClickOutside = (event: MouseEvent): void => {
     if (!visibleFieldRef?.current?.parentNode?.contains(event.target as Node)) {
+      onBlur && onBlur();
       toggleDropdown(false);
       setSearch("");
     }
