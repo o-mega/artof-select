@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.11.7](https://github.com/o-mega/artof-select/compare/v1.11.6...v1.11.7) (2021-09-23)
+
+
+### Bug Fixes
+
+* onBlur handling ([#4](https://github.com/o-mega/artof-select/issues/4)) ([18dc3b7](https://github.com/o-mega/artof-select/commit/18dc3b72305a6494b8cc5ceb529ad49a95a5cbde))
+
 ### [1.11.6](https://github.com/o-mega/artof-select/compare/v1.11.5...v1.11.6) (2021-09-15)
 
 
