@@ -635,6 +635,27 @@ describe("props", () => {
     expect(onBlur).toHaveBeenCalledTimes(1);
   });
 
+  it("onBlur called after click", async () => {
+    const onBlur = jest.fn(() => {});
+
+    const { getByTestId, getByRole } = render(
+      <div>
+        <div data-testid="test-outside" style={{ height: 100 }} />
+
+        <Select
+          data-testid="select"
+          options={industryOptions}
+          onBlur={onBlur}
+        />
+      </div>
+    );
+
+    fireEvent.click(getByRole("button"));
+    fireEvent.click(getByTestId("test-outside"));
+
+    expect(onBlur).toHaveBeenCalledTimes(1);
+  });
+
   it("Renders label correctly", () => {
     const testLabel = "Test Label";
 
