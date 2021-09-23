@@ -449,6 +449,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
             textSelectAll={textSelectAll}
             value={restProps.value}
             onChange={restProps.onChange}
+            onBlur={onBlur}
             selectRef={select.current}
             visibleFieldRef={visibleField}
             dropdownOffset={dropdownOffset}
