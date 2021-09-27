@@ -450,7 +450,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
             value={restProps.value}
             onChange={restProps.onChange}
             onBlur={onBlur}
-            selectRef={select.current}
+            select={select}
             visibleFieldRef={visibleField}
             dropdownOffset={dropdownOffset}
             dropdownPosition={dropdownPosition}

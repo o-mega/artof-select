@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactText } from "react";
+import React, { useState, useEffect, ReactText, useCallback } from "react";
 import { usePopper } from "react-popper";
 
 import { scrollIntoView, scrollToChild } from "../../helpers/scrollIntoView";
@@ -31,7 +31,7 @@ interface Props {
   value: SelectSingle["value"] | SelectMultiple["value"];
   onChange: SelectSingle["onChange"] | SelectMultiple["onChange"];
   onBlur: SelectCommonProps["onBlur"];
-  selectRef: HTMLSelectElement | null;
+  select: React.RefObject<HTMLSelectElement>;
   visibleFieldRef: React.RefObject<HTMLDivElement> | null;
   dropdownOffset: [x: number, y: number];
   dropdownPosition: SelectCommonProps["dropdownPosition"];
@@ -49,7 +49,7 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
   allowSelectAll,
   allowSearch,
   allowMarkWords,
-  selectRef,
+  select,
   visibleFieldRef,
   textSelectAll,
   "data-testid": dataTestid,
@@ -100,27 +100,30 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
     }
   }, [dropdown]);
 
-  const onClickOption = (value: ReactText): void => {
-    if (selectRef) {
-      const options = selectRef.options;
+  const onClickOption = useCallback(
+    (value: ReactText): void => {
+      if (select.current) {
+        const options = select.current.options;
 
-      for (let i = 0; i < options.length; i++) {
-        const option = options[i];
+        for (let i = 0; i < options.length; i++) {
+          const option = options[i];
 
-        // detect target option to toggle selection
-        if (option.value === `${value}`) {
-          if (option.selected && multiple) {
-            option.selected = !option.selected;
-          } else {
-            option.selected = true;
+          // detect target option to toggle selection
+          if (option.value === `${value}`) {
+            if (option.selected && multiple) {
+              option.selected = !option.selected;
+            } else {
+              option.selected = true;
+            }
           }
         }
-      }
 
-      // force to fire event
-      fireEvent(selectRef, "change");
-    }
-  };
+        // force to fire event
+        fireEvent(select.current, "change");
+      }
+    },
+    [select.current]
+  );
 
   const handleKeyDown = (e: KeyboardEvent): void => {
     if (isOpen) {

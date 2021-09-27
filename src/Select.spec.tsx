@@ -173,38 +173,6 @@ describe("open dropdown", () => {
   });
 });
 
-it("render of initially expanded select on state changes", async () => {
-  const TestComponent = () => {
-    const [render, setRender] = React.useState<boolean>(false);
-
-    return (
-      <>
-        {render && (
-          <Select
-            data-testid="select"
-            aria-expanded={true}
-            options={industryOptions}
-          />
-        )}
-
-        <button
-          type="button"
-          data-testid="toggler"
-          onClick={() => setRender(!render)}
-        >
-          toggle
-        </button>
-      </>
-    );
-  };
-
-  const { findByTestId } = render(<TestComponent />);
-
-  fireEvent.click(await findByTestId("toggler"));
-
-  expect(await findByTestId("select--wrapper")).toHaveClass("select--opened");
-});
-
 describe("close dropdown", () => {
   it("opened select can be closed with outside click", async () => {
     const { getByTestId, getByRole, findByTestId } = render(
@@ -1045,6 +1013,65 @@ describe("accessibility", () => {
     expect(await findByTestId("select--wrapper")).not.toHaveAttribute(
       "aria-expanded"
     );
+  });
+
+  it("render of initially expanded select on state changes", async () => {
+    const TestComponent = () => {
+      const [render, setRender] = React.useState<boolean>(false);
+
+      return (
+        <>
+          {render && (
+            <Select
+              data-testid="select"
+              aria-expanded={true}
+              options={industryOptions}
+            />
+          )}
+
+          <button
+            type="button"
+            data-testid="toggler"
+            onClick={() => setRender(!render)}
+          >
+            toggle
+          </button>
+        </>
+      );
+    };
+
+    const { findByTestId } = render(<TestComponent />);
+
+    fireEvent.click(await findByTestId("toggler"));
+
+    expect(await findByTestId("select--wrapper")).toHaveClass("select--opened");
+  });
+
+  it("should be able to choose option when aria-expanded={true} by default", async () => {
+    let val = "";
+
+    const onChange = jest.fn((event) => {
+      val = event.currentTarget.value;
+    });
+
+    const { container, findByTestId } = render(
+      <Select
+        data-testid="select"
+        options={industryOptions}
+        aria-expanded={true}
+        onChange={onChange}
+      />
+    );
+
+    expect(await findByTestId("select--wrapper")).toHaveClass("select--opened");
+
+    const option = container.querySelector("[role=option]:first-of-type");
+
+    fireEvent.click(option as Element);
+
+    expect(onChange).toHaveBeenCalledTimes(1);
+
+    expect(val).toEqual(industryOptions[0].value);
   });
 
   it("aria-disabled is not present if the Select isn't disabled", async () => {
