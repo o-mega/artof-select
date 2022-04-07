@@ -1,9 +1,11 @@
 module.exports = {
+  core: {
+    builder: 'webpack5',
+  },
   stories: [
     './Select.story.tsx'
   ],
   addons: [
-    '@storybook/addon-controls',
     {
       name: 'storybook-addon-sass-postcss',
       options: {
@@ -11,6 +13,13 @@ module.exports = {
           implementation: require('sass')
         }
       }
-    }
+    },
+    {
+      name: '@storybook/addon-essentials',
+      options: {
+        actions: false,
+      },
+    },
+    '@storybook/addon-controls'
   ]
 }

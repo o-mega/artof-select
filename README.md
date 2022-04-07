@@ -93,6 +93,8 @@ Common props you may want to specify include:
 | `placeholder`      | `undefined`    | The text displayed when no option is selected                 |
 | `renderValue`      | `undefined`    | A function, that can render custom selected value             |
 | `required`         | `undefined`    | Default `<select />`'s attribute                              |
+| `searchPosition`   | `value`        | Position for search field (`value` | `dropdown`)              |
+| `searchPlaceholder`| `undefined`    | A placeholder for search field (inside dropdown only)         |
 | `splitterBefore`   | `0`            | To set additional HTMLDivElement before an option item        |
 | `style`            | `undefined`    | Default `<select />`'s attribute                              |
 | `textSelectAll`    | `Select all`   | A translation text _Select All_ if `allowSelectAll={true}`    |
@@ -118,4 +120,4 @@ This commands should run the Storybook with designed examples at `http://localho
 
 ## License
 
-MIT Licensed. Copyright (c) Oleg Frolov 2021.
+MIT Licensed. Copyright (c) Oleg Frolov

@@ -1,5 +1,4 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { countryOptions } from './static/options.mock';
 import { TemplateSingle, TemplateMultiple, TemplateCustomOptions, TemplateCustomValue } from './templates/';
@@ -12,9 +11,8 @@ export const Single = TemplateSingle.bind({});
 Single.storyName = 'Single [default]';
 
 Single.parameters = {
-  primary: true,
   options: {
-    showPanel: false
+    order: 1,
   }
 };
 
@@ -22,7 +20,7 @@ export const Multiple = TemplateMultiple.bind({});
 
 Multiple.parameters = {
   options: {
-    showPanel: false
+    order: 2,
   }
 };
 
@@ -32,7 +30,7 @@ CustomOptions.storyName = 'Custom Options';
 
 CustomOptions.parameters = {
   options: {
-    showPanel: false
+    order: 3,
   }
 };
 
@@ -42,7 +40,7 @@ CustomValue.storyName = 'Custom Value';
 
 CustomValue.parameters = {
   options: {
-    showPanel: false
+    order: 4,
   }
 };
 
@@ -71,8 +69,14 @@ export default {
 export const Playground = {
   storyName: 'Playground',
   parameters: {
-    controls: { expanded: true },
-    options: { showPanel: true }
+    actions: false,
+    controls: {
+      expanded: true
+    },
+    options: {
+      order: 5,
+      showPanel: true
+    }
   },
   argTypes: {
     multiple: {
