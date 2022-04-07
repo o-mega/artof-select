@@ -20,7 +20,7 @@ type BaseProps = Pick<
   | "autoFocus"
 >;
 
-export interface SelectCommonProps extends BaseProps {
+export type SelectCommonProps = BaseProps & {
   options?: SelectOption[];
   label?: ReactNode;
   labelPosition?: "before" | "inside" | "after";
@@ -34,6 +34,8 @@ export interface SelectCommonProps extends BaseProps {
   dropdownOffset?: [number, number];
   dropdownPosition?: Placement;
   splitterBefore?: number;
+  searchPosition?: "value" | "dropdown";
+  searchPlaceholder?: string;
   "data-testid"?: string;
   "data-cy"?: string;
   "aria-expanded"?: boolean;
@@ -42,9 +44,9 @@ export interface SelectCommonProps extends BaseProps {
   onKeyDown?: () => void;
   onKeyUp?: () => void;
   onToggle?: (state: boolean, value: string | string[]) => void;
-}
+};
 
-export interface SelectSingle extends SelectCommonProps {
+export type SelectSingle = SelectCommonProps & {
   multiple?: false;
   value?: string;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -54,9 +56,9 @@ export interface SelectSingle extends SelectCommonProps {
   allowTagsCount?: undefined;
   textSelected?: undefined;
   textSelectAll?: undefined;
-}
+};
 
-export interface SelectMultiple extends SelectCommonProps {
+export type SelectMultiple = SelectCommonProps & {
   multiple?: true;
   value?: string[];
   onChange?: (values: string[]) => void;
@@ -66,4 +68,4 @@ export interface SelectMultiple extends SelectCommonProps {
   allowTagsCount?: boolean;
   textSelected?: string;
   textSelectAll?: string;
-}
+};

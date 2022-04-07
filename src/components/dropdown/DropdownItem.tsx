@@ -63,6 +63,7 @@ export const DropdownItem: React.FC<Props> = React.memo(function dropdownItem({
     <div
       className={classNames([
         "select__option",
+        "select__option--value",
         isSelected && "select__option--selected",
       ])}
       onClick={onClick}

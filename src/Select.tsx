@@ -7,6 +7,7 @@ import { classNames } from "./helpers/classNames";
 import { SelectLabel } from "./components/label/SelectLabel";
 import { Dropdown } from "./components/dropdown/Dropdown";
 import { SelectSingle, SelectMultiple } from "./Select.types";
+import { Search } from "./components/search/Search";
 
 let typingTimeOut: ReturnType<typeof setTimeout>;
 
@@ -34,6 +35,8 @@ const SelectComponent: React.ForwardRefRenderFunction<
     textSelectAll = "Select all",
     dropdownOffset = [0, 4],
     dropdownPosition = "bottom-start",
+    searchPosition = "value",
+    searchPlaceholder,
     autoFocus,
     splitterBefore = 0,
     renderValue,
@@ -199,9 +202,11 @@ const SelectComponent: React.ForwardRefRenderFunction<
 
       // precheck option if only one found
       if (visibleOptions.length === 1) {
-        (document.getElementsByClassName(
-          "select__option"
-        )[0] as HTMLElement).click();
+        (
+          document.getElementsByClassName(
+            "select__option--value"
+          )[0] as HTMLElement
+        ).click();
 
         setSearch("");
         e.currentTarget.blur();
@@ -216,9 +221,9 @@ const SelectComponent: React.ForwardRefRenderFunction<
 
     // move focus from the search to first option item
     else if (key === "arrowdown") {
-      (document.getElementsByClassName(
-        "select__option"
-      )[0] as HTMLElement).focus();
+      (
+        document.getElementsByClassName("select__option")[0] as HTMLElement
+      ).focus();
     }
   };
 
@@ -384,21 +389,14 @@ const SelectComponent: React.ForwardRefRenderFunction<
             : undefined
         }
       >
-        {allowSearch && (
-          <input
-            type="text"
+        {allowSearch && searchPosition === "value" && (
+          <Search
             value={search}
             onChange={onSearch}
             onKeyUp={onSearchKeyUp}
             onFocus={onSearchFocus}
-            autoComplete="off"
-            role="search"
-            tabIndex={-1}
+            className="select__search--value"
             disabled={restProps.disabled}
-            className={classNames([
-              "select__search",
-              !!search && "select__search--filled",
-            ])}
           />
         )}
 
@@ -440,7 +438,12 @@ const SelectComponent: React.ForwardRefRenderFunction<
             isOpen={isOpen}
             toggleDropdown={toggleDropdown}
             search={search}
+            searchPosition={searchPosition}
             setSearch={setSearch}
+            onSearch={onSearch}
+            onSearchKeyUp={onSearchKeyUp}
+            onSearchFocus={onSearchFocus}
+            searchPlaceholder={searchPlaceholder}
             data-testid={restProps["data-testid"]}
             multiple={multiple}
             allowSelectAll={allowSelectAll}

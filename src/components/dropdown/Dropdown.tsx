@@ -12,16 +12,22 @@ import {
   SelectOption,
   SelectSingle,
 } from "../../Select.types";
+import { Search } from "../search/Search";
 
 let typingTimeOut: ReturnType<typeof setTimeout>;
 
-interface Props {
+type Props = {
   options: SelectOption[];
   visibleOptions: SelectOption[];
   isOpen: boolean;
   toggleDropdown: (state: boolean) => void;
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
+  searchPosition: SelectCommonProps["searchPosition"];
+  onSearch: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onSearchKeyUp: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onSearchFocus: () => void;
+  searchPlaceholder?: SelectCommonProps["searchPlaceholder"];
   "data-testid"?: string;
   multiple: boolean;
   allowSelectAll: boolean;
@@ -36,7 +42,7 @@ interface Props {
   dropdownOffset: [x: number, y: number];
   dropdownPosition: SelectCommonProps["dropdownPosition"];
   splitterBefore: SelectCommonProps["splitterBefore"];
-}
+};
 
 export const Dropdown: React.FC<Props> = React.memo(function dropdown({
   options,
@@ -57,6 +63,11 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
   dropdownPosition,
   splitterBefore,
   onBlur,
+  searchPosition,
+  onSearch,
+  onSearchKeyUp,
+  onSearchFocus,
+  searchPlaceholder,
   ...restProps
 }): JSX.Element {
   const [typing, setTyping] = useState<string>("");
@@ -184,9 +195,10 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
 
         if (matched.length && dropdown) {
           const index = visibleOptions.indexOf(matched[0]);
-          const target = document.querySelectorAll<HTMLDivElement>(
-            `.select__option`
-          )?.[index];
+          const target =
+            document.querySelectorAll<HTMLDivElement>(`.select__option`)?.[
+              index
+            ];
 
           if (target) {
             scrollToChild(dropdown, target);
@@ -218,15 +230,33 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
       style={styles.popper}
       {...attributes.popper}
     >
-      {multiple && allowSelectAll && visibleOptions.length > 1 && (
-        <SelectAllButton
-          options={options}
-          visibleOptions={visibleOptions}
-          value={(restProps as SelectMultiple).value}
-          onChange={(restProps as SelectMultiple).onChange}
-          textSelectAll={textSelectAll}
-        />
+      {allowSearch && searchPosition === "dropdown" && (
+        <div className="select__option select__option--search">
+          <Search
+            value={search}
+            onChange={onSearch}
+            onKeyUp={onSearchKeyUp}
+            onFocus={onSearchFocus}
+            autoFocus={true}
+            tabIndex={0}
+            placeholder={searchPlaceholder}
+            className="select__search--dropdown"
+          />
+        </div>
       )}
+
+      {multiple &&
+        allowSelectAll &&
+        textSelectAll &&
+        visibleOptions.length > 1 && (
+          <SelectAllButton
+            options={options}
+            visibleOptions={visibleOptions}
+            value={(restProps as SelectMultiple).value}
+            onChange={(restProps as SelectMultiple).onChange}
+            textSelectAll={textSelectAll}
+          />
+        )}
 
       {visibleOptions.map((option, index) => {
         return (
