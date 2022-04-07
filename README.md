@@ -31,7 +31,6 @@ or
 As soon as it installed, you can easily use `Select` in your app:
 
 ```js
-import React from 'react';
 import { Select } from 'artof-select';
 
 // custom

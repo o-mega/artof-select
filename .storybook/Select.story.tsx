@@ -122,7 +122,8 @@ export const Playground = {
       }
     },
     options: {
-      description: '<div>Array of Options <div className="custom-code">`{\n label?: string | number;\n value?: string;\n component?: ReactNode;\n}[]`</div></div>'
+      description: '<div>Array of Options <div className="custom-code">`{\n label?: string | number;\n value?: string;\n component?: ReactNode;\n}[]`</div></div>',
+      table: { defaultValue: { summary: '[]' } }
     },
     errorText: {
       description: 'Error Text displays under the Select',
@@ -152,7 +153,7 @@ export const Playground = {
     allowMarkWords: {
       description: 'Allow to mark search letters',
       control: 'boolean',
-      table: { defaultValue: { summary: false } }
+      table: { defaultValue: { summary: true } }
     },
     asTags: {
       description: '<span className="badge-multiple"></span> Display selected value as a Tags',
@@ -211,7 +212,7 @@ export const Playground = {
     splitterBefore: {
       description: 'Show the horizontal line before the option with index',
       control: 'number',
-      table: { defaultValue: { summary: 'undefined' } }
+      table: { defaultValue: { summary: '0' } }
     },
     searchPosition: {
       description: 'Placement of the Search input field (when `allowSearch=true`)',
@@ -229,12 +230,12 @@ export const Playground = {
     textSelected: {
       description: '<span className="badge-multiple"></span> Translated text for `Selected %n` text (when `asTags=false`)',
       control: 'text',
-      table: { defaultValue: { summary: 'undefined' } }
+      table: { defaultValue: { summary: 'Selected' } }
     },
     textSelectAll: {
       description: '<span className="badge-multiple"></span> Translated text for `Select All` option item text (when `allowSelectAll=true`)',
       control: 'text',
-      table: { defaultValue: { summary: 'undefined' } }
+      table: { defaultValue: { summary: 'Select all' } }
     },
     "aria-expanded": {
       description: 'Expand the dropdown (default HTMLSelect attribute)',
