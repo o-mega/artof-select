@@ -15,7 +15,7 @@ $select-line-height: 1.35;
 $select-padding-x: $font-size-base * 1;
 $select-padding-y: $font-size-base * .75;
 $select-height: ($select-font-size * $select-line-height) + ($select-padding-y * 2);
-$select-icon-size: ($select-padding-x / 1.75);
+$select-icon-size: ($select-padding-x * .57);
 
 .select__element {
   display: none;
@@ -23,7 +23,7 @@ $select-icon-size: ($select-padding-x / 1.75);
 
 .select__label {
   display: block;
-  margin: 0 0 ($font-size-base / 2);
+  margin: 0 0 ($font-size-base * .5);
   color: $color-muted;
   font-family: $font-family;
   transition: all 300ms;
@@ -35,7 +35,7 @@ $select-icon-size: ($select-padding-x / 1.75);
   .select__value & {
     display: inline-block;
     margin-bottom: 0;
-    margin-right: ($font-size-base / 2);
+    margin-right: ($font-size-base * .5);
   }
 }
 
@@ -47,11 +47,7 @@ $select-icon-size: ($select-padding-x / 1.75);
 
 .select__search {
   box-sizing: border-box;
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
   padding: $select-padding-y $select-padding-x;
   border: 1px solid transparent;
   background: transparent;
@@ -61,6 +57,20 @@ $select-icon-size: ($select-padding-x / 1.75);
   font-size: $select-font-size;
   line-height: $select-line-height;
   outline: none;
+
+  &.select__search--value {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+  }
+
+  &.select__search--dropdown {
+    border: rgba($color-border, .5) 1px solid;
+    border-radius: $font-size-base * .25;
+    padding-left: $select-padding-x * 2 + $font-size-base;
+    background: $color-white url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='%23737275' d='M6.54133 0C2.92865 0 0 2.92865 0 6.54133C0 10.154 2.92865 13.0827 6.54133 13.0827C8.16789 13.0827 9.65579 12.489 10.8002 11.5065L15.1465 15.8535C15.3418 16.0488 15.6584 16.0488 15.8537 15.8536C16.0489 15.6583 16.049 15.3417 15.8537 15.1465L11.5072 10.7993C12.4893 9.65508 13.0827 8.1675 13.0827 6.54133C13.0827 2.92865 10.154 0 6.54133 0ZM1 6.54133C1 3.48094 3.48094 1 6.54133 1C9.60173 1 12.0827 3.48094 12.0827 6.54133C12.0827 9.60173 9.60173 12.0827 6.54133 12.0827C3.48094 12.0827 1 9.60173 1 6.54133Z'/%3e%3c/svg%3e") no-repeat left $select-padding-x center / $font-size-base $font-size-base;
+  }
 
   &:focus {
     ~ .select__value {
@@ -108,7 +118,7 @@ $select-icon-size: ($select-padding-x / 1.75);
   outline: none;
   box-shadow: none;
   border: 1px solid $color-border;
-  border-radius: $font-size-base / 4;
+  border-radius: $font-size-base * .25;
   color: $color-text;
   font-family: $font-family;
   font-size: $select-font-size;
@@ -159,8 +169,8 @@ $select-icon-size: ($select-padding-x / 1.75);
   &.select__value--tags:not(.select__value--placeholder) {
     display: block;
     white-space: nowrap;
-    padding-top: $select-padding-y / 1.25;
-    padding-bottom: $select-padding-y / 1.25;
+    padding-top: $select-padding-y * .8;
+    padding-bottom: $select-padding-y * .8;
     overflow: hidden;
     text-overflow: ellipsis;
     padding-right: 0;
@@ -178,9 +188,9 @@ $select-icon-size: ($select-padding-x / 1.75);
 .select__tag {
   display: inline-block;
   box-sizing: border-box;
-  height: $select-height - ($select-padding-y / 1.15 * 2);
+  height: $select-height - ($select-padding-y * .9 * 2);
   font-size: $font-size-base * .8125;
-  line-height: $select-height - ($select-padding-y / 1.15 * 2);
+  line-height: $select-height - ($select-padding-y * .9 * 2);
   background-color: rgba($color-primary, .2);
   text-transform: uppercase;
   white-space: nowrap;
@@ -192,7 +202,7 @@ $select-icon-size: ($select-padding-x / 1.75);
   overflow: hidden;
   text-overflow: ellipsis;
   vertical-align: middle;
-  margin-right: $font-size-base / 4;
+  margin-right: $font-size-base * .25;
   pointer-events: none;
 
   &:last-child {
@@ -249,8 +259,8 @@ $select-icon-size: ($select-padding-x / 1.75);
   font-size: $font-size-base * .75;
   height: $select-height - ($select-padding-y * 2);
   width: $select-height - ($select-padding-y * 2);
-  margin-left: $select-padding-y / -2;
-  margin-right: $font-size-base / 4;
+  margin-left: $select-padding-y * -.5;
+  margin-right: $font-size-base * .25;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -266,7 +276,7 @@ $select-icon-size: ($select-padding-x / 1.75);
   min-width: 100%;
   background-color: $color-white;
   border: 1px solid $color-border;
-  border-radius: $font-size-base / 4;
+  border-radius: $font-size-base * .25;
   box-shadow: 0 2px 8px 0 rgba($color-text, .08);
   max-height: $select-height * 5.5;
   overflow: auto;
@@ -298,12 +308,26 @@ $select-icon-size: ($select-padding-x / 1.75);
     color: darken($color-primary, 10%);
   }
 
-  &:hover, &:focus {
-    background-color: darken($color-bg-hover, 5%);
+  &:not(.select__option--search) {
+    &:hover, &:focus {
+      background-color: darken($color-bg-hover, 5%);
+    }
   }
 
-  ~ .select__option {
+  ~.select__option {
     border-top: rgba($color-border, .5) 1px solid;
+  }
+
+  &.select__option--search {
+    position: sticky;
+    top: 0;
+    padding: $select-padding-y $select-padding-x;
+    background-color: $color-white;
+    border-bottom: rgba($color-border, .5) 1px solid;
+
+    + .select__option {
+      border-top: none;
+    }
   }
 
   .select--multiple & {
@@ -328,12 +352,18 @@ $select-icon-size: ($select-padding-x / 1.75);
         border-color: $color-primary;
       }
     }
+
+    &.select__option--search {
+      &:before {
+        display: none;
+      }
+    }
   }
 }
 
 .select__error {
   box-sizing: border-box;
-  margin-top: $font-size-base / 2;
+  margin-top: $font-size-base * .5;
   color: $color-danger;
   font-family: $font-family;
   font-size: $font-size-base * .8125;
@@ -343,7 +373,7 @@ $select-icon-size: ($select-padding-x / 1.75);
 
 .select__hint {
   box-sizing: border-box;
-  margin-top: $font-size-base / 2;
+  margin-top: $font-size-base * .5;
   color: $color-placeholder;
   font-family: $font-family;
   font-size: $font-size-base * .8125;

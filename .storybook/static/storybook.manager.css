@@ -3,6 +3,10 @@ body,
   background-color: #f3f3f3 !important;
 }
 
+#storybook-explorer-tree {
+  margin-top: 16px;
+}
+
 .sidebar-container {
   background-color: #212121;
 }
@@ -79,10 +83,6 @@ body,
   display: none !important;
 }
 
-[role="main"] #storybook-panel-root #panel-tab-content > div:last-child {
-  display: none !important;
-}
-
 #root > div {
   background-color: #333333;
 }
@@ -116,4 +116,25 @@ body,
 
 #panel-tab-content .os-content input[type=number] {
   max-width: 100px;
+}
+
+.badge-multiple {
+  display: inline-block;
+  margin-right: 10px;
+  background-color: #ffb736;
+  padding: 2px 4px;
+  line-height: 1;
+  color: #000;
+  font-size: 12px;
+  border-radius: 3px;
+}
+
+.badge-multiple:before {
+  content: "Multiple";
+}
+
+.custom-code > code {
+  margin-top: 5px !important;
+  white-space: pre-wrap !important;
+  line-height: 1.4 !important;
 }

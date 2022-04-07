@@ -273,6 +273,90 @@ describe("search", () => {
       "select--opened"
     );
   });
+
+  it("Default search input placement is over the selected value", async () => {
+    const { findByRole } = render(
+      <Select
+        data-testid="select"
+        allowSearch={true}
+        options={industryOptions}
+      />
+    );
+
+    expect(await findByRole("search")).toHaveClass("select__search--value");
+  });
+
+  it("Search can be placed inside dropdown", async () => {
+    const { findByRole, getByRole } = render(
+      <Select
+        data-testid="select"
+        allowSearch={true}
+        options={industryOptions}
+        searchPosition="dropdown"
+      />
+    );
+
+    fireEvent.click(getByRole("button"));
+
+    expect(await findByRole("search")).toHaveClass("select__search--dropdown");
+  });
+
+  it("Search field inside dropdown gets focus when visible", async () => {
+    const { findByRole, getByRole } = render(
+      <Select
+        data-testid="select"
+        allowSearch={true}
+        options={industryOptions}
+        searchPosition="dropdown"
+      />
+    );
+
+    fireEvent.click(getByRole("button"));
+
+    expect(await findByRole("search")).toHaveFocus();
+  });
+
+  it("Can set custom placeholder to the search field inside dropdown", async () => {
+    const placeholder = "TEST";
+
+    const { findByRole, getByRole } = render(
+      <Select
+        data-testid="select"
+        allowSearch={true}
+        options={industryOptions}
+        searchPosition="dropdown"
+        searchPlaceholder={placeholder}
+      />
+    );
+
+    fireEvent.click(getByRole("button"));
+
+    expect(await findByRole("search")).toHaveAttribute(
+      "placeholder",
+      placeholder
+    );
+  });
+
+  it("Custom search placeholder is not applied to search field inside selected value", async () => {
+    const placeholder = "TEST";
+
+    const { findByRole, getByRole } = render(
+      <Select
+        data-testid="select"
+        allowSearch={true}
+        options={industryOptions}
+        searchPosition="value"
+        searchPlaceholder={placeholder}
+      />
+    );
+
+    fireEvent.click(getByRole("button"));
+
+    expect(await findByRole("search")).not.toHaveAttribute(
+      "placeholder",
+      placeholder
+    );
+  });
 });
 
 describe("nulls check", () => {

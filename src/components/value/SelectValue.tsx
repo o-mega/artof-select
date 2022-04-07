@@ -9,7 +9,7 @@ import {
 import { SelectedValueClear } from "./SelectValueClear";
 import { SelectedValueTags } from "./SelectValueTags";
 
-interface Props {
+type Props = {
   multiple: boolean;
   options: SelectOption[];
   asTags: SelectMultiple["asTags"];
@@ -21,9 +21,9 @@ interface Props {
   allowRemoveTag: SelectMultiple["allowRemoveTag"];
   select: React.RefObject<HTMLSelectElement>;
   renderValue: SelectCommonProps["renderValue"];
-}
+};
 
-export const SelectValue: React.FC<Props> = React.memo(function selectValue({
+export const SelectValue = React.memo(function selectValue({
   renderValue,
   multiple,
   options,
@@ -33,7 +33,7 @@ export const SelectValue: React.FC<Props> = React.memo(function selectValue({
   allowRemoveTag,
   select,
   ...props
-}): JSX.Element {
+}: Props): JSX.Element {
   const selectedOptions = options.filter((option) => {
     if (typeof props.value === "string") {
       return props.value === `${option.value}`;

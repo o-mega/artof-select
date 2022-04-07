@@ -2,13 +2,11 @@ import React from "react";
 
 import { fireEvent } from "../../helpers/fireEvent";
 
-interface Props {
+type Props = {
   select: React.RefObject<HTMLSelectElement>;
-}
+};
 
-export const SelectedValueClear: React.FC<Props> = ({
-  select,
-}): JSX.Element => {
+export const SelectedValueClear = ({ select }: Props): JSX.Element => {
   const onClear = (): void => {
     if (select.current) {
       select.current.value = "";
