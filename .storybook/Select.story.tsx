@@ -11,16 +11,22 @@ export const Single = TemplateSingle.bind({});
 Single.storyName = 'Single [default]';
 
 Single.parameters = {
+  actions: false,
+  controls: false,
   options: {
     order: 1,
+    showPanel: false
   }
 };
 
 export const Multiple = TemplateMultiple.bind({});
 
 Multiple.parameters = {
+  actions: false,
+  controls: false,
   options: {
     order: 2,
+    showPanel: false
   }
 };
 
@@ -29,8 +35,11 @@ export const CustomOptions = TemplateCustomOptions.bind({});
 CustomOptions.storyName = 'Custom Options';
 
 CustomOptions.parameters = {
+  actions: false,
+  controls: false,
   options: {
     order: 3,
+    showPanel: false
   }
 };
 
@@ -39,8 +48,11 @@ export const CustomValue = TemplateCustomValue.bind({});
 CustomValue.storyName = 'Custom Value';
 
 CustomValue.parameters = {
+  actions: false,
+  controls: false,
   options: {
     order: 4,
+    showPanel: false
   }
 };
 
