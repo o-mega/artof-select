@@ -33,6 +33,9 @@
     "build:clean": "rm ./dist/index.esm.scss && rm ./dist/index.esm.d.ts",
     "release": "standard-version && git push --follow-tags origin master && npm publish"
   },
+  "publishConfig": {
+    "o-mega:registry": "https://npm.pkg.github.com"
+  },
   "dependencies": {
     "@popperjs/core": "2.11.5",
     "react-merge-refs": "1.1.0",
