@@ -34,7 +34,7 @@
     "release": "standard-version && git push --follow-tags origin master && npm publish"
   },
   "publishConfig": {
-    "o-mega:registry": "https://npm.pkg.github.com"
+    "@o-mega:registry": "https://npm.pkg.github.com"
   },
   "dependencies": {
     "@popperjs/core": "2.11.5",
