@@ -1,5 +1,5 @@
 {
-  "name": "artof-select",
+  "name": "@o-mega/artof-select",
   "description": "The <Select /> component for React",
   "keywords": [
     "select",
