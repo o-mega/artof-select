@@ -1393,4 +1393,28 @@ describe("interactions", () => {
 
     expect(getByTestId("select")).not.toHaveValue(`${targetOption[0].value}`);
   });
+
+  it("handle onSearchChange event", () => {
+    const testKey = "f";
+    let value = "";
+
+    const onSearchChange = jest.fn((event) => {
+      value = event.currentTarget.value;
+    });
+
+    const { getByRole } = render(
+      <Select
+        value=""
+        allowSearch={true}
+        data-testid="select"
+        options={industryOptions}
+        onSearchChange={onSearchChange}
+      />
+    );
+
+    fireEvent.change(getByRole("search"), { target: { value: "f" } });
+
+    expect(onSearchChange).toHaveBeenCalledTimes(1);
+    expect(value).toEqual(testKey);
+  });
 });

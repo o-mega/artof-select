@@ -88,6 +88,7 @@ Common props you may want to specify include:
 | `onKeyDown`        | `undefined`    | Handle the KeyDown event                                      |
 | `onKeyUp`          | `undefined`    | Handle the KeyUp event                                        |
 | `onToggle`         | `undefined`    | To handle th Dropdown open\close state                        |
+| `onSearchChange`   | `undefined`    | Handle the SearchChange event                                 |
 | `options`          | `[]`           | Specify the options the user can select from                  |
 | `placeholder`      | `undefined`    | The text displayed when no option is selected                 |
 | `renderValue`      | `undefined`    | A function, that can render custom selected value             |

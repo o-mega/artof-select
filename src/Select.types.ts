@@ -36,6 +36,7 @@ export type SelectCommonProps = BaseProps & {
   splitterBefore?: number;
   searchPosition?: "value" | "dropdown";
   searchPlaceholder?: string;
+  onSearchChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   "data-testid"?: string;
   "data-cy"?: string;
   "aria-expanded"?: boolean;

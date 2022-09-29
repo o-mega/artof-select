@@ -39,6 +39,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
     searchPlaceholder,
     autoFocus,
     splitterBefore = 0,
+    onSearchChange,
     renderValue,
     "aria-expanded": ariaExpanded = false,
     onBlur,
@@ -186,6 +187,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
 
   const onSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setSearch(event.currentTarget.value);
+    onSearchChange && onSearchChange(event);
   };
 
   const onSearchFocus = (): void => {
