@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.13.1](https://github.com/o-mega/artof-select/compare/v1.13.0...v1.13.1) (2022-09-30)
+
+
+### Bug Fixes
+
+* Do not merge refs with empty prop ([9e6ee69](https://github.com/o-mega/artof-select/commit/9e6ee69fccdaa26535f895aea4ad93b23a1d50fb))
+
 ## [1.13.0](https://github.com/o-mega/artof-select/compare/v1.12.4...v1.13.0) (2022-09-30)
 
 
