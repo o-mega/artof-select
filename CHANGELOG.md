@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.13.2](https://github.com/o-mega/artof-select/compare/v1.13.1...v1.13.2) (2022-09-30)
+
+
+### Bug Fixes
+
+* Add import react to mergeRefs fn ([8138e77](https://github.com/o-mega/artof-select/commit/8138e7713bffce1b36ea4984109a47f942b495d5))
+
 ### [1.13.1](https://github.com/o-mega/artof-select/compare/v1.13.0...v1.13.1) (2022-09-30)
 
 
