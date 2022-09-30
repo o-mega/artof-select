@@ -78,8 +78,8 @@ const SelectComponent: React.ForwardRefRenderFunction<
 
   // autoFocus
   useEffect(() => {
-    autoFocus && visibleField.current?.focus();
-  }, [visibleField.current]);
+    autoFocus && visibleField?.current?.focus();
+  }, [visibleField?.current]);
 
   // aria-expanded changes
   useEffect(() => {
@@ -146,7 +146,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
 
       // close the dropdown after onChange, if only option was available
       if (visibleOptions.length === 1) {
-        visibleField.current?.focus();
+        visibleField?.current?.focus();
 
         toggleDropdown(false);
         setSearch("");
@@ -155,7 +155,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
       const { onChange } = restProps as SelectSingle;
 
       // close dropdown on change value
-      visibleField.current?.focus();
+      visibleField?.current?.focus();
 
       toggleDropdown(false);
       setSearch("");
@@ -168,7 +168,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
   const onFocusElement = (): void => {
     if (!restProps.disabled) {
       toggleDropdown(true);
-      visibleField.current?.focus();
+      visibleField?.current?.focus();
     }
   };
 
@@ -232,7 +232,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
   const handleKeydown = (e: KeyboardEvent): void => {
     if (!restProps.disabled) {
       const key = e.key?.toLowerCase();
-      const inFocus = e.target === visibleField.current;
+      const inFocus = e.target === visibleField?.current;
       const isCurrent = visibleField.current?.parentNode?.contains(
         e.target as Node
       );
@@ -247,7 +247,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
           toggleDropdown(true);
 
           if (allowSearch) {
-            (visibleField.current?.childNodes[0] as HTMLElement)?.focus();
+            (visibleField?.current?.childNodes[0] as HTMLElement)?.focus();
           }
         }
       } else if (isOpen) {
@@ -261,8 +261,8 @@ const SelectComponent: React.ForwardRefRenderFunction<
   const handleKeyup = (e: KeyboardEvent): void => {
     if (!restProps.disabled) {
       const key = e.key?.toLowerCase();
-      const inFocus = e.target === visibleField.current;
-      const isCurrent = visibleField.current?.parentNode?.contains(
+      const inFocus = e.target === visibleField?.current;
+      const isCurrent = visibleField?.current?.parentNode?.contains(
         e.target as Node
       );
 
@@ -272,7 +272,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
         isCurrent &&
         !isOpen &&
         !multiple &&
-        select.current
+        !!select?.current
       ) {
         const newValue = `${typing}${key.toLowerCase()}`;
         setTyping(newValue);
@@ -312,7 +312,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
   const toggleDropdown = (state: boolean): void => {
     setIsOpen(state);
 
-    if (onToggle && select.current) {
+    if (onToggle && select?.current) {
       if (multiple) {
         const options = select.current.options;
         const selectedValues: string[] = [];
@@ -353,7 +353,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
     >
       <select
         {...restProps}
-        ref={mergeRefs([select, ref])}
+        ref={ref ? mergeRefs([select, ref]) : select}
         multiple={multiple}
         onChange={onChangeElement}
         onFocus={onFocusElement}

@@ -78,6 +78,7 @@ export const Dropdown = React.memo(function dropdown({
     if (!visibleFieldRef?.current || !dropdown) {
       return null;
     }
+
     const params = createPopperLite(visibleFieldRef.current, dropdown, {
       placement: dropdownPosition,
       modifiers: [
@@ -100,6 +101,7 @@ export const Dropdown = React.memo(function dropdown({
   // bind click outside
   useEffect(() => {
     document.addEventListener("click", onClickOutside, true);
+
     return () => {
       document.removeEventListener("click", onClickOutside, true);
       clearTimeout(typingTimeOut);
@@ -124,7 +126,7 @@ export const Dropdown = React.memo(function dropdown({
 
   const onClickOption = useCallback(
     (value: string | number): void => {
-      if (select.current) {
+      if (select?.current) {
         const options = select.current.options;
 
         for (let i = 0; i < options.length; i++) {
@@ -144,7 +146,7 @@ export const Dropdown = React.memo(function dropdown({
         fireEvent(select.current, "change");
       }
     },
-    [select.current]
+    [select?.current]
   );
 
   const handleKeyDown = (e: KeyboardEvent): void => {
