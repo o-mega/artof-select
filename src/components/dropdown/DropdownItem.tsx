@@ -1,11 +1,11 @@
-import React, { ReactNode, ReactText, KeyboardEvent, useMemo } from "react";
+import React, { ReactNode, KeyboardEvent, useMemo } from "react";
 
 import { classNames } from "../../helpers/classNames";
 import { SelectOption } from "../../Select.types";
 
 interface Props extends SelectOption {
   search: string;
-  onClickOption: (value: ReactText) => void;
+  onClickOption: (value: string | number) => void;
   isSelected: boolean;
   allowMarkWords: boolean;
 }
@@ -19,7 +19,7 @@ export const DropdownItem: React.FC<Props> = React.memo(function dropdownItem({
   isSelected,
   allowMarkWords,
 }): JSX.Element {
-  const text: ReactNode | ReactText = useMemo(() => {
+  const text: ReactNode | string | number = useMemo(() => {
     if (component) {
       return component;
     }

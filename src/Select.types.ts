@@ -1,9 +1,9 @@
-import { ReactNode, ReactText } from "react";
+import { ReactNode } from "react";
 import { Placement } from "@popperjs/core/lib/enums";
 
 export type SelectOption = {
-  label?: ReactText;
-  value?: ReactText;
+  label?: string | number;
+  value?: string | number;
   component?: ReactNode;
 };
 
@@ -24,9 +24,9 @@ export type SelectCommonProps = BaseProps & {
   options?: SelectOption[];
   label?: ReactNode;
   labelPosition?: "before" | "inside" | "after";
-  placeholder?: ReactText;
-  errorText?: ReactText;
-  hintText?: ReactText;
+  placeholder?: string | number;
+  errorText?: string | number;
+  hintText?: string | number;
   allowClearAll?: boolean;
   allowSearch?: boolean;
   allowMarkWords?: boolean;

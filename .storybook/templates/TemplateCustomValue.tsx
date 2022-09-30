@@ -10,8 +10,10 @@ export const TemplateCustomValue = () => {
     setSelected(values);
   };
 
-  const handleRemove = (value: React.ReactText): void => {
-    onChange(selected.filter(item => value !== item));
+  const handleRemove = (value?: string | number): void => {
+    if (!!selected?.length) {
+      onChange(selected.filter(item => value !== item));
+    }
   };
 
   return (

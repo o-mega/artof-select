@@ -3,7 +3,7 @@ import babel from "@rollup/plugin-babel";
 import clear from "rollup-plugin-clear";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
-import typescript from "@wessberg/rollup-plugin-ts";
+import typescript from "rollup-plugin-ts";
 import bundleScss from "rollup-plugin-bundle-scss";
 
 export default [

@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import mergeRefs from "react-merge-refs";
 
 import { SelectValue } from "./components/value/SelectValue";
 import { fireEvent } from "./helpers/fireEvent";
 import { classNames } from "./helpers/classNames";
+import { mergeRefs } from "./helpers/mergeRefs";
 import { SelectLabel } from "./components/label/SelectLabel";
 import { Dropdown } from "./components/dropdown/Dropdown";
 import { SelectSingle, SelectMultiple } from "./Select.types";

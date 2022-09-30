@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
@@ -115,16 +119,15 @@ describe("open dropdown", () => {
 
   it("should trigger correct focus on tab order", async () => {
     const { getByTestId, findByTestId } = render(
-      <React.Fragment>
+      <>
         <input data-testid="test_input" />
-
         <Select data-testid="select" options={industryOptions} />
-      </React.Fragment>
+      </>
     );
 
     getByTestId("test_input").focus();
 
-    userEvent.tab();
+    await userEvent.tab();
 
     expect(await findByTestId("select--field")).toHaveFocus();
   });

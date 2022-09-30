@@ -1,5 +1,5 @@
-import React, { useState, useEffect, ReactText, useCallback } from "react";
-import { usePopper } from "react-popper";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
+import { createPopperLite, flip, offset } from "@popperjs/core";
 
 import { scrollIntoView, scrollToChild } from "../../helpers/scrollIntoView";
 import { focusNext, focusPrev } from "../../helpers/events";
@@ -44,7 +44,7 @@ type Props = {
   splitterBefore: SelectCommonProps["splitterBefore"];
 };
 
-export const Dropdown: React.FC<Props> = React.memo(function dropdown({
+export const Dropdown = React.memo(function dropdown({
   options,
   visibleOptions,
   isOpen,
@@ -69,22 +69,33 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
   onSearchFocus,
   searchPlaceholder,
   ...restProps
-}): JSX.Element {
+}: Props) {
   const [typing, setTyping] = useState<string>("");
 
   const [dropdown, setDropdown] = useState<HTMLDivElement | null>(null);
 
-  const { styles, attributes } = usePopper(visibleFieldRef?.current, dropdown, {
-    placement: dropdownPosition,
-    modifiers: [
-      {
-        name: "offset",
-        options: {
-          offset: [dropdownOffset[0], dropdownOffset[1]],
+  const popperProps = useMemo(() => {
+    if (!visibleFieldRef?.current || !dropdown) {
+      return null;
+    }
+    const params = createPopperLite(visibleFieldRef.current, dropdown, {
+      placement: dropdownPosition,
+      modifiers: [
+        flip,
+        {
+          ...offset,
+          options: {
+            offset: [dropdownOffset[0], dropdownOffset[1]],
+          },
         },
-      },
-    ],
-  });
+      ],
+    });
+
+    return {
+      attributes: params.state.attributes.popper,
+      styles: params.state.styles.popper as React.CSSProperties,
+    };
+  }, [visibleFieldRef?.current, dropdown]);
 
   // bind click outside
   useEffect(() => {
@@ -112,7 +123,7 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
   }, [dropdown]);
 
   const onClickOption = useCallback(
-    (value: ReactText): void => {
+    (value: string | number): void => {
       if (select.current) {
         const options = select.current.options;
 
@@ -227,8 +238,8 @@ export const Dropdown: React.FC<Props> = React.memo(function dropdown({
       ref={setDropdown}
       role="listbox"
       data-testid={dataTestid ? `${dataTestid}--dropdown` : undefined}
-      style={styles.popper}
-      {...attributes.popper}
+      style={popperProps?.styles}
+      {...popperProps?.attributes}
     >
       {allowSearch && searchPosition === "dropdown" && (
         <div className="select__option select__option--search">

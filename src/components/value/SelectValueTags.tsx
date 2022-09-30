@@ -23,7 +23,7 @@ export const SelectedValueTags: React.FC<Props> = ({
   allowRemoveTag,
   select,
 }): JSX.Element => {
-  const handleRemove = (value?: React.ReactText): void => {
+  const handleRemove = (value?: string | number): void => {
     if (select.current && value) {
       const options = select.current.options;
 
