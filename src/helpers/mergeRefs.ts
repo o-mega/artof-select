@@ -1,3 +1,5 @@
+import React from "react";
+
 export function mergeRefs<T = unknown>(
   refs: Array<React.MutableRefObject<T> | React.LegacyRef<T>>
 ): React.RefCallback<T> {
