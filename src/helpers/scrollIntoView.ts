@@ -1,5 +1,5 @@
-export const scrollIntoView = (dropdown: HTMLDivElement): void => {
-  const selected = dropdown.querySelectorAll<HTMLDivElement>(
+export const scrollIntoView = (dropdown: HTMLElement): void => {
+  const selected = dropdown.querySelectorAll<HTMLElement>(
     ".select__option--selected"
   );
 
@@ -8,10 +8,7 @@ export const scrollIntoView = (dropdown: HTMLDivElement): void => {
   }
 };
 
-export function scrollToChild(
-  parent: HTMLDivElement,
-  child: HTMLDivElement
-): void {
+export function scrollToChild(parent: HTMLElement, child: HTMLElement): void {
   // Where is the parent on page
   const parentRect = parent.getBoundingClientRect();
 

@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
+import { useFloating, offset, flip, shift } from "@floating-ui/react-dom";
 
 import { SelectValue } from "./components/value/SelectValue";
 import { fireEvent } from "./helpers/fireEvent";
@@ -33,7 +34,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
     allowTagsCount = false,
     textSelected = "Selected",
     textSelectAll = "Select all",
-    dropdownOffset = [0, 4],
+    dropdownOffset = 4,
     dropdownPosition = "bottom-start",
     searchPosition = "value",
     searchPlaceholder,
@@ -54,9 +55,13 @@ const SelectComponent: React.ForwardRefRenderFunction<
   const [isOpen, setIsOpen] = useState<boolean>(ariaExpanded);
   const [search, setSearch] = useState<string>("");
   const [typing, setTyping] = useState<string>("");
+  const { x, y, reference, floating, strategy, refs } =
+    useFloating<HTMLDivElement>({
+      placement: dropdownPosition,
+      middleware: [offset(dropdownOffset), flip(), shift()],
+    });
 
   const select = useRef<HTMLSelectElement>(null);
-  const visibleField = useRef<HTMLDivElement>(null);
 
   // bind global keydown spy
   useEffect(() => {
@@ -78,8 +83,8 @@ const SelectComponent: React.ForwardRefRenderFunction<
 
   // autoFocus
   useEffect(() => {
-    autoFocus && visibleField?.current?.focus();
-  }, [visibleField?.current]);
+    autoFocus && refs.reference.current?.focus();
+  }, [refs.reference.current]);
 
   // aria-expanded changes
   useEffect(() => {
@@ -146,7 +151,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
 
       // close the dropdown after onChange, if only option was available
       if (visibleOptions.length === 1) {
-        visibleField?.current?.focus();
+        refs.reference.current?.focus();
 
         toggleDropdown(false);
         setSearch("");
@@ -155,7 +160,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
       const { onChange } = restProps as SelectSingle;
 
       // close dropdown on change value
-      visibleField?.current?.focus();
+      refs.reference.current?.focus();
 
       toggleDropdown(false);
       setSearch("");
@@ -168,7 +173,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
   const onFocusElement = (): void => {
     if (!restProps.disabled) {
       toggleDropdown(true);
-      visibleField?.current?.focus();
+      refs.reference.current?.focus();
     }
   };
 
@@ -232,8 +237,8 @@ const SelectComponent: React.ForwardRefRenderFunction<
   const handleKeydown = (e: KeyboardEvent): void => {
     if (!restProps.disabled) {
       const key = e.key?.toLowerCase();
-      const inFocus = e.target === visibleField?.current;
-      const isCurrent = visibleField.current?.parentNode?.contains(
+      const inFocus = e.target === refs.reference.current;
+      const isCurrent = refs.reference.current?.parentNode?.contains(
         e.target as Node
       );
 
@@ -247,7 +252,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
           toggleDropdown(true);
 
           if (allowSearch) {
-            (visibleField?.current?.childNodes[0] as HTMLElement)?.focus();
+            (refs.reference.current?.childNodes[0] as HTMLElement)?.focus();
           }
         }
       } else if (isOpen) {
@@ -261,8 +266,8 @@ const SelectComponent: React.ForwardRefRenderFunction<
   const handleKeyup = (e: KeyboardEvent): void => {
     if (!restProps.disabled) {
       const key = e.key?.toLowerCase();
-      const inFocus = e.target === visibleField?.current;
-      const isCurrent = visibleField?.current?.parentNode?.contains(
+      const inFocus = e.target === refs.reference.current;
+      const isCurrent = refs.reference.current?.parentNode?.contains(
         e.target as Node
       );
 
@@ -380,7 +385,7 @@ const SelectComponent: React.ForwardRefRenderFunction<
 
       <div
         className="select__field"
-        ref={visibleField}
+        ref={reference}
         onClick={onClickField}
         onFocus={onFocus}
         onBlur={handleBlur}
@@ -453,13 +458,16 @@ const SelectComponent: React.ForwardRefRenderFunction<
             allowMarkWords={allowMarkWords}
             textSelectAll={textSelectAll}
             value={restProps.value}
+            splitterBefore={splitterBefore}
             onChange={restProps.onChange}
             onBlur={onBlur}
-            select={select}
-            visibleFieldRef={visibleField}
-            dropdownOffset={dropdownOffset}
-            dropdownPosition={dropdownPosition}
-            splitterBefore={splitterBefore}
+            style={{
+              position: strategy,
+              top: y ?? 0,
+              left: x ?? 0,
+            }}
+            setFloating={floating}
+            refs={{ select, ...refs }}
           />
         )}
       </div>

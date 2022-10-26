@@ -1,4 +1,4 @@
-import { terser } from "rollup-plugin-terser";
+import { terser } from "rollup-plugin-minification";
 import babel from "@rollup/plugin-babel";
 import clear from "rollup-plugin-clear";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
@@ -43,10 +43,9 @@ export default [
     external: [
       "react",
       "react-dom",
-      "react-merge-refs",
-      "react-popper",
-      "@popperjs",
-      "@popperjs/core",
+      "@floating-ui/core",
+      "@floating-ui/dom",
+      "@floating-ui/react-dom",
     ],
     plugins: [
       clear({

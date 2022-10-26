@@ -1,5 +1,5 @@
+import { Placement } from "@floating-ui/react-dom";
 import { ReactNode } from "react";
-import { Placement } from "@popperjs/core/lib/enums";
 
 export type SelectOption = {
   label?: string | number;
@@ -31,7 +31,7 @@ export type SelectCommonProps = BaseProps & {
   allowSearch?: boolean;
   allowMarkWords?: boolean;
   renderValue?: (options: SelectOption[]) => JSX.Element;
-  dropdownOffset?: [number, number];
+  dropdownOffset?: number;
   dropdownPosition?: Placement;
   splitterBefore?: number;
   searchPosition?: "value" | "dropdown";

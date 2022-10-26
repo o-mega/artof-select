@@ -16,7 +16,7 @@ Key features:
 - Supports native keyboard events, like `Tab`, `Arrow Up | Down` to navigate over the dropdown options and `Enter` (or even `Spacebar`) to apply selected option(s).
 - Supports custom `React.ReactNode` component as option element
 
-In addition, this component works with `react-popper` to make better dropdown positioning.
+In addition, this component works with [@floating-ui/react-dom](https://github.com/floating-ui/floating-ui/tree/master/packages/react-dom) to make better dropdown positioning.
 
 [Demo Storybook here](https://o-mega.github.io/artof-select)
 
@@ -30,7 +30,7 @@ or
 
 As soon as it installed, you can easily use `Select` in your app:
 
-```js
+```jsx
 import { Select } from 'artof-select';
 
 // custom
@@ -73,8 +73,8 @@ Common props you may want to specify include:
 | `className`        | `undefined`    | Additional className can be attached to the wrapper           |
 | `datatype`         | `undefined`    | Possibility to pass data-types attributes to `<select/>`      |
 | `disabled`         | `undefined`    | Default `<select />`'s attribute                              |
-| `dropdownOffset`   | `[0, 4]`       | Offset dropdown positioning by x and y coordinates            |
-| `dropdownPosition` | `bottom-start` | Position for Dropdown, based on `react-popper` props          |
+| `dropdownOffset`   | `4`            | Offset dropdown positioning                                   |
+| `dropdownPosition` | `bottom-start` | Position for Dropdown, based on `@floating-ui` props          |
 | `errorText`        | `undefined`    | A text below the Select connected with classNames             |
 | `form`             | `undefined`    | Default `<select />`'s attribute                              |
 | `hintText`         | `undefined`    | A text below the Select (and under the `errorText`)           |

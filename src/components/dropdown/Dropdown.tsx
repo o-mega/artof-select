@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
-import { createPopperLite, flip, offset } from "@popperjs/core";
+import React, { useState, useEffect, useCallback } from "react";
 
 import { scrollIntoView, scrollToChild } from "../../helpers/scrollIntoView";
 import { focusNext, focusPrev } from "../../helpers/events";
@@ -16,7 +15,7 @@ import { Search } from "../search/Search";
 
 let typingTimeOut: ReturnType<typeof setTimeout>;
 
-type Props = {
+type Props = Pick<React.SelectHTMLAttributes<HTMLSelectElement>, "style"> & {
   options: SelectOption[];
   visibleOptions: SelectOption[];
   isOpen: boolean;
@@ -35,16 +34,18 @@ type Props = {
   allowMarkWords: boolean;
   textSelectAll?: string;
   value: SelectSingle["value"] | SelectMultiple["value"];
+  splitterBefore: SelectCommonProps["splitterBefore"];
   onChange: SelectSingle["onChange"] | SelectMultiple["onChange"];
   onBlur: SelectCommonProps["onBlur"];
-  select: React.RefObject<HTMLSelectElement>;
-  visibleFieldRef: React.RefObject<HTMLDivElement> | null;
-  dropdownOffset: [x: number, y: number];
-  dropdownPosition: SelectCommonProps["dropdownPosition"];
-  splitterBefore: SelectCommonProps["splitterBefore"];
+  setFloating: (node: HTMLElement | null) => void;
+  refs: {
+    select: React.RefObject<HTMLSelectElement>;
+    reference: React.MutableRefObject<HTMLDivElement | null>;
+    floating: React.MutableRefObject<HTMLElement | null>;
+  };
 };
 
-export const Dropdown = React.memo(function dropdown({
+export const Dropdown = ({
   options,
   visibleOptions,
   isOpen,
@@ -55,12 +56,10 @@ export const Dropdown = React.memo(function dropdown({
   allowSelectAll,
   allowSearch,
   allowMarkWords,
-  select,
-  visibleFieldRef,
+  setFloating,
+  refs,
   textSelectAll,
   "data-testid": dataTestid,
-  dropdownOffset,
-  dropdownPosition,
   splitterBefore,
   onBlur,
   searchPosition,
@@ -68,35 +67,10 @@ export const Dropdown = React.memo(function dropdown({
   onSearchKeyUp,
   onSearchFocus,
   searchPlaceholder,
+  style,
   ...restProps
-}: Props) {
+}: Props) => {
   const [typing, setTyping] = useState<string>("");
-
-  const [dropdown, setDropdown] = useState<HTMLDivElement | null>(null);
-
-  const popperProps = useMemo(() => {
-    if (!visibleFieldRef?.current || !dropdown) {
-      return null;
-    }
-
-    const params = createPopperLite(visibleFieldRef.current, dropdown, {
-      placement: dropdownPosition,
-      modifiers: [
-        flip,
-        {
-          ...offset,
-          options: {
-            offset: [dropdownOffset[0], dropdownOffset[1]],
-          },
-        },
-      ],
-    });
-
-    return {
-      attributes: params.state.attributes.popper,
-      styles: params.state.styles.popper as React.CSSProperties,
-    };
-  }, [visibleFieldRef?.current, dropdown]);
 
   // bind click outside
   useEffect(() => {
@@ -115,19 +89,19 @@ export const Dropdown = React.memo(function dropdown({
     return () => {
       document.removeEventListener("keydown", handleKeyDown, true);
     };
-  }, [isOpen, dropdown, typing]);
+  }, [isOpen, typing]);
 
   // scroll to the first selected item if exist
   useEffect(() => {
-    if (dropdown) {
-      scrollIntoView(dropdown);
+    if (refs.floating.current) {
+      scrollIntoView(refs.floating.current);
     }
-  }, [dropdown]);
+  }, [refs.floating.current]);
 
   const onClickOption = useCallback(
     (value: string | number): void => {
-      if (select?.current) {
-        const options = select.current.options;
+      if (refs.select.current) {
+        const options = refs.select.current.options;
 
         for (let i = 0; i < options.length; i++) {
           const option = options[i];
@@ -143,17 +117,17 @@ export const Dropdown = React.memo(function dropdown({
         }
 
         // force to fire event
-        fireEvent(select.current, "change");
+        fireEvent(refs.select.current, "change");
       }
     },
-    [select?.current]
+    [refs.select.current]
   );
 
   const handleKeyDown = (e: KeyboardEvent): void => {
     if (isOpen) {
       const key = e.key?.toLowerCase();
       const target = e.target as Node;
-      const isCurrent = visibleFieldRef?.current?.contains(target);
+      const isCurrent = refs.reference.current?.contains(target);
 
       const isFirst =
         (target as HTMLElement).className.includes("select__option") &&
@@ -184,7 +158,7 @@ export const Dropdown = React.memo(function dropdown({
       ) {
         e.preventDefault();
         toggleDropdown(false);
-        visibleFieldRef?.current?.focus();
+        refs.reference.current?.focus();
         setSearch("");
       }
 
@@ -192,7 +166,7 @@ export const Dropdown = React.memo(function dropdown({
       else if (key === "escape") {
         e.preventDefault();
         toggleDropdown(false);
-        visibleFieldRef?.current?.focus();
+        refs.reference.current?.focus();
         setSearch("");
       }
 
@@ -206,7 +180,7 @@ export const Dropdown = React.memo(function dropdown({
           return label && `${label}`.toLowerCase().startsWith(newValue);
         });
 
-        if (matched.length && dropdown) {
+        if (matched.length && refs.floating.current) {
           const index = visibleOptions.indexOf(matched[0]);
           const target =
             document.querySelectorAll<HTMLDivElement>(`.select__option`)?.[
@@ -214,7 +188,7 @@ export const Dropdown = React.memo(function dropdown({
             ];
 
           if (target) {
-            scrollToChild(dropdown, target);
+            scrollToChild(refs.floating.current, target);
             target.focus();
           }
         }
@@ -227,7 +201,7 @@ export const Dropdown = React.memo(function dropdown({
   };
 
   const onClickOutside = (event: MouseEvent): void => {
-    if (!visibleFieldRef?.current?.parentNode?.contains(event.target as Node)) {
+    if (!refs.reference?.current?.parentNode?.contains(event.target as Node)) {
       onBlur && onBlur();
       toggleDropdown(false);
       setSearch("");
@@ -237,11 +211,10 @@ export const Dropdown = React.memo(function dropdown({
   return (
     <div
       className="select__dropdown"
-      ref={setDropdown}
+      ref={setFloating}
       role="listbox"
       data-testid={dataTestid ? `${dataTestid}--dropdown` : undefined}
-      style={popperProps?.styles}
-      {...popperProps?.attributes}
+      style={style}
     >
       {allowSearch && searchPosition === "dropdown" && (
         <div className="select__option select__option--search">
@@ -296,4 +269,4 @@ export const Dropdown = React.memo(function dropdown({
       })}
     </div>
   );
-});
+};

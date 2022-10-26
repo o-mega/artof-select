@@ -37,7 +37,7 @@
     "@o-mega:registry": "https://npm.pkg.github.com"
   },
   "dependencies": {
-    "@popperjs/core": "2.11.6"
+    "@floating-ui/react-dom": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "7.19.6",
@@ -79,7 +79,7 @@
     "rollup-plugin-bundle-scss": "0.1.3",
     "rollup-plugin-clear": "2.0.7",
     "rollup-plugin-delete": "2.0.0",
-    "rollup-plugin-terser": "7.0.2",
+    "rollup-plugin-minification": "^0.2.0",
     "rollup-plugin-ts": "3.0.2",
     "sass": "1.55.0",
     "sass-loader": "13.1.0",

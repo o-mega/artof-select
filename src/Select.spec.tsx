@@ -807,21 +807,20 @@ describe("props", () => {
 
   it("Sets dropdown placement", async () => {
     const testPlacement = "right-start";
+    const offset = 10;
 
     const { getByRole, findByRole } = render(
       <Select
         data-testid="select"
         options={industryOptions}
         dropdownPosition={testPlacement}
+        dropdownOffset={offset}
       />
     );
 
     fireEvent.click(getByRole("button"));
 
-    expect(await findByRole("listbox")).toHaveAttribute(
-      "data-popper-placement",
-      testPlacement
-    );
+    expect(await findByRole("listbox")).toHaveStyle({ right: offset, top: 0 });
   });
 });
 
