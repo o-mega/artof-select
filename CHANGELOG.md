@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/o-mega/artof-select/compare/v1.13.4...v2.0.0) (2022-10-26)
+
 ### [1.13.4](https://github.com/o-mega/artof-select/compare/v1.13.3...v1.13.4) (2022-10-26)
 
 ### [1.13.3](https://github.com/o-mega/artof-select/compare/v1.13.2...v1.13.3) (2022-10-25)
