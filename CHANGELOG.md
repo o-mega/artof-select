@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/o-mega/artof-select/compare/v2.0.0...v2.1.0) (2022-11-03)
+
+
+### Features
+
+* Move from floating-ui/react-dom to floating-ui/dom ([7144f93](https://github.com/o-mega/artof-select/commit/7144f93442d7ab81c5404b336ed762a24ef92a62))
+
 ## [2.0.0](https://github.com/o-mega/artof-select/compare/v1.13.4...v2.0.0) (2022-10-26)
 
 ### [1.13.4](https://github.com/o-mega/artof-select/compare/v1.13.3...v1.13.4) (2022-10-26)
