@@ -1,4 +1,4 @@
-import { Placement } from "@floating-ui/react-dom";
+import { Placement } from "@floating-ui/dom";
 import { ReactNode } from "react";
 
 export type SelectOption = {

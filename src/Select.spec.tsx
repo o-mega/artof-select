@@ -808,6 +808,7 @@ describe("props", () => {
   it("Sets dropdown placement", async () => {
     const testPlacement = "right-start";
     const offset = 10;
+    const searchWidth = 200;
 
     const { getByRole, findByRole } = render(
       <Select
@@ -815,12 +816,19 @@ describe("props", () => {
         options={industryOptions}
         dropdownPosition={testPlacement}
         dropdownOffset={offset}
+        style={{ width: searchWidth }}
       />
     );
 
     fireEvent.click(getByRole("button"));
 
-    expect(await findByRole("listbox")).toHaveStyle({ right: offset, top: 0 });
+    // because there is a gap between render and dropdown appearing
+    await new Promise((r) => setTimeout(r, 100));
+
+    expect(await findByRole("listbox")).toHaveStyle({
+      left: `${offset}px`,
+      top: 0,
+    });
   });
 });
 

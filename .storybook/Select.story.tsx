@@ -92,7 +92,7 @@ export const Playground = {
   },
   argTypes: {
     multiple: {
-      description: 'Make the Select as Multiple',
+      description: '<span className="badge-multiple"></span> Make the Select as Multiple',
       control: 'boolean',
       table: { defaultValue: { summary: false } }
     },
@@ -181,9 +181,9 @@ export const Playground = {
       table: { defaultValue: { summary: false } }
     },
     dropdownOffset: {
-      description: 'Dropdown offset by `[X,Y]`',
-      control: 'object',
-      table: { defaultValue: { summary: '[0,4]' } }
+      description: 'Dropdown offset by `number`',
+      control: 'number',
+      table: { defaultValue: { summary: 4 } }
     },
     dropdownPosition: {
       description: 'Placement for the label Tag',
